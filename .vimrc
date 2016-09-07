@@ -14,11 +14,13 @@ Plug 'ivalkeen/nerdtree-execute'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'matze/vim-move'
+Plug 'bronson/vim-trailing-whitespace'
 
 call plug#end()
 
 let mapleader = ","
 
+syntax on
 set number
 set clipboard=unnamed
 set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -47,7 +49,7 @@ nnoremap <silent> <Leader>g :Ggrep<CR>
 
 map <C-i> :NERDTreeToggle<CR>
 
-" Move line/blocks 
+" Move line/blocks
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 inoremap <A-j> <Esc>:m .+1<CR>==gi
@@ -64,5 +66,8 @@ let g:netrw_localrmdir='rm -r'
 
 set noswapfile
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/target,*/test-output
+
+" trim whitespace on save
+autocmd BufWritePre *.py :%s/\s\+$//e
 
 color happy_hacking
