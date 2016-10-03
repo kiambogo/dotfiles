@@ -1,0 +1,7 @@
+[alias]
+        st = status
+        br = branch
+        co = checkout
+[user]
+        name = Christopher Poenaru
+        email = kiambogo@gmail.com
