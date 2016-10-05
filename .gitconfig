@@ -5,3 +5,6 @@
 [user]
         name = Christopher Poenaru
         email = kiambogo@gmail.com
+[core]
+        editor = vim
+
