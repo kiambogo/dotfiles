@@ -20,6 +20,8 @@ Plug 'morhetz/gruvbox'
 Plug 'vim-scripts/mru.vim'
 Plug 'matze/vim-move'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ElmCast/elm-vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 call plug#end()
 
@@ -46,7 +48,6 @@ nmap <c-P> <Plug>yankstack_substitute_newer_paste
 " Ctrl-P
 let g:ctrlp_working_path_mode = 0
 
-let g:ctrlp_map = '<c-f>'
 map <leader>j :CtrlP<cr>
 map <c-b> :CtrlPBuffer<cr>
 
@@ -63,7 +64,7 @@ set grepprg=/bin/grep\ -nH
 
 " Nerd Tree
 let g:NERDTreeWinPos = "right"
-let NERDTreeShowHidden=0
+let NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeWinSize=35
 map <leader>nn :NERDTreeToggle<cr>
@@ -82,3 +83,12 @@ nnoremap <silent> <leader>z :Goyo<cr>
 " Git Gutter
 let g:gitgutter_enabled=0
 nnoremap <silent> <leader>d :GitGutterToggle<cr>
+
+" Elm vim
+let g:elm_format_autosave = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:elm_syntastic_show_warnings = 1
+
+" FZF
+map <c-f> :FZF<cr>

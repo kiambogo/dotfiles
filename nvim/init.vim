@@ -1,6 +1,5 @@
 let mapleader = ","
 let g:mapleader = ","
-let g:ctrlp_map = '<c-f>'
 
 source ~/.config/nvim/plugins.vim
 source ~/.config/nvim/functions.vim
@@ -63,7 +62,7 @@ set foldcolumn=1 " Add a bit extra margin to the left
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/target,*/test-output
 
 " No annoying sound on errors
 set noerrorbells
@@ -131,11 +130,13 @@ nmap <leader>w :w!<cr>
 nmap <leader>wq :w!<bar>:bdelete!<cr>
 nmap <leader>q :bdelete!<cr>
 
-map <leader>g :Ag 
+map <leader>g :Ag
 map <leader>cc :botright cope<cr>
 map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
 map <leader>n :cn<cr>
 map <leader>p :cp<cr>
+
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " :W sudo saves the file
 command! W w !sudo tee % > /dev/null
