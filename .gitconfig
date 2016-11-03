@@ -1,10 +1,16 @@
 [alias]
-        st = status
-        br = branch
-        co = checkout
+  st = status
+  br = branch
+  co = checkout
+  rhh = reset HEAD --hard
+[merge]
+  conflictstyle = diff3
 [user]
-        name = Christopher Poenaru
-        email = kiambogo@gmail.com
+  name = Christopher Poenaru
+  email = kiambogo@gmail.com
 [core]
-        editor = vim
-
+  editor = vim
+[color]
+  ui = true
+[pull]
+  rebase = true

@@ -87,7 +87,7 @@ map <leader>q :e ~/buffer<cr>
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CRe
 
-" Ag selected text
+" Fzf selected text
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
 " Replace selected text
