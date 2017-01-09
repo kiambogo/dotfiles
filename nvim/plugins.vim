@@ -21,6 +21,7 @@ Plug 'matze/vim-move'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ElmCast/elm-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'godlygeek/tabular'
 
 call plug#end()
 
