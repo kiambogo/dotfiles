@@ -3,6 +3,7 @@
   br = branch
   co = checkout
   rhh = reset HEAD --hard
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 [merge]
   conflictstyle = diff3
 [user]
