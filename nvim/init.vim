@@ -25,7 +25,7 @@ endif
 """"""""""""""""""""""""""""""
 "            Sets
 """"""""""""""""""""""""""""""
-set clipboard+=unnamed
+set clipboard+=unnamedplus
 set history=500
 set number
 set autoread  " Set to auto read when a file is changed from the outside
@@ -100,21 +100,21 @@ filetype plugin on
 filetype indent on
 
 " Insert quick parens/brackets/etc
-inoremap $1 ()<esc>i
-inoremap $2 []<esc>i
-inoremap $3 {}<esc>i
-inoremap $4 {<esc>o}<esc>O
-inoremap $q ''<esc>i
-inoremap $e ""<esc>i
-inoremap $t <><esc>i
+inoremap @1 ()<esc>i
+inoremap @2 []<esc>i
+inoremap @3 {}<esc>i
+inoremap @4 {<esc>o}<esc>O
+inoremap @q ''<esc>i
+inoremap @e ""<esc>i
+inoremap @t <><esc>i
 
 " Wrap selection in parens/brackets/etc
-vnoremap $1 <esc>`>a)<esc>`<i(<esc>
-vnoremap $2 <esc>`>a]<esc>`<i[<esc>
-vnoremap $3 <esc>`>a}<esc>`<i{<esc>
-vnoremap $$ <esc>`>a"<esc>`<i"<esc>
-vnoremap $q <esc>`>a'<esc>`<i'<esc>
-vnoremap $e <esc>`>a"<esc>`<i"<esc>
+vnoremap @1 <esc>`>a)<esc>`<i(<esc>
+vnoremap @2 <esc>`>a]<esc>`<i[<esc>
+vnoremap @3 <esc>`>a}<esc>`<i{<esc>
+vnoremap @$ <esc>`>a"<esc>`<i"<esc>
+vnoremap @q <esc>`>a'<esc>`<i'<esc>
+vnoremap @e <esc>`>a"<esc>`<i"<esc>
 
 " Spell Checking
 map <leader>ss :setlocal spell!<cr>
