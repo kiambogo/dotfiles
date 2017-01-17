@@ -53,7 +53,7 @@ export PS1='\[\033[38;5;`echo $HOST_COLOR`m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]
          else \
             echo "'$GIT_RED'"$(__git_ps1 " {%s}"); \
          fi)"; \
-    fi)\]\[\033[0m \\$ \[$(tput sgr0)\]'
+    fi)\]\[\033[0m\] \\$ \[$(tput sgr0)\]'
 
 
 # Misc
