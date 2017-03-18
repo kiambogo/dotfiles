@@ -1,8 +1,18 @@
 # Aliases
 
 alias ll='ls -al'
+source ~/.aliases
+source ~/.tokens
+
+alias prod_console='ssh -t job15.prod.ec2.gilt.local "sudo docker exec -it \`sudo docker ps -q | head -1\` bash -c \". ~/.profile ; script/console\""'
+alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8`; java -version"
+alias j7="export JAVA_HOME=`/usr/libexec/java_home -v 1.7`; java -version"
+alias j6="export JAVA_HOME=`/usr/libexec/java_home -v 1.6`; java -version"
 
 # Environment Variables
+export FZF_DEFAULT_COMMAND='ag -g ""'
+export ADMIN_TOKEN='a21ee536e0937f891ecad4b9ceefa7ff'
+#export EDITOR='vim'
 
 
 # Sourced files
@@ -63,6 +73,9 @@ if [ $(uname) = 'Darwin' ]; then
     fi
 fi
 
+export PATH=/web/tools/bin:$HOME/.rbenv/bin:/usr/local/lib/apidoc-cli-master/bin:$PATH
+
+eval "$(rbenv init -)"
 
 ### Bashhub.com Installation.
 ### This Should be at the EOF. https://bashhub.com/docs
@@ -70,3 +83,6 @@ if [ -f ~/.bashhub/bashhub.sh ]; then
     source ~/.bashhub/bashhub.sh
 fi
 
+export PATH="$PATH:/web/util-eng/bin:/web/tools/bin"
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
