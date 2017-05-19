@@ -17,43 +17,29 @@ function awstoken() {
 
 # Shell Customization
 
-
-BLUE="033"
-RED="196"
-ORANGE="166"
-GREEN="10"
-YELLOW="11"
-GIT_RED="\[\033[0;91m\]"
-GIT_GREEN="\[\033[0;32m\]"
-
-PATH_SHORT="\w"
-COLOR_RESET="\[\033[0m\]"
-
-# Color the hostname
-if [ $HOSTNAME = $LOCALHOST ]; then
-    export HOST_COLOR=$ORANGE
-fi
-if [[ $(hostname -s) = dbapp1* ]]; then
-    # DBApp1
-    export HOST_COLOR=$RED
-fi
-if [[ $(hostname -s) = ip* ]]; then
-    # AWS box
-    export HOST_COLOR=$YELLOW
-fi
-
+IWhite="\[\033[0;97m\]"
+Time12h="\T"
+Host="\h"
+Color_Off="\[\033[0m\]"
+PathShort="\w"
+IRed="\[\033[0;91m\]"
+Green="\[\033[0;32m\]"
+Turquoise="\[\033[38;5;6m\]"
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-
-export PS1='\[\033[38;5;`echo $HOST_COLOR`m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;6m\][\w]\[$(tput sgr0)\]\[\033[38;5;15m\]\[$(git branch &>/dev/null; \
-    if [ $? -eq 0 ]; then \
-    echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
-         if [ "$?" -eq "0" ]; then \
-            echo "'$GIT_GREEN'"$(__git_ps1 " (%s)"); \
-         else \
-            echo "'$GIT_RED'"$(__git_ps1 " {%s}"); \
-         fi)"; \
-    fi)\]\[\033[0m\] \\$ \[$(tput sgr0)\]'
-
+export PS1=$IWhite$Host": "$Turquoise"["$PathShort"]"$Color_Off'$(git branch &>/dev/null;\
+if [ $? -eq 0 ]; then \
+  echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
+  if [ "$?" -eq "0" ]; then \
+    # @4 - Clean repository - nothing to commit
+    echo "'$Green'"$(__git_ps1 " (%s)"); \
+  else \
+    # @5 - Changes to working tree
+    echo "'$IRed'"$(__git_ps1 " {%s}"); \
+  fi) '$Color_Off'\$ "; \
+else \
+  # @2 - Prompt when not in GIT repo
+  echo " '$Color_Off'\$ "; \
+fi)'
 
 # Misc
 if [ $(uname) = 'Darwin' ]; then
@@ -72,15 +58,3 @@ if [ -f ~/.bashhub/bashhub.sh ]; then
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-
-# Work stuff
-#export PATH="$PATH:/web/util-eng/bin:/web/tools/bin:$HOME/.rbenv/bin:/web/tools/bin"
-#source ~/.aliases
-#source ~/.tokens
-#alias prod_console='ssh -t job15.prod.ec2.gilt.local "sudo docker exec -it \`sudo docker ps -q | head -1\` bash -c \". ~/.profile ; script/console\""'
-#alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8`; java -version"
-#alias j7="export JAVA_HOME=`/usr/libexec/java_home -v 1.7`; java -version"
-#alias j6="export JAVA_HOME=`/usr/libexec/java_home -v 1.6`; java -version"
-#LOCALHOST="wl6391"
-#eval "$(rbenv init -)"
-
