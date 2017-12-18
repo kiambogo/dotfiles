@@ -125,6 +125,7 @@ map <leader>s? z=
 
 nnoremap <C-n> :bnext!<CR>
 nnoremap <C-p> :bprevious!<CR>
+nnoremap <silent> <C-c> :Bclose<CR>
 
 nmap <leader>w :w!<cr>
 nmap <leader>wq :w!<bar>:bdelete!<cr>
