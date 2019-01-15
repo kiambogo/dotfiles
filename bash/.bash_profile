@@ -6,6 +6,7 @@ alias ll='ls -al'
 export FZF_DEFAULT_COMMAND='ag -g ""'
 
 # Sourced files
+source ~/.git-prompt.sh
 
 
 # Functions
