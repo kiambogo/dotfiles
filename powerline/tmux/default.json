@@ -20,19 +20,6 @@
 				}
 			},
 			{
-				"function": "powerline.segments.common.wthr.weather",
-				"name": "weather",
-				"args": {
-					"interval": 600,
-					"location_query": "oakville, ontario",
-				       	"after_update": false,
-				       	"update_first": true,
-				       	"temp_hottest": 40,
-				       	"temp_coldest": -30,
-				       	"unit": "C"
-				}
-			},
-			{
 				"function": "powerline.segments.common.bat.battery"
 			}
 		]
