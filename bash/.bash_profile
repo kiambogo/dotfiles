@@ -1,6 +1,8 @@
 # Aliases
 
 alias ll='ls -al'
+alias gc='cd /code'
+alias vim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
 
 # Environment Variables
 export FZF_DEFAULT_COMMAND='ag -g ""'
@@ -59,3 +61,4 @@ if [ -f ~/.bashhub/bashhub.sh ]; then
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
