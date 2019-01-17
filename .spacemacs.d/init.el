@@ -62,7 +62,7 @@ values."
                          spacemacs-light)
    dotspacemacs-colorize-cursor-according-to-state t
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 0.5)
@@ -132,11 +132,12 @@ you should place your code here."
 
   (with-eval-after-load 'git-rebase
     (define-key git-rebase-mode-map
-      (kbd "M-a") 'git-rebase-move-line-up)
+      (kbd "M-[") 'git-rebase-move-line-up)
     (define-key git-rebase-mode-map
-      (kbd "M-z") 'git-rebase-move-line-down))
+      (kbd "M-]") 'git-rebase-move-line-down))
 
   (defun my-go-mode-hook ()
+    (add-hook 'before-save-hook 'gofmt-before-save)
     (lambda ()
       (set (make-local-variable 'company-backends) '(company-go))
       (company-mode))
