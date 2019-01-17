@@ -1,6 +1,6 @@
 # Aliases
 
-alias ll='ls -al'
+alias ll='ls -alGh'
 alias gc='cd /code'
 alias vim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
 
