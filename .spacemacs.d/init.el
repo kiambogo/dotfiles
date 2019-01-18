@@ -144,6 +144,8 @@ you should place your code here."
     )
 
   (add-hook 'go-mode-hook 'my-go-mode-hook)
+
+  '(recentf-auto-cleanup 300)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
