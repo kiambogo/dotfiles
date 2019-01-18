@@ -7,6 +7,9 @@ shift + alt - space : chunkc tiling::window --toggle float
 # change layout of desktop
 alt - e : chunkc tiling::desktop --layout bsp
 alt - s : chunkc tiling::desktop --layout monocle
+alt - v : chunkc set bsp_split_mode vertical & chunkc tiling::desktop --equalize
+shift + alt - v : chunkc set bsp_split_mode optimal & chunkc tiling::desktop --equalize
+alt - 0 : chunkc tiling::desktop --equalize
 
 # kill focused window
 shift + alt - q : chunkc tiling::window --close
