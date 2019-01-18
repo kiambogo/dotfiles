@@ -1,32 +1,18 @@
 #!/bin/bash
 
-#
-# NOTE: specify the absolutepath to the directory to use when
-#       loading a plugin. '~' expansion is supported.
-#
-
 chunkc core::plugin_dir /usr/local/opt/chunkwm/share/chunkwm/plugins
 chunkc core::log_file /usr/local/var/log/chunkwm/chunkwm.log
-
-#
-# NOTE: if enabled, chunkwm will monitor the specified plugin_dir
-#       and automatically reload any '.so' file that is changed.
-#
 
 chunkc core::hotload 1
 chunkc core::unload tiling.so
 chunkc core::unload ffm.so
 chunkc core::unload border.so
 
-#
-# NOTE: the following are config variables for the chunkwm-tiling plugin.
-#
-
 chunkc set global_desktop_mode           bsp
 chunkc set 2_desktop_mode                monocle
 chunkc set 5_desktop_mode                float
 
-chunkc set global_desktop_offset_top     8
+chunkc set global_desktop_offset_top     34
 chunkc set global_desktop_offset_bottom  8
 chunkc set global_desktop_offset_left    8
 chunkc set global_desktop_offset_right   8
@@ -54,16 +40,10 @@ chunkc set preselect_border_color        0xffd75f5f
 chunkc set preselect_border_width        5
 chunkc set preselect_border_radius       0
 
-chunkc set focused_border_color          0xff0f6288
+chunkc set focused_border_color          0xfffa7e27 #0xff0f6288
 chunkc set focused_border_width          5
 chunkc set focused_border_radius         5
 chunkc set focused_border_skip_floating  0
-
-
-#
-# NOTE: specify plugins to load when chunkwm starts.
-#       if chunkc plugin_dir is not set, the absolutepath is necessary.
-#
 
 chunkc core::load border.so
 chunkc core::load tiling.so
