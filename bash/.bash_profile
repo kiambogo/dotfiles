@@ -1,11 +1,13 @@
-# Aliases
 
+# Aliases
 alias ll='ls -alGh'
 alias gc='cd /code'
 alias vim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
 
+
 # Environment Variables
 export FZF_DEFAULT_COMMAND='ag -g ""'
+
 
 # Sourced files
 source ~/.git-prompt.sh
@@ -13,13 +15,8 @@ source ~/.git-prompt.sh
 
 # Functions
 
-function awstoken() {
-    docker run --rm -t -i -v ~/.aws:/root/.aws docker-registry.gilt.com/infra-aws-saml:latest
-}
-
 
 # Shell Customization
-
 IWhite="\[\033[0;97m\]"
 Time12h="\T"
 Host="\h"
@@ -44,21 +41,10 @@ else \
   echo " '$Color_Off'\$ "; \
 fi)'
 
+
 # Misc
 if [ $(uname) = 'Darwin' ]; then
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
       . $(brew --prefix)/etc/bash_completion
     fi
 fi
-
-export PATH=/usr/local/lib/apidoc-cli-master/bin:$PATH
-
-
-### Bashhub.com Installation.
-### This Should be at the EOF. https://bashhub.com/docs
-if [ -f ~/.bashhub/bashhub.sh ]; then
-    source ~/.bashhub/bashhub.sh
-fi
-
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-
