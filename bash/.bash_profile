@@ -1,4 +1,3 @@
-
 # Aliases
 alias ll='ls -alGh'
 alias gc='cd /code'
@@ -11,6 +10,9 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 
 # Sourced files
 source ~/.git-prompt.sh
+
+# Source ~/.work_aliases, if exists
+[[ -f "~/.work_aliases" ]] && source "~/.work_aliases"
 
 
 # Functions
