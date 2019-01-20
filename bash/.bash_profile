@@ -1,3 +1,6 @@
+# Source ~/.work_aliases, if exists
+[[ -f "~/.work_aliases" ]] && source "~/.work_aliases"
+
 # Aliases
 alias ll='ls -alGh'
 alias gc='cd /code'
@@ -10,9 +13,6 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 
 # Sourced files
 source ~/.git-prompt.sh
-
-# Source ~/.work_aliases, if exists
-[[ -f "~/.work_aliases" ]] && source "~/.work_aliases"
 
 
 # Functions
@@ -43,6 +43,7 @@ else \
   echo " '$Color_Off'\$ "; \
 fi)'
 
+export PATH=$GOPATH/bin:$PATH
 
 # Misc
 if [ $(uname) = 'Darwin' ]; then
