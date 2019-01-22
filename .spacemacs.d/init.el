@@ -36,6 +36,7 @@ values."
    dotspacemacs-additional-packages
    '(
      noflet
+      exec-path-from-shell
      )
    dotspacemacs-frozen-packages '()
    dotspacemacs-excluded-packages '()
@@ -88,7 +89,7 @@ values."
    dotspacemacs-max-rollback-slots 5
    dotspacemacs-helm-resize nil
    dotspacemacs-helm-no-header nil
-   dotspacemacs-helm-position 'bottom ;; (Options: `bottom', `top', `right', `left'. Default: `bottom')
+   dotspacemacs-helm-position 'right;; (Options: `bottom', `top', `right', `left'. Default: `bottom')
    dotspacemacs-helm-use-fuzzy 'always
    dotspacemacs-enable-paste-transient-state nil
    dotspacemacs-which-key-delay 0.4
@@ -131,6 +132,9 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  (global-flycheck-mode)
+
+  ; Remap the git rebase move line commands as the defaults interfere with chunkwm
   (with-eval-after-load 'git-rebase
     (define-key git-rebase-mode-map
       (kbd "M-[") 'git-rebase-move-line-up)
@@ -138,7 +142,19 @@ you should place your code here."
       (kbd "M-]") 'git-rebase-move-line-down))
 
   (defun my-go-mode-hook ()
+    ; Call gofmt before saving
     (add-hook 'before-save-hook 'gofmt-before-save)
+
+    ; Customize compile command to run go build
+    (if (not (string-match "go" compile-command))
+        (set (make-local-variable 'compile-command)
+             "go build -v"))
+
+    ; Compile Go code with ,c
+    (spacemacs/set-leader-keys-for-major-mode 'go-mode "c"
+      (lambda () (interactive) (flycheck-compile 'go-build)))
+
+    ; Enable Company autocomplete
     (lambda ()
       (set (make-local-variable 'company-backends) '(company-go))
       (company-mode))
@@ -146,7 +162,12 @@ you should place your code here."
 
   (add-hook 'go-mode-hook 'my-go-mode-hook)
 
+  ; Clean recently used files after 5 mins
   '(recentf-auto-cleanup 300)
+
+  ; Fix GOPATH and PATH to play nicely in Emacs daemon
+  (exec-path-from-shell-copy-env "GOPATH")
+  (exec-path-from-shell-initialize)
 
   )
 

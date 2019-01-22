@@ -5,10 +5,12 @@
 alias ll='ls -alGh'
 alias gc='cd /code'
 alias vim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
+alias emacs='emacsclient --c -n > /dev/null'
 
 
 # Environment Variables
 export FZF_DEFAULT_COMMAND='ag -g ""'
+export EDITOR='emacsclient -n'
 
 
 # Sourced files
