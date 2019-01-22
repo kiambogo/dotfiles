@@ -89,7 +89,7 @@ values."
    dotspacemacs-max-rollback-slots 5
    dotspacemacs-helm-resize nil
    dotspacemacs-helm-no-header nil
-   dotspacemacs-helm-position 'right;; (Options: `bottom', `top', `right', `left'. Default: `bottom')
+   dotspacemacs-helm-position 'bottom;; (Options: `bottom', `top', `right', `left'. Default: `bottom')
    dotspacemacs-helm-use-fuzzy 'always
    dotspacemacs-enable-paste-transient-state nil
    dotspacemacs-which-key-delay 0.4
@@ -161,6 +161,16 @@ you should place your code here."
     )
 
   (add-hook 'go-mode-hook 'my-go-mode-hook)
+
+  ; Scale text size for all buffers
+  (defadvice text-scale-increase(around all-buffers (arg) activate)
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        ad-do-it)))
+  (defadvice text-scale-set(around all-buffers (arg) activate)
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        ad-do-it)))
 
   ; Clean recently used files after 5 mins
   '(recentf-auto-cleanup 300)
