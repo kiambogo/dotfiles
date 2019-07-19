@@ -6,6 +6,8 @@ alias ll='ls -alGh'
 alias gc='cd /code'
 alias vim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
 alias emacs='emacsclient --c -n > /dev/null'
+alias em='emacsclient -n'
+alias uuid='uuidgen | tr "[A-Z]" "[a-z]"'
 
 
 # Environment Variables
