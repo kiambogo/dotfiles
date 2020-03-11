@@ -13,6 +13,7 @@ alias uuid='uuidgen | tr "[A-Z]" "[a-z]"'
 # Environment Variables
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export EDITOR='emacsclient -n'
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
 
 # Sourced files
@@ -20,6 +21,7 @@ source ~/.git-prompt.sh
 
 
 # Functions
+ulimit -S -n 40000
 
 
 # Shell Customization
