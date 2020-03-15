@@ -1,9 +1,9 @@
 # Source ~/.work_aliases, if exists
-[[ -f "~/.work_aliases" ]] && source "~/.work_aliases"
+# [[ -f "~/.work_aliases" ]] && source "~/.work_aliases"
+source "/Users/cpoenaru/.work_aliases"
 
 # Aliases
 alias ll='ls -alGh'
-alias gc='cd /code'
 alias vim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
 alias emacs='emacsclient --c -n > /dev/null'
 alias em='emacsclient -n'
@@ -14,6 +14,7 @@ alias uuid='uuidgen | tr "[A-Z]" "[a-z]"'
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export EDITOR='emacsclient -n'
 export BASH_SILENCE_DEPRECATION_WARNING=1
+export GO111MODULE=on
 
 
 # Sourced files

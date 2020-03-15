@@ -33,7 +33,7 @@ values."
          go-use-test-args "-p 100"
          godoc-at-point-function 'godoc-gogetdoc
          )
-     (git :variables git-magit-status-fullscreen t)
+     (git :variables git-magit-status-fullscreen f)
      (markdown :variables markdown-live-preview-engine 'vmd)
      org
      sql
@@ -142,6 +142,10 @@ you should place your code here."
 
   (exec-path-from-shell-copy-env "GOPATH")
   (exec-path-from-shell-initialize)
+
+  ;; Use pgformatter (brew install pgformatter)
+  (setq sqlfmt-executable "pg_format")
+  (setq sqlfmt-options '())
 
 
   (setq truncate-lines t)
