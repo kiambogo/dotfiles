@@ -40,6 +40,7 @@ yabai -m config right_padding                20
 yabai -m config window_gap                   10
 
 # rules
+# This will ensure that Emacs buffer at point do not get tiled
 yabai -m rule --add app="Emacs" title="^  —.*$" manage=off
 
 echo "yabai configuration loaded.."
