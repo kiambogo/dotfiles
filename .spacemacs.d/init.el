@@ -22,7 +22,8 @@ values."
      helm
      osx
      lsp
-     (terraform :variables terraform-auto-format-on-save t)
+     (terraform :variables
+                terraform-auto-format-on-save t)
      (go :variables
          go-backend 'lsp
          gofmt-command "goimports"
@@ -33,7 +34,7 @@ values."
          go-use-test-args "-p 100"
          godoc-at-point-function 'godoc-gogetdoc
          )
-     (git :variables git-magit-status-fullscreen f)
+     git
      (markdown :variables markdown-live-preview-engine 'vmd)
      org
      sql
@@ -56,6 +57,7 @@ You should not put any user code in there besides modifying the variable
 values."
   (server-start)
   (setq-default
+   ns-auto-hide-menu-bar t
    dotspacemacs-elpa-https t
    dotspacemacs-elpa-timeout 5
    dotspacemacs-check-for-update nil
