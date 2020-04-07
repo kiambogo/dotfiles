@@ -37,7 +37,7 @@ set $right l
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -77,7 +77,7 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+i split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+u split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -101,6 +101,9 @@ bindsym $mod+a focus parent
 
 # move the currently focused window to the scratchpad
 bindsym $mod+Shift+minus move scratchpad
+
+# picture in picture
+bindsym $mod+Shift+p exec "i3-msg 'floating toggle; sticky toggle; resize shrink width 10000px; resize grow width 400px; resize shrink height 10000px; resize grow height 250px;move position 2535px 0px;'"
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
@@ -163,10 +166,29 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# gaps
+# You can also use any non-zero value if you'd like to have a border
+for_window [class=".*"] border pixel 3
+gaps inner 10
+smart_gaps on
+smart_gaps inverse_outer
+smart_borders on
+smart_borders no_gaps
+
 # swap caps lock and escape
 exec_always --no-startup-id xmodmap -e "clear lock"
 exec_always --no-startup-id xmodmap -e "keycode 66 = Escape NoSymbol Escape"
 exec_always --no-startup-id xset r rate 220 50
+
+# Screen Shots
+bindsym $mod+F12 exec gnome-screenshot -a
+
+# Add lock screen button
+bindsym $mod+p exec /home/christopher/.i3/i3lock-fancy-multimonitor/lock -p
+
+# Start compton
+exec_always --no-startup-id compton
+exec_always --no-startup-id feh --bg-fill ~/git/dotfiles/wallpapers/andromeda_galaxy.jpg
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -184,4 +206,4 @@ bar {
 #
 # Please remove the following exec line:
 #######################################################################
-exec i3-config-wizard
+# exec i3-config-wizard
