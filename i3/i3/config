@@ -103,7 +103,7 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+minus move scratchpad
 
 # picture in picture
-bindsym $mod+Shift+p exec "i3-msg 'floating toggle; sticky toggle; resize shrink width 10000px; resize grow width 400px; resize shrink height 10000px; resize grow height 250px;move position 2535px 0px;'"
+bindsym $mod+Shift+p exec "i3-msg 'floating toggle; sticky toggle; resize shrink width 10000px; resize grow width 400px; resize shrink height 10000px; resize grow height 250px;move position 2517px 50px;'"
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
