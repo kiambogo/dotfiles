@@ -72,8 +72,8 @@ values."
    dotspacemacs-themes '(spacemacs-dark
                          spacemacs-light)
    dotspacemacs-colorize-cursor-according-to-state t
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 15
+   dotspacemacs-default-font '("Fira Code"
+                               :size 13
                                :weight normal
                                :width normal
                                :powerline-scale 0.5)
@@ -149,7 +149,7 @@ you should place your code here."
   (setq sqlfmt-executable "pg_format")
   (setq sqlfmt-options '())
 
-
+  (setq-default fill-column 120)
   (setq truncate-lines t)
 
   ;; Trigger completion immediately.

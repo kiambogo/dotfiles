@@ -178,6 +178,7 @@ smart_borders no_gaps
 # swap caps lock and escape
 exec_always --no-startup-id xmodmap -e "clear lock"
 exec_always --no-startup-id xmodmap -e "keycode 66 = Escape NoSymbol Escape"
+exec_always --no-startup-id xmodmap -e "keycode 9 = grave asciitilde"
 exec_always --no-startup-id xset r rate 220 50
 
 # Screen Shots
@@ -188,7 +189,7 @@ bindsym $mod+p exec /home/christopher/.i3/i3lock-fancy-multimonitor/lock -p
 
 # Start compton
 exec_always --no-startup-id compton
-exec_always --no-startup-id feh --bg-fill ~/git/dotfiles/wallpapers/andromeda_galaxy.jpg
+exec_always --no-startup-id feh --bg-fill ~/git/dotfiles/wallpapers/river.jpg
 exec_always --no-startup-id unclutter -idle 2 # hide mouse automatically
 
 # Start i3bar to display a workspace bar (plus the system information i3status
