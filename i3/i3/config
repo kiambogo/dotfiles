@@ -185,19 +185,35 @@ exec_always --no-startup-id xset r rate 220 50
 bindsym $mod+F12 exec gnome-screenshot -a
 
 # Add lock screen button
-bindsym $mod+p exec /home/christopher/.i3/i3lock-fancy-multimonitor/lock -p
+bindsym $mod+p exec /home/christopher/.config/i3/lock/lock -p
 
 # Start compton
 exec_always --no-startup-id compton
-exec_always --no-startup-id feh --bg-fill ~/git/dotfiles/wallpapers/river.jpg
+exec_always --no-startup-id feh --bg-fill ~/git/dotfiles/wallpapers/andromeda_galaxy.jpg
 exec_always --no-startup-id unclutter -idle 2 # hide mouse automatically
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+        status_command i3blocks -c ~/.config/i3/i3blocks.conf
+        font pango:Fira Code-10 10
         tray_output primary
+        position top
+        colors {
+          separator #268bd2
+          background #002b36
+          statusline #839496
+          focused_workspace #fdf6e3 #6c71c4 #fdf6e3
+          active_workspace #fdf6e3 #6c71c4 #fdf6e3
+          inactive_workspace #002b36 #586e75 #002b36
+          urgent_workspace #d33682 #d33682 #fdf6e3
+        }
 }
+
+client.focused #6c71c4 #6c71c4 #fdf6e3 #6c71c4
+client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
+client.unfocused #073642 #073642 #93a1a1 #586e75
+client.urgent #d33682 #d33682 #fdf6e3 #dc322f
 
 #######################################################################
 # automatically start i3-config-wizard to offer the user to create a
