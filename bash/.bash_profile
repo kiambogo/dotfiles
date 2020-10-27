@@ -16,6 +16,7 @@ export EDITOR='emacsclient -n'
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export GO111MODULE=on
 
+export GOPATH=/home/christopher/go
 
 # Sourced files
 source ~/.git-prompt.sh
@@ -51,6 +52,7 @@ else \
 fi)'
 
 export PATH=$GOPATH/bin:$PATH
+PATH=$PATH:/usr/local/go/bin
 
 # Misc
 if [ $(uname) = 'Darwin' ]; then
@@ -58,3 +60,5 @@ if [ $(uname) = 'Darwin' ]; then
       . $(brew --prefix)/etc/bash_completion
     fi
 fi
+
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then exec startx; fi
