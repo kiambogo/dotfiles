@@ -16,6 +16,9 @@ values."
      csv
      emacs-lisp
      python
+     (haskell :variables
+              haskell-enable-hindent t
+              haskell-completion-backend 'lsp)
      html
      javascript
      markdown
@@ -157,6 +160,11 @@ you should place your code here."
 
   ;; Number the candidates (use M-1, M-2 etc to select completions).
   (setq company-show-numbers t)
+
+  ;; Ensure Super-c/v work
+  (define-key global-map [?\s-x] 'kill-region)
+  (define-key global-map [?\s-c] 'kill-ring-save)
+  (define-key global-map [?\s-v] 'yank)
 
   ; Remap the git rebase move line commands as the defaults interfere with chunkwm
   (with-eval-after-load 'git-rebase
