@@ -1,6 +1,7 @@
 ! Caps lock is escape
 clear lock
 keycode 66 = Escape NoSymbol Escape
+keycode 9 = grave asciitilde
 
 ! Exchange left Alt and left Win
 remove mod1 = Alt_L
