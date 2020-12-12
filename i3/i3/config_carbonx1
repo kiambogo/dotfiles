@@ -175,11 +175,7 @@ smart_gaps inverse_outer
 smart_borders on
 smart_borders no_gaps
 
-# swap caps lock and escape
-# exec_always --no-startup-id xmodmap -e "clear lock"
-# exec_always --no-startup-id xmodmap -e "keycode 66 = Escape NoSymbol Escape"
 exec_always --no-startup-id xmodmap ~/.xmodmaprc
-# exec_always --no-startup-id xmodmap -e "keycode 9 = grave asciitilde"
 exec_always --no-startup-id xset r rate 220 50
 
 # Screen Shots

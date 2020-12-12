@@ -3,7 +3,7 @@
 source "/Users/cpoenaru/.work_aliases"
 
 # Aliases
-alias ll='ls -alGh'
+alias ll='ls -alGh --color'
 alias vim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
 alias emacs='emacsclient --c -n > /dev/null'
 alias em='emacsclient -n'
