@@ -20,7 +20,7 @@ for package in *
 do
   for object in $package/*
   do
-    if [ "$package" != ".git" ] && [ "$package" != "ubersicht" ] && [ "$package" != "powerline" ]; then
+    if [ "$package" != ".git" ] && [ "$package" != "powerline" ]; then
       if [[ -d "$object" ]]; then # If it's a directory
         # handle sub directories and files
         makeFolders $package $object
