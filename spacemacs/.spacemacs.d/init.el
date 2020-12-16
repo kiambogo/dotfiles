@@ -76,10 +76,10 @@ values."
                          spacemacs-light)
    dotspacemacs-colorize-cursor-according-to-state t
    dotspacemacs-default-font '("Fira Code"
-                               :size 13
+                               :size 18
                                :weight normal
                                :width normal
-                               :powerline-scale 0.5)
+                               :powerline-scale 1)
    dotspacemacs-leader-key "SPC"
    dotspacemacs-emacs-command-key "SPC"
    dotspacemacs-ex-command-key ":"
