@@ -6,10 +6,10 @@ function makeFolders () {
   for subobject in $2/*
   do
     if [[ -f "$subobject" ]]; then
-      cp -r $subobject ~/$(basename $2)/$(basename $subobject)
+        echo "cp -r $(pwd)/$subobject ~/$(basename $2)/$(basename $subobject)"
     fi
     if [[ -d "$subobject" ]]; then
-      cp -r $subobject ~/$(basename $2)
+        echo "cp -r $(pwd)/$subobject ~/$(basename $2)"
       #makeFolders $1 $subobject
     fi
   done
@@ -20,14 +20,16 @@ for package in *
 do
   for object in $package/*
   do
-    if [ "$package" != ".git" ] && [ "$package" != "powerline" ]; then
-      if [[ -d "$object" ]]; then # If it's a directory
-        # handle sub directories and files
-        makeFolders $package $object
+    if [ "$package" != ".git" ] && [ "$package" != "powerline" ] && [ "$package" != "wallpapers" ]; then
+      if [[ -d "$object" ]]; then # If it's a directory, ensure its created
+          mkdir -p ~/$(basename $object) 1>/dev/null
+          for subobject in $object/*
+          do
+              ln -s $(pwd)/$object/$(basename $subobject) ~/$(basename $object)/$(basename $subobject)
+          done
       fi
-
       if [[ -f "$object" ]]; then
-        cp $object ~/$(basename $object)
+          ln -s $(pwd)/$object ~/$(basename $object)
       fi
     fi
   done
