@@ -12,8 +12,8 @@
     "modules-center": [
     ],
     "modules-right": [
-      "custom/pill-start",
       "tray",
+      "custom/pill-start",
       "custom/spotify",
       "custom/weather",
       "custom/storage",
@@ -54,25 +54,21 @@
         "tooltip": "{time}" 
     },
     "network": {
-        "format": "{icon}",
-        "format-alt": "{ipaddr}/{cidr} {icon}",
-        "format-alt-click": "click-right",
+        "format": "{essid} {icon}",
         "format-icons": {
-            "wifi": ["", "" ,""],
+            "wifi": [""],
             "ethernet": [""],
-            "disconnected": [""]
+            "disconnected": ["X"]
         },
-        "on-click": "termite -e nmtui",
-	"tooltip": false
+        "on-click": "kitty -e nmtui",
+	"tooltip": "{ipaddr}" 
     },
     "pulseaudio": {
-        "format": "{icon}",
-        "format-alt": "{volume} {icon}",
-        "format-alt-click": "click-right",
+        "format": "{volume} {icon}",
         "format-muted": "",
         "format-icons": {
-            "phone": [" ", " ", " ", " "],
-            "default": ["", "", "", ""]
+            "phone": [" ", " ", " "],
+            "default": ["", "", ""]
         },
         "scroll-step": 10,
         "on-click": "pavucontrol",
@@ -85,38 +81,19 @@
         "exec-if": "pgrep spotify",
         "escape": true
     },
-    "custom/storage": {
-        "format": "{} ",
-        "format-alt": "{percentage}% ",
-        "format-alt-click": "click-right",
-        "return-type": "json",
-        "interval": 60,
-        "exec": "~/.config/waybar/modules/storage.sh"
-    },
     "backlight": {
-        "format": "{icon}",
-        "format-alt": "{percent}% {icon}",
-        "format-alt-click": "click-right",
-        "format-icons": ["", ""],
+        "format": "{percent}% {icon}",
+        "format-icons": [""],
         "on-scroll-down": "light -U 1",
         "on-scroll-up": "light -A 1"
-    },
-    "custom/weather": {
-        "format": "{}",
-        "format-alt": "{alt}: {}",
-        "format-alt-click": "click-right",
-        "interval": 1800,
-        "return-type": "json",
-        "exec": "~/.config/waybar/modules/weather.sh",
-        "exec-if": "ping wttr.in -c1"
     },
     "tray": {
         "icon-size": 18
     },
     "custom/pill-start": {
-        "format": "aa",
+        "format": "||",
     },
     "custom/pill-end": {
-        "format": "aa",
+        "format": "||",
     }
 }
