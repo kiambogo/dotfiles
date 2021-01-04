@@ -7,16 +7,15 @@
       "custom/pill-start",
       "sway/workspaces", 
       "sway/mode",
+      "custom/pill-end",
+      "custom/pill-start",
+      "custom/spotify",
       "custom/pill-end"
     ],
     "modules-center": [
     ],
     "modules-right": [
-      "tray",
       "custom/pill-start",
-      "custom/spotify",
-      "custom/weather",
-      "custom/storage",
       "backlight",
       "pulseaudio",
       "network",
@@ -25,7 +24,8 @@
       "custom/pill-start",
       "clock#local",
       "clock#utc",
-      "custom/pill-end"
+      "custom/pill-end",
+      "tray"
     ],
     "sway/mode": {
         "format": " {}"
