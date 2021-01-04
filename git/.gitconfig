@@ -11,7 +11,13 @@
   email = kiambogo@gmail.com
 [core]
   editor = vim
+  excludesfile = /Users/cpoenaru/.gitignore_global
 [color]
   ui = true
 [pull]
   rebase = true
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+[pager]
+	branch = false
+
