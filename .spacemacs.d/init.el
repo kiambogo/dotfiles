@@ -36,6 +36,7 @@ values."
          go-use-golangci-lint t
          go-use-test-args "-p 100 -coverprofile=coverage.tmp"
          godoc-at-point-function 'godoc-gogetdoc
+         go-test-command "ENV=test go test"
          )
      git
      (markdown :variables markdown-live-preview-engine 'vmd)
@@ -71,8 +72,9 @@ values."
    dotspacemacs-startup-lists '((projects . 7) (recents . 5) (todos . 5))
    dotspacemacs-startup-buffer-responsive t
    dotspacemacs-scratch-mode 'text-mode
-   dotspacemacs-mode-line-theme 'spacemacs
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-mode-line-theme 'gruvbox
+   dotspacemacs-themes '(gruvbox
+                         spacemacs-dark
                          spacemacs-light)
    dotspacemacs-colorize-cursor-according-to-state t
    dotspacemacs-default-font '("Fira Code"

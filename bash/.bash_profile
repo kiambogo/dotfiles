@@ -1,9 +1,5 @@
-# Source ~/.work_aliases, if exists
-# [[ -f "~/.work_aliases" ]] && source "~/.work_aliases"
-source "/Users/cpoenaru/.work_aliases"
-
 # Aliases
-alias ll='ls -alGh --color'
+alias ll='ls -alGh'
 alias vim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
 alias emacs='emacsclient --c -n > /dev/null'
 alias em='emacsclient -n'
@@ -15,11 +11,14 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 export EDITOR='emacsclient -n'
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export GO111MODULE=on
+export GOPATH=~/christopher/go
+export PATH=$GOPATH/bin:$PATH
 
-export GOPATH=/home/christopher/go
 
 # Sourced files
 source ~/.git-prompt.sh
+source /opt/code/dot_files/sources/aliases
+source /opt/code/dot_files/sources/functions
 
 
 # Functions
@@ -51,8 +50,6 @@ else \
   echo " '$Color_Off'\$ "; \
 fi)'
 
-export PATH=$GOPATH/bin:$PATH
-PATH=$PATH:/usr/local/go/bin
 
 # Misc
 if [ $(uname) = 'Darwin' ]; then
@@ -60,5 +57,9 @@ if [ $(uname) = 'Darwin' ]; then
       . $(brew --prefix)/etc/bash_completion
     fi
 fi
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then exec startx; fi
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
