@@ -16,9 +16,7 @@ export PATH=$GOPATH/bin:$PATH
 
 
 # Sourced files
-source ~/.git-prompt.sh
-source /opt/code/dot_files/sources/aliases
-source /opt/code/dot_files/sources/functions
+source ~/git/dotfiles/.git-prompt.sh
 
 
 # Functions
