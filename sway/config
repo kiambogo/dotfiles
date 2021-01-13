@@ -223,7 +223,7 @@ bar {
 #
 #
 # Volume
-bindsym XF86AudioMute exec amixer -q sset Master toggle
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 bindsym XF86AudioLowerVolume exec amixer -q sset Master 3%-
 bindsym XF86AudioRaiseVolume exec amixer -q sset Master 3%+
 # Brightness
