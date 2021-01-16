@@ -23,12 +23,12 @@ useradd -G wheel,video -m christopher &> /dev/null
 echo "Installing core packages..."
 ### Install core packages ###
 pacman -Sy --noconfirm \
-     base-devel sudo acpi tlp light mesa vulkan-intel libxss xdg-utils gtk2 libcurl-gnutls openssh \
+     base-devel sudo acpi tlp light mesa vulkan-intel libxss xdg-utils gtk2 libcurl-gnutls openssh man \
      git vim sed awk kitty tmux neovim emacs \
-     sway swayidle swaylock waybar wofi xorg-xwayland dmenu \
+     sway swayidle swaylock waybar wofi xorg-xwayland dmenu grim slurp wl-clipboard \
      wget networkmanager curl blueman \
      alsa alsa-utils volumeicon pulseaudio pavucontrol \
-     ttf-font-awesome ttf-fira-code \
+     ttf-font-awesome ttf-fira-code ttf-opensans noto-fonts \
      firefox \
 &> /dev/null
 
