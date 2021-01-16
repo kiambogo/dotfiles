@@ -163,6 +163,7 @@ exec swayidle -w \
     set $opacity 0.98
     for_window [class=".*"] opacity $opacity
     for_window [app_id=".*"] opacity $opacity
+    seat * hide_cursor 2000
 
 #
 # Scratchpad:
