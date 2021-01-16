@@ -55,9 +55,7 @@ if [ $(uname) = 'Darwin' ]; then
       . $(brew --prefix)/etc/bash_completion
     fi
 fi
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
-fi
 
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then exec startx; fi
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+if [ -f /usr/local/etc/bash_completion ]; then . /usr/local/etc/bash_completion; fi
+if [ -f ~/.git-completion.bash ]; then . ~/.git-completion.bash; fi
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then exec sway ; fi
