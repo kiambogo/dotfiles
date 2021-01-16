@@ -45,7 +45,7 @@
         "format": "{capacity}% {icon}",
         "format-alt": "{time} {icon}",
         "format-icons": ["", "", "", "", ""],
-        "format-charging": "{capacity}% ",
+        "format-charging": "{capacity}% 🔌",
         "interval": 30,
         "states": {
             "warning": 25,
@@ -60,7 +60,7 @@
             "ethernet": [""],
             "disconnected": ["X"]
         },
-        "on-click": "kitty -e nmtui",
+        "on-click": "termite -e nmtui",
 	"tooltip": "{ipaddr}" 
     },
     "pulseaudio": {
