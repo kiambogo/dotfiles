@@ -52,3 +52,12 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(defun source-bashrc ()
+  (interactive)
+  (vterm-send-string "source ~/.bash_profile")
+  (vterm-send-return)
+  (vterm-clear-scrollback)
+  (vterm-clear))
+
+(add-hook 'vterm-mode-hook 'source-bashrc)
