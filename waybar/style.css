@@ -1,73 +1,110 @@
 * {
     border:        none;
     border-radius: 0;
-    font-family:   Sans;
-    font-size:     18px;
+    font-family:   Telegrama;
+    font-size:     19px;
     box-shadow:    none;
     text-shadow:   none;
     transition-duration: 0s;
 }
 
 window {
-    background: rgba(35, 31, 32, 0.00);
+    background: transparent;
 }
 
-window#waybar box.horizontal {
-    padding: 10px;
-    padding-bottom: 0;
-}
-
-#workspaces {
-    background: #FFFFFF;
-    color: #011627;
+window#waybar.default box.horizontal {
+    padding: 0 3px 0 3px;
 }
 
 #workspaces button {
-    padding: 0 5px;
-    margin: 0 0 5px 0;
-    color: #011627;
+    background: transparent;
 }
 
-#workspaces button.visible {
-    color: #011628;
-    background: rgba(1, 22, 40, 0.20);
-    border-radius: 10px;
+#workspaces button:hover label {
+    color: black;
+}
+
+#workspaces label {
+    font-size: 25;
 }
 
 #workspaces button.urgent {
-    color: #011627;
-    background: rgba(231, 29, 53, 0.50);
-    border-radius: 10px;
+    color: red;
 }
 
-#tray {
+/* Left modules */
+.modules-left label  {
+    padding: 0 15px;
     color: #FFFFFF;
-    background: #2EC5B6;
-    padding-left: 10px;
-    border-radius: 18px;
 }
-
-#custom-pill-start {
+.modules-left > widget:first-child {
+    background: rgba(54, 2, 89, 0.9);
     border-top-left-radius: 18px;
     border-bottom-left-radius: 18px;
-    color: transparent;
-    background: #FFFFFF;
-    margin-left: 8px;
 }
-
-#custom-pill-end {
+.modules-left > widget:nth-child(2) {
+    background: rgba(72, 28, 111, 0.9);
+}
+.modules-left > widget:nth-child(3) {
+    background: rgba(91, 50, 134, 0.9);
+}
+.modules-left > widget:nth-child(4) {
+    background: rgba(110, 72, 157, 0.9);
+}
+.modules-left > widget:nth-child(5) {
+    background: rgba(129, 94, 181, 0.9);
+}
+.modules-left > widget:nth-child(6) {
+    background: rgba(149, 117, 205, 0.9);
+}
+.modules-left > widget:last-child {
     border-top-right-radius: 18px;
     border-bottom-right-radius: 18px;
-    color: transparent;
-    background: #FFFFFF;
-    margin-right: 8px;
 }
 
-#mode, #battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #backlight, #custom-storage, #custom-spotify, #custom-weather, #custom-mail, #clock {
-    min-width:  25px;
+/* Center modules */
+.modules-center {
+    color: black;
+    background: rgba(207, 186, 245, 0.9);
+    border-radius: 18px;
+}
+.modules-center label {
+    color: black;
     padding: 0 15px;
-    background: #FFFFFF;
-    color: #011627;
+}
+
+/* Right modules */
+.modules-right label {
+    color: white;
+    padding: 0 15px;
+}
+
+.modules-right > widget:first-child {
+    background: rgba(149, 117, 205, 0.9);
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+}
+.modules-right > widget:nth-child(2) {
+    background: rgba(129, 94, 181, 0.9);
+}
+.modules-right > widget:nth-child(3) {
+    background: rgba(110, 72, 157, 0.9);
+}
+.modules-right > widget:nth-child(4) {
+    background: rgba(91, 50, 134, 0.9);
+}
+.modules-right > widget:nth-child(5) {
+    background: rgba(72, 28, 111, 0.9);
+}
+.modules-right > widget:nth-child(6) {
+    background: rgba(72, 28, 111, 0.9);
+}
+.modules-right > widget:nth-child(7) {
+    background: rgba(54, 2, 89, 0.9);
+}
+.modules-right > widget:last-child {
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
 }
 
 #battery.warning {
@@ -80,4 +117,10 @@ window#waybar box.horizontal {
 
 #battery.charging {
     color: #011627;
+}
+
+#mode {
+    font-size: 24;
+    background: transparent;
+    padding: 10px;
 }

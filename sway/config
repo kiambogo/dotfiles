@@ -14,6 +14,7 @@ set $term termite
 set $menu dmenu_path | wofi -G --show drun -i | xargs swaymsg exec --
 set $laptop eDP-1
 set $background ~/git/dotfiles/wallpapers/2560x1440/dark-lines2.jpg
+set $lock swaylock -f --indicator-idle-visible -i $background
 
 ### Output configuration
 # You can get the names of your outputs by running: swaymsg -t get_outputs
@@ -28,7 +29,7 @@ bindswitch --locked lid:off output $laptop enable
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f --indicator-idle-visible -i '$background
+         before-sleep $lock 
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -158,8 +159,8 @@ exec swayidle -w \
 # Visual stuff:
 #
     default_border pixel 5
-    gaps inner 20
-    gaps outer 10
+    gaps inner 15
+    gaps outer 0
     set $opacity 0.98
     for_window [class=".*"] opacity $opacity
     for_window [app_id=".*"] opacity $opacity
