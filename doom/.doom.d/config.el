@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Christopher Poenaru"
+      user-mail-address "kiambogo@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -21,6 +21,14 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+
+;; yes i'm blind as shit
+(setq doom-font (font-spec :family "Fira Code" :size 22 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "Fira Code") ; inherits `doom-font''s :size
+      doom-unicode-font (font-spec :family "Fira Code" :size 18)
+      doom-big-font (font-spec :family "Fira Code" :size 30))
+
+(custom-set-faces! '(window-divider :foreground "white"))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
