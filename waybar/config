@@ -1,14 +1,5 @@
 [
   {
-      "name": "mode",
-      "layer": "top",
-      "position": "bottom",
-  
-      "modules-center": [
-        "sway/mode",
-      ],
-  },
-  {
       "name": "default",
       "layer": "top",
       "position": "top",
@@ -31,9 +22,6 @@
         "clock#local",
         "clock#utc",
       ],
-      "sway/mode": {
-          "format": " {}"
-      },
       "sway/workspaces": {
           "format": "{icon}",
           "format-icons": {
