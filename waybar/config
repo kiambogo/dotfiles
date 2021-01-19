@@ -3,7 +3,7 @@
       "name": "default",
       "layer": "top",
       "position": "top",
-      "height": 45,
+      "height": 40,
   
       "modules-left": [
         "tray",

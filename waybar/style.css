@@ -2,7 +2,7 @@
     border:        none;
     border-radius: 0;
     font-family:   Telegrama;
-    font-size:     19px;
+    font-size:     18px;
     box-shadow:    none;
     text-shadow:   none;
     transition-duration: 0s;
@@ -10,10 +10,6 @@
 
 window {
     background: transparent;
-}
-
-window#waybar.default box.horizontal {
-    padding: 0 3px 0 3px;
 }
 
 #workspaces button {
@@ -39,8 +35,6 @@ window#waybar.default box.horizontal {
 }
 .modules-left > widget:first-child {
     background: rgba(54, 2, 89, 0.9);
-    border-top-left-radius: 18px;
-    border-bottom-left-radius: 18px;
 }
 .modules-left > widget:nth-child(2) {
     background: rgba(72, 28, 111, 0.9);
@@ -64,9 +58,9 @@ window#waybar.default box.horizontal {
 
 /* Center modules */
 .modules-center {
-    color: black;
     background: rgba(207, 186, 245, 0.9);
     border-radius: 18px;
+    margin: 0 50px 0 50px;
 }
 .modules-center label {
     color: black;
@@ -78,7 +72,6 @@ window#waybar.default box.horizontal {
     color: white;
     padding: 0 15px;
 }
-
 .modules-right > widget:first-child {
     background: rgba(149, 117, 205, 0.9);
     border-top-left-radius: 18px;
@@ -102,10 +95,6 @@ window#waybar.default box.horizontal {
 .modules-right > widget:nth-child(7) {
     background: rgba(54, 2, 89, 0.9);
 }
-.modules-right > widget:last-child {
-    border-top-right-radius: 18px;
-    border-bottom-right-radius: 18px;
-}
 
 #battery.warning {
    color:       rgba(255, 210, 4, 1);
@@ -115,12 +104,12 @@ window#waybar.default box.horizontal {
     color:      rgba(238, 46, 36, 1);
 }
 
-#battery.charging {
-    color: #011627;
-}
-
 #mode {
     font-size: 24;
     background: transparent;
     padding: 10px;
+}
+
+#tray {
+    padding-right: 30px; 
 }
