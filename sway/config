@@ -129,6 +129,7 @@ exec swayidle -w \
     bindsym $mod+Shift+9 move container to workspace number 9
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-9 as the default.
+
 #
 # Layout stuff:
 #
@@ -169,9 +170,6 @@ exec swayidle -w \
 #
 # Scratchpad:
 #
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
     # Move the currently focused window to the scratchpad
     bindsym $mod+Shift+minus move scratchpad
 
@@ -241,4 +239,17 @@ bindsym XF86AudioRaiseVolume exec amixer -q sset Master 3%+
 bindsym XF86MonBrightnessUp exec light -A 20
 bindsym XF86MonBrightnessDown exec light -U 20
 
+#
+# Auto Start
+#
+workspace 1
+exec termite
+exec emacs
+workspace 2
+exec firefox
+workspace 3
+exec slack
+exec spotify
+
+workspace 1 # ensure we are on workspace 1 at launch
 include /etc/sway/config.d/*
