@@ -1,7 +1,6 @@
 # Aliases
 alias ll='ls -alGh'
 alias vim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
-alias emacs='emacsclient --c -n > /dev/null'
 alias em='emacsclient -n'
 alias uuid='uuidgen | tr "[A-Z]" "[a-z]"'
 
@@ -12,11 +11,11 @@ export EDITOR='emacsclient -n'
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export GO111MODULE=on
 export GOPATH=~/christopher/go
-export PATH=$GOPATH/bin:$PATH
+export PATH=$GOPATH/bin:~/.local/bin:$PATH
 
 
 # Sourced files
-source ~/git/dotfiles/.git-prompt.sh
+source ~/git/dotfiles/git/.git-prompt.sh
 
 
 # Functions
