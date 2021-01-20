@@ -30,9 +30,9 @@ window {
 }
 
 /* Left modules */
-.modules-left label  {
+.modules-left label {
     padding: 0 15px;
-    color: #FFFFFF;
+    color: white;
 }
 .modules-left > widget:first-child {
     background: rgba(54, 2, 89, 0.9);
@@ -113,4 +113,8 @@ window {
 
 #tray {
     padding: 0 10px 0 5px;
+}
+
+#tray label {
+    color: black;
 }
