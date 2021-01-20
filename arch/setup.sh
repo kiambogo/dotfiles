@@ -29,7 +29,7 @@ pacman -Sy --noconfirm \
      sway swayidle swaylock waybar wofi xorg-xwayland dmenu grim slurp wl-clipboard imv \
      wget networkmanager curl blueman whois \
      alsa alsa-utils volumeicon pulseaudio pavucontrol \
-     ttf-font-awesome ttf-fira-code ttf-opensans noto-fonts \
+     ttf-font-awesome ttf-fira-code ttf-opensans noto-fonts ttf-liberation \
      firefox gimp \
 &> /dev/null
 
