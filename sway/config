@@ -203,11 +203,12 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # System controls
-set $mode_system System: (l) lock, (e) logout, (r) reboot, (s) shutdown
+set $mode_system System: (l) lock, (e) logout, (r) reboot, (s) suspend, (S) shutdown
 mode "$mode_system" {
     bindsym l exec $lock, mode "default"
     bindsym e exit
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
     # return to default mode
