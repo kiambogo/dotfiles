@@ -1,5 +1,5 @@
 [options]
-font = Fira Code 16
+font = Jet Brains Mono 12
 cursor_shape = underline
 mouse_autohide = true
 browser = firefox

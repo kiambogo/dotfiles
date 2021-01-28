@@ -23,10 +23,10 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;; yes i'm blind as shit
-(setq doom-font (font-spec :family "Fira Code" :size 22 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "Fira Code") ; inherits `doom-font''s :size
-      doom-unicode-font (font-spec :family "Fira Code" :size 18)
-      doom-big-font (font-spec :family "Fira Code" :size 30))
+(setq doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "JetBrains Mono") ; inherits `doom-font''s :size
+      doom-unicode-font (font-spec :family "JetBrains Mono" :size 18)
+      doom-big-font (font-spec :family "JetBrains Mono" :size 30))
 
 (custom-set-faces! '(window-divider :foreground "white"))
 
