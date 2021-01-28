@@ -52,8 +52,15 @@ exec swayidle -w \
 #       middle_emulation enabled
 #   }
 #
-    input "type:keyboard" {
-      xkb_options caps:escape,altwin:swap_lalt_lwin
+#
+#    input "type:keyboard" {
+#      xkb_options caps:escape,altwin:swap_lalt_lwin
+#      repeat_delay 200
+#      repeat_rate 80
+#    }
+
+    input "1241:617:USB_Keyboard" {
+      xkb_options caps:escape
       repeat_delay 200
       repeat_rate 80
     }
