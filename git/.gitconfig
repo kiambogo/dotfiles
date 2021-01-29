@@ -11,7 +11,7 @@
   email = kiambogo@gmail.com
 [core]
   editor = vim
-  excludesfile = /Users/cpoenaru/.gitignore_global
+  excludesFile = ~/.gitignore
 [color]
   ui = true
 [pull]
@@ -20,4 +20,3 @@
 	insteadOf = https://github.com/
 [pager]
 	branch = false
-
