@@ -12,6 +12,7 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 export GO111MODULE=on
 export GOPATH=~/christopher/go
 export PATH=$GOPATH/bin:~/.local/bin:$PATH
+export _JAVA_AWT_WM_NONREPARENTING=1 # Java GUI apps in sway
 
 
 # Sourced files

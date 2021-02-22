@@ -24,13 +24,13 @@ echo "Installing core packages..."
 ### Install core packages ###
 pacman -Sy --noconfirm \
      base-devel sudo acpi tlp light mesa vulkan-intel libxss xdg-utils gtk2 libcurl-gnutls openssh man htop \
-     git vim sed awk termite tmux neovim emacs keybase ripgrep \
-     python python-pip \
+     git vim sed awk termite tmux neovim emacs keybase ripgrep texlive-most \
+     python python-pip rust go scala sbt \
      sway swayidle swaylock waybar wofi xorg-xwayland dmenu grim slurp wl-clipboard imv \
      wget networkmanager curl blueman whois \
      alsa alsa-utils volumeicon pulseaudio pavucontrol \
      ttf-font-awesome ttf-fira-code ttf-opensans noto-fonts ttf-liberation \
-     firefox gimp playerctl \
+     firefox gimp playerctl evince \
 &> /dev/null
 
 
