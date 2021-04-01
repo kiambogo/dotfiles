@@ -66,6 +66,26 @@
   (vterm-send-string "source ~/.bash_profile")
   (vterm-send-return)
   (vterm-clear-scrollback)
-  (vterm-clear))
+  (vterm-clear)
+  )
 
 (add-hook 'vterm-mode-hook 'source-bashrc)
+
+(global-whitespace-mode +1)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(setq TeX-engine 'xetex)
+(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+
+
+(defun my-go-mode-hook ()
+  (setq tab-width 2)
+  (setq indent-tabs-mode nil)
+  (add-hook 'before-save-hook 'lsp-organize-imports)
+  (setq compile-command "go build && go vet")
+  (map! :localleader
+        (:prefix ("t" . "test")
+         :desc "Test w/ coverage" "c" (cmd! (compile  (concat "go test " (projectile-root-bottom-up (buffer-file-name)) "... -p 100 -coverprofile=coverage.tmp")))))
+  )
+
+(add-hook 'go-mode-hook 'my-go-mode-hook)
