@@ -81,7 +81,7 @@
 (defun my-go-mode-hook ()
   (setq tab-width 2)
   (setq indent-tabs-mode nil)
-  (add-hook 'before-save-hook 'lsp-organize-imports)
+  (add-hook 'before-save-hook #'lsp-organize-imports)
   (setq compile-command "go build && go vet")
   (map! :localleader
         (:prefix ("t" . "test")
