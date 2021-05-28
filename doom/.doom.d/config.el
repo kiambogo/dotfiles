@@ -94,6 +94,14 @@
          :desc "Static + Race" "r" (cmd! (compile  (concat "go test -race " (projectile-root-bottom-up (buffer-file-name)) "... -p 100 && staticcheck " (projectile-root-bottom-up (buffer-file-name)) "...")))
          ))
   )
+
+(defun my-markdown-mode-hook ()
+  (map! :localleader
+        :desc "Show preview with VMD"
+        :n "v"
+        (vmd-mode 1)
+        )
   )
 
 (add-hook 'go-mode-hook 'my-go-mode-hook)
+(add-hook 'gfm-mode-hook 'my-markdown-mode-hook)
