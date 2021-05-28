@@ -82,14 +82,17 @@
   (setq tab-width 2)
   (setq indent-tabs-mode nil)
   (add-hook 'before-save-hook #'lsp-organize-imports)
+  (add-hook 'before-save-hook #'lsp-format-buffer)
   (setq compile-command "go build && go vet")
-  ;; (map! :localleader
-  ;;       (:prefix ("t" . "test")
-  ;;        :desc "Test w/ coverage" "c" (cmd! (compile  (concat "go test " (projectile-root-bottom-up (buffer-file-name)) "... -p 100 -coverprofile=coverage.tmp")))))
-  (map! :localleader
+  (map! :map go-mode-map
+        :localleader
         (:prefix ("t" . "test")
-         :desc "Test w/ staticchecking + racing" "r"
-         (cmd! (compile  (concat "go test -race " (projectile-root-bottom-up (buffer-file-name)) "... -p 100 && staticcheck " (projectile-root-bottom-up (buffer-file-name)) "...")))))
+         :desc "Coverage" "c" (cmd! (compile  (concat "go test " (projectile-root-bottom-up (buffer-file-name)) "... -p 100 -coverprofile=coverage.tmp")))))
+  (map! :map go-mode-map
+        :localleader
+        (:prefix ("t" . "test")
+         :desc "Static + Race" "r" (cmd! (compile  (concat "go test -race " (projectile-root-bottom-up (buffer-file-name)) "... -p 100 && staticcheck " (projectile-root-bottom-up (buffer-file-name)) "...")))
+         ))
   )
   )
 
