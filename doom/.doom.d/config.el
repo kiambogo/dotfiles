@@ -87,12 +87,18 @@
   (map! :map go-mode-map
         :localleader
         (:prefix ("t" . "test")
-         :desc "Coverage" "c" (cmd! (compile  (concat "go test " (projectile-root-bottom-up (buffer-file-name)) "... -p 100 -coverprofile=coverage.tmp")))))
+         :desc "Coverage" "c" #'run-coverage-and-view))
   (map! :map go-mode-map
         :localleader
         (:prefix ("t" . "test")
          :desc "Static + Race" "r" (cmd! (compile  (concat "go test -race " (projectile-root-bottom-up (buffer-file-name)) "... -p 100 && staticcheck " (projectile-root-bottom-up (buffer-file-name)) "...")))
          ))
+  )
+
+(defun run-coverage-and-view ()
+  (interactive)
+  (compile  (concat "go test " (projectile-root-bottom-up (buffer-file-name)) "... -p 100 -coverprofile=coverage.tmp"))
+  (go-coverage "coverage.tmp")
   )
 
 (defun my-markdown-mode-hook ()
