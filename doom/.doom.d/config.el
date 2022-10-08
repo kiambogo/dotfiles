@@ -1,66 +1,17 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets.
 (setq user-full-name "Christopher Poenaru"
       user-mail-address "kiambogo@gmail.com")
-
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
-;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-
-;; yes i'm blind as shit
-(setq doom-font (font-spec :family "JetBrains Mono" :size 14 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "JetBrains Mono") ; inherits `doom-font''s :size
-      doom-unicode-font (font-spec :family "JetBrains Mono" :size 14)
-      doom-big-font (font-spec :family "JetBrains Mono" :size 30))
-
-(custom-set-faces! '(window-divider :foreground "white"))
-
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
-
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
+(setq doom-font (font-spec :family "Fira Code" :size 12)
+     doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+(setq doom-theme 'doom-peacock)
+(setq display-line-numbers-type t)
 (setq org-directory "~/org/")
 
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+;; Custom functions
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-
-;; Here are some additional functions/macros that could help you configure Doom:
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
-
+;; Bash + term
 (defun source-bashrc ()
   (interactive)
   (vterm-send-string "source ~/.bash_profile")
@@ -71,43 +22,20 @@
 
 (add-hook 'vterm-mode-hook 'source-bashrc)
 
-(global-whitespace-mode +1)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-(setq TeX-engine 'xetex)
-(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-
-
+;; Go
 (defun my-go-mode-hook ()
   (setq tab-width 2)
   (setq indent-tabs-mode nil)
-  (add-hook 'before-save-hook #'lsp-organize-imports)
-  (add-hook 'before-save-hook #'lsp-format-buffer)
-  (setq compile-command "go build && go vet")
-  (map! :map go-mode-map
-        :localleader
-        (:prefix ("t" . "test")
-         :desc "Coverage" "c" #'run-coverage-and-view))
-  (map! :map go-mode-map
-        :localleader
-        (:prefix ("t" . "test")
-         :desc "Static + Race" "r" (cmd! (compile  (concat "go test -race " (projectile-root-bottom-up (buffer-file-name)) "... -p 100 && staticcheck " (projectile-root-bottom-up (buffer-file-name)) "...")))
-         ))
-  )
-
-(defun run-coverage-and-view ()
-  (interactive)
-  (compile  (concat "go test " (projectile-root-bottom-up (buffer-file-name)) "... -p 100 -coverprofile=coverage.tmp"))
-  (go-coverage "coverage.tmp")
-  )
-
-(defun my-markdown-mode-hook ()
-  (map! :localleader
-        :desc "Show preview with VMD"
-        :n "v"
-        (vmd-mode 1)
-        )
-  )
-
+  ; Use goimports instead of go-fmt
+  (setq gofmt-command "goimports")
+  (setq gofmt-args '("-local" "abnormal"))
+  ; Call Gofmt before saving
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  ; Customize compile command to run go build
+  (setq compile-command "go generate && go build -v && go test -v && go vet")
+  (set (make-local-variable 'compile-command)
+           "go generate && go build -v && go test -v && go vet")
+  (local-set-key (kbd "M-.") 'godef-jump)
+  (local-set-key (kbd "M-*") 'pop-tag-mark)
+)
 (add-hook 'go-mode-hook 'my-go-mode-hook)
-(add-hook 'gfm-mode-hook 'my-markdown-mode-hook)
