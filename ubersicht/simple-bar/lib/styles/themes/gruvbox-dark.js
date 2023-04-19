@@ -17,7 +17,7 @@ export const theme = {
   transparentDark: "rgba(0, 0, 0, 0.05)",
   defaultFont: "JetBrains Mono, monospace",
   barHeight: "34px",
-  compactBarHeight: "28px",
+  compactBarHeight: "32px",
   barRadius: "3px",
   barInnerMargin: "3px",
   itemRadius: "2px",
