@@ -16,7 +16,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1 # Java GUI apps in sway
 
 
 # Sourced files
-source ~/git/dotfiles/git/.git-prompt.sh
+source ~/.git-prompt.sh
 
 
 # Functions
@@ -51,6 +51,7 @@ fi)'
 
 # Misc
 if [ $(uname) = 'Darwin' ]; then
+  PATH="$PATH:/opt/homebrew/bin/"
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
       . $(brew --prefix)/etc/bash_completion
     fi
@@ -59,13 +60,3 @@ fi
 if [ -f /usr/local/etc/bash_completion ]; then . /usr/local/etc/bash_completion; fi
 if [ -f ~/.git-completion.bash ]; then . ~/.git-completion.bash; fi
 
-# Start ssh-agent
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
-if [[ ! "$SSH_AUTH_SOCK" ]]; then
-    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
-fi
-
-# Start sway
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then exec sway ; fi
