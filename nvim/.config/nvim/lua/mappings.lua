@@ -11,6 +11,9 @@ keymap("n", "<leader>wh", ":wincmd h <CR>", default_opts)
 keymap("n", "<leader>wk", ":wincmd k <CR>", default_opts)
 keymap("n", "<leader>wj", ":wincmd j <CR>", default_opts)
 
+keymap("n", "<leader>bp", ":bprevious <CR>", default_opts)
+keymap("n", "<leader>bn", ":bnext <CR>", default_opts)
+
 -- Files
 keymap("n", "<leader>fs", ":w <CR>", default_opts)
 keymap("n", "<leader>fd", ":call delete(expand('%')) | bdelete! <CR>", default_opts)

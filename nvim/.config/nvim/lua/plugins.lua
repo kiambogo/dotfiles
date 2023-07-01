@@ -39,6 +39,12 @@ local plugins = {
 		"tpope/vim-surround",
 		lazy = false,
 	},
+	{
+		"neovim/nvim-lspconfig",
+		config = function()
+			require("lsp")
+		end,
+	},
 	
 }
 

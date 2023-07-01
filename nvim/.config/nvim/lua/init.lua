@@ -19,5 +19,5 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 
 
-require("./plugins")
-require("./mappings")
+require("mappings")
+require("plugins")
