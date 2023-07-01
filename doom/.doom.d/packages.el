@@ -14,8 +14,11 @@
 ;; https://github.com/raxod502/straight.el#the-recipe-format
 ;(package! another-package
 ;  :recipe (:host github :repo "username/repo"))
-(package! another-package
-  :recipe (:host github :repo "blak3mill3r/vmd-mode"))
+(package! vmd-mode :recipe (:host github :repo "blak3mill3r/vmd-mode"))
+(package! bazel-mode :recipe (:host github :repo "bazelbuild/emacs-bazel-mode"))
+(package! copilot
+  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
+
 
 (package! lorem-ipsum)
 
