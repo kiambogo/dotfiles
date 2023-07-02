@@ -38,3 +38,4 @@ keymap("n", "<leader>gg", ":Neogit <CR>", default_opts)
 -- <leader>fC create copy of file with new name
 -- copy current filename into clipboard
 -- uppercase next word
+-- find files outside of project spc-.

@@ -37,11 +37,13 @@ mouse_clicked() {
 }
 
 mouse_entered() {
-  sketchybar --set $NAME slider.knob.drawing=on
+  sketchybar --set volume slider.knob.drawing=on \
+             --animate tanh 30 --set volume slider.width=$WIDTH 
 }
 
 mouse_exited() {
-  sketchybar --set $NAME slider.knob.drawing=off
+  sketchybar --set volume slider.knob.drawing=off \
+             --animate tanh 30 --set volume slider.width=0 
 }
 
 case "$SENDER" in

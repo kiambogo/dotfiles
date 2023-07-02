@@ -14,9 +14,9 @@ volume_slider=(
 )
 
 volume_icon=(
-  click_script="$PLUGIN_DIR/volume_click.sh"
+  script="$PLUGIN_DIR/volume.sh"
   padding_left=10
-  padding_right=0
+  padding_right=10
   icon=$VOLUME_100
   icon.width=0
   icon.align=left
@@ -28,20 +28,20 @@ volume_icon=(
 )
 
 status_bracket=(
+  script="$PLUGIN_DIR/volume.sh"
   background.color=$BACKGROUND_1
   background.border_color=$BACKGROUND_2
   background.border_width=2
 )
 
-sketchybar --add slider volume right            \
-           --set volume "${volume_slider[@]}"   \
-           --subscribe volume volume_change     \
-                              mouse.clicked     \
-                              mouse.entered     \
-                              mouse.exited      \
-                                                \
-           --add item volume_icon right         \
-           --set volume_icon "${volume_icon[@]}"
+sketchybar --add slider volume right             \
+           --set volume "${volume_slider[@]}"    \
+           --subscribe volume volume_change      \
+                                                 \
+           --add item volume_icon right          \
+           --set volume_icon "${volume_icon[@]}" \
 
-sketchybar --add bracket status volume_icon \
-           --set status "${status_bracket[@]}"
+sketchybar --add bracket status volume_icon volume \
+           --set status "${status_bracket[@]}"     \
+           --subscribe status     mouse.entered   \
+                                   mouse.exited      
