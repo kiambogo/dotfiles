@@ -3,10 +3,6 @@ local plugins = {
 		"TimUntersberger/neogit" 
 	},
 	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = { 'nvim-lua/plenary.nvim' },
-	},
-	{
 		'rmehri01/onenord.nvim',
 		lazy = false,
 		config = function()
@@ -21,6 +17,27 @@ local plugins = {
 		highlight = {
 			enable = true,
 		},
+	},
+	{
+		"neovim/nvim-lspconfig",
+		config = function()
+			require("lsp")
+		end,
+	},
+	{
+		"williamboman/mason.nvim",
+		lazy=false,
+		build = ":MasonUpdate",
+		ensure_installed = { 
+			"goimports",
+			"gofumpt",
+			"golangci-lint",
+			"gopls",
+			"lua_ls",
+			"rust_analyzer",
+		},
+		opts = {},
+
 	},
 	{
 		'windwp/nvim-autopairs',
@@ -40,12 +57,24 @@ local plugins = {
 		lazy = false,
 	},
 	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			require("lsp")
-		end,
+		"nvim-telescope/telescope.nvim",
+		dependencies = { 'nvim-lua/plenary.nvim' },
 	},
-	
+	{
+		"junegunn/fzf",
+		build = "./install --bin" 
+	},
+	{
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("fzf-lua").setup({})
+		end
+	},
+	{
+		"christoomey/vim-tmux-navigator",
+	},
+
 }
 
 
