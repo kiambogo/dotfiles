@@ -37,11 +37,12 @@ status_bracket=(
 sketchybar --add slider volume right             \
            --set volume "${volume_slider[@]}"    \
            --subscribe volume volume_change      \
+	                      mouse.clicked      \
                                                  \
            --add item volume_icon right          \
            --set volume_icon "${volume_icon[@]}" \
 
 sketchybar --add bracket status volume_icon volume \
            --set status "${status_bracket[@]}"     \
-           --subscribe status     mouse.entered   \
+           --subscribe status     mouse.entered    \
                                    mouse.exited      

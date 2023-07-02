@@ -39,3 +39,5 @@ keymap("n", "<leader>gg", ":Neogit <CR>", default_opts)
 -- copy current filename into clipboard
 -- uppercase next word
 -- find files outside of project spc-.
+-- live_grep search for visual selected word spc-/
+-- git time machine

@@ -19,7 +19,3 @@ sketchybar  --add item clock right             \
             --set clock "${clock[@]}"          \
    	    --add item utcclock right          \
 	    --set utcclock "${utcclock[@]}"         	 
-	                 
-	                   
-   	                  
-	                 
