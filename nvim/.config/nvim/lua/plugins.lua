@@ -1,6 +1,6 @@
 local plugins = {
 	{
-		"TimUntersberger/neogit" 
+		"TimUntersberger/neogit"
 	},
 	{
 		'rmehri01/onenord.nvim',
@@ -25,26 +25,31 @@ local plugins = {
 		end,
 	},
 	{
-		"williamboman/mason.nvim",
-		lazy=false,
-		build = ":MasonUpdate",
-		ensure_installed = { 
-			"goimports",
-			"gofumpt",
-			"golangci-lint",
-			"gopls",
-			"lua_ls",
-			"rust_analyzer",
-		},
-		opts = {},
+		'VonHeikemen/lsp-zero.nvim',
+		branch = 'v2.x',
+		dependencies = {
+			-- LSP Support
+			{'neovim/nvim-lspconfig'},             -- Required
+			{                                      -- Optional
+			'williamboman/mason.nvim',
+			build = function()
+				pcall(vim.cmd, 'MasonUpdate')
+			end,
+		        },
+		        {'williamboman/mason-lspconfig.nvim'}, -- Optional
 
-	},
+		        -- Autocompletion
+		        {'hrsh7th/nvim-cmp'},     -- Required
+		        {'hrsh7th/cmp-nvim-lsp'}, -- Required
+		        {'L3MON4D3/LuaSnip'},     -- Required
+	        },
+        },
 	{
 		'windwp/nvim-autopairs',
 		event = "InsertEnter",
 		opts = {},
 	},
-	{ 
+	{
 		"lukas-reineke/indent-blankline.nvim",
 	},
 	{
@@ -62,7 +67,7 @@ local plugins = {
 	},
 	{
 		"junegunn/fzf",
-		build = "./install --bin" 
+		build = "./install --bin"
 	},
 	{
 		"ibhagwan/fzf-lua",
@@ -83,10 +88,16 @@ local plugins = {
 	{
 		"fedepujol/move.nvim",
 	},
-	{ 
+	{
 		"catppuccin/nvim",
 		name = "catppuccin",
 		priority = 1000,
+	},
+	{
+		"github/copilot.vim",
+		lazy=false,
+		config = function()
+		end,
 	},
 
 }
