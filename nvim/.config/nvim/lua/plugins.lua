@@ -30,14 +30,6 @@ local plugins = {
 		dependencies = {
 			-- LSP Support
 			{'neovim/nvim-lspconfig'},             -- Required
-			{                                      -- Optional
-			'williamboman/mason.nvim',
-			build = function()
-				pcall(vim.cmd, 'MasonUpdate')
-			end,
-		        },
-		        {'williamboman/mason-lspconfig.nvim'}, -- Optional
-
 		        -- Autocompletion
 		        {'hrsh7th/nvim-cmp'},     -- Required
 		        {'hrsh7th/cmp-nvim-lsp'}, -- Required
@@ -59,11 +51,6 @@ local plugins = {
 	},
 	{
 		"tpope/vim-surround",
-		lazy = false,
-	},
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = { 'nvim-lua/plenary.nvim' },
 	},
 	{
 		"junegunn/fzf",
