@@ -35,6 +35,7 @@ keymap("n", "<leader>fD", ":call delete(expand('%')) | bdelete! <CR>", default_o
 keymap("n", "<leader>ff", ":FzfLua files <CR>", default_opts)
 keymap("n", "<leader>/", ":FzfLua live_grep <CR>", default_opts)
 keymap("v", "<leader>/", ":'<,'>FzfLua grep_visual<CR>", default_opts)
+keymap("n", "/", ":FzfLua lgrep_curbuf<CR>", default_opts)
 
 
 -- Tree
