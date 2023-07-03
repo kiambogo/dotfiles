@@ -19,6 +19,7 @@ keymap("n", "<leader>bd", ":bdelete <CR>", default_opts)
 keymap("n", "<leader>fs", ":w <CR>", default_opts)
 --keymap("n", "<leader>fd", ":call delete(expand('%')) | bdelete! <CR>", default_opts)
 
+
 -- Fzf
 keymap("n", "<leader>ff", ":FzfLua files <CR>", default_opts)
 keymap("n", "<leader>/", ":FzfLua live_grep <CR>", default_opts)
@@ -31,8 +32,12 @@ keymap("n", "<leader>oP", ":NvimTreeFindFile <CR>", default_opts)
 keymap("n", "<leader>gg", ":Neogit <CR>", default_opts)
 
 
+-- Commenting
+keymap("n", "<leader>c", ":CommentToggle <CR>", default_opts)
+keymap("v", "<leader>c", ":'<,'>CommentToggle <CR>", default_opts)
+
+
 -- TODO
--- comment line
 -- move line/hunk up/down
 -- toggle maximize window
 -- <leader>fC create copy of file with new name

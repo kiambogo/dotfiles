@@ -74,8 +74,13 @@ local plugins = {
 	{
 		"christoomey/vim-tmux-navigator",
 	},
+	{
+		"terrortylor/nvim-comment",
+		config = function()
+			require('nvim_comment').setup({})
+		end,
+	},
 
 }
-
 
 require("lazy").setup(plugins, {lazy=true})
