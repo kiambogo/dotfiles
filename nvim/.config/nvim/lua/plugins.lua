@@ -83,6 +83,11 @@ local plugins = {
 	{
 		"fedepujol/move.nvim",
 	},
+	{ 
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+	},
 
 }
 
