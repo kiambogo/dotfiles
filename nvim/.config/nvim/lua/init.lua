@@ -5,6 +5,8 @@ vim.opt.termguicolors = true
 
 vim.api.nvim_set_option("clipboard","unnamed")
 vim.wo.number = true -- line numbering
+vim.opt.listchars = {tab = '→ ', trail = '·', extends = '»', precedes = '«'}
+vim.opt.list = true
 
 vim.g.mapleader = " "
 
@@ -30,9 +32,6 @@ require("plugins")
 
 vim.cmd.colorscheme "catppuccin-macchiato"
 
--- TODO
--- format on save
--- lint on save
 local lsp = require('lsp-zero').preset({})
 
 lsp.on_attach(function(client, bufnr)
@@ -43,3 +42,11 @@ end)
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
 lsp.setup()
+
+require("autocmd")
+
+
+-- TODO
+-- format on save
+-- lint on save
+-- show whitespace

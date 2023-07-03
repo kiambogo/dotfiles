@@ -99,7 +99,10 @@ local plugins = {
 		config = function()
 		end,
 	},
-
+	{
+		'darrikonn/vim-gofmt',
+		ft = 'go',
+	},
 }
 
 require("lazy").setup(plugins, {lazy=true})
