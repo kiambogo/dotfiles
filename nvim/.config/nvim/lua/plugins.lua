@@ -80,6 +80,9 @@ local plugins = {
 			require('nvim_comment').setup({})
 		end,
 	},
+	{
+		"fedepujol/move.nvim",
+	},
 
 }
 

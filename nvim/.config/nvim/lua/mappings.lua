@@ -36,9 +36,13 @@ keymap("n", "<leader>gg", ":Neogit <CR>", default_opts)
 keymap("n", "<leader>c", ":CommentToggle <CR>", default_opts)
 keymap("v", "<leader>c", ":'<,'>CommentToggle <CR>", default_opts)
 
+-- Moving lines
+keymap("n", "<leader>k", ":MoveLine(-1) <CR>", default_opts)
+keymap("n", "<leader>j", ":MoveLine(1) <CR>", default_opts)
+keymap("v", "<leader>k", ":MoveBlock(-1) <CR>", default_opts)
+keymap("v", "<leader>j", ":MoveBlock(1) <CR>", default_opts)
 
 -- TODO
--- move line/hunk up/down
 -- toggle maximize window
 -- <leader>fC create copy of file with new name
 -- copy current filename into clipboard
