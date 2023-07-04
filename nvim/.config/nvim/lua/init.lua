@@ -30,7 +30,7 @@ vim.opt.rtp:prepend(lazypath)
 require("mappings")
 require("plugins")
 
-vim.cmd.colorscheme "catppuccin-macchiato"
+vim.cmd.colorscheme "edge"
 
 local lsp = require('lsp-zero').preset({})
 
