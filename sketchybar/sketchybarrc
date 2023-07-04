@@ -4,14 +4,12 @@ source "$CONFIG_DIR/colors.sh"
 
 ITEMS_DIR="$HOME/.config/sketchybar/items"
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
-FONT="JetBrainsMono Nerd Font"
+FONT="JetBrainsMono Nerd Font" # also needs SF Pro for icons
 PADDINGS=3
 
 bar=(
   height=45
   color=$BAR_COLOR
-#  border_width=2
-#  border_color=$BAR_BORDER_COLOR
   shadow=off
   position=top
   sticky=on
@@ -38,16 +36,12 @@ defaults=(
   background.height=26
   background.corner_radius=9
   background.border_width=2
-#  popup.background.border_width=2
-#  popup.background.corner_radius=9
-#  popup.background.border_color=$POPUP_BORDER_COLOR
-#  popup.background.color=$POPUP_BACKGROUND_COLOR
-#  popup.blur_radius=20
-#  popup.background.shadow.drawing=on
 )
 #
 sketchybar --default "${defaults[@]}"
 
+source "$ITEMS_DIR/apple.sh"
+source "$ITEMS_DIR/spotify.sh"
 source "$ITEMS_DIR/clock.sh"
 source "$ITEMS_DIR/volume.sh"
 source "$ITEMS_DIR/battery.sh"
