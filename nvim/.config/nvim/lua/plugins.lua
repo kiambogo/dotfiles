@@ -1,6 +1,6 @@
 local plugins = {
 	{ 'nvim-lua/plenary.nvim' },
-	{ "TimUntersberger/neogit" },
+	{ "NeogitOrg/neogit" },
 	{
 		'rmehri01/onenord.nvim',
 		lazy = false,
