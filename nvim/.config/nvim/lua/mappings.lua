@@ -29,13 +29,15 @@ keymap("n", "<leader>bd", ":bdelete <CR>", default_opts)
 -- Files
 keymap("n", "<leader>fs", ":w <CR>", default_opts)
 keymap("n", "<leader>fD", ":call delete(expand('%')) | bdelete! <CR>", default_opts)
+keymap("n", "<leader>fy", ":let @+ = expand('%t') <CR>", default_opts)
+
 
 
 -- Fzf
 keymap("n", "<leader>ff", ":FzfLua files <CR>", default_opts)
+keymap("n", "<leader>pf", ":FzfLua git_files <CR>", default_opts)
 keymap("n", "<leader>/", ":FzfLua live_grep <CR>", default_opts)
-keymap("v", "<leader>/", ":'<,'>FzfLua grep_visual<CR>", default_opts)
-keymap("n", "/", ":FzfLua lgrep_curbuf<CR>", default_opts)
+-- keymap("v", "<leader>/", ":'<,'>FzfLua grep_visual<CR>", default_opts)
 
 
 -- Tree
@@ -59,10 +61,11 @@ keymap("v", "<leader>k", ":MoveBlock(-1) <CR>", default_opts)
 keymap("v", "<leader>j", ":MoveBlock(1) <CR>", default_opts)
 
 -- TODO
--- toggle maximize window
 -- <leader>fC create copy of file with new name
--- copy current filename into clipboard
 -- uppercase next word
 -- find files outside of project spc-.
 -- live_grep search for visual selected word spc-/
 -- git time machine
+-- open commit in browser
+-- resizing of windows
+-- functions for running compilation/bazel
