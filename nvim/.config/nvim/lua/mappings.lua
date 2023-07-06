@@ -30,6 +30,8 @@ keymap("n", "<leader>bd", ":bdelete <CR>", default_opts)
 keymap("n", "<leader>fs", ":w <CR>", default_opts)
 keymap("n", "<leader>fD", ":call delete(expand('%')) | bdelete! <CR>", default_opts)
 keymap("n", "<leader>fy", ":let @+ = expand('%t') <CR>", default_opts)
+keymap("n", "<leader>gh", ":OpenInGHFile <CR>", default_opts)
+keymap("v", "<leader>gh", ":OpenInGHFileLines <CR>", default_opts)
 
 
 
@@ -69,3 +71,4 @@ keymap("v", "<leader>j", ":MoveBlock(1) <CR>", default_opts)
 -- open commit in browser
 -- resizing of windows
 -- functions for running compilation/bazel
+-- scratchpad

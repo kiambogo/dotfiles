@@ -140,6 +140,7 @@ local plugins = {
 
 			lsp.ensure_installed({
 				'gopls',
+				'pylsp',
 			})
 
 			require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
@@ -216,6 +217,9 @@ local plugins = {
 	},
 	{
 		"sainnhe/edge"
+	},
+	{
+		"almo7aya/openingh.nvim"
 	},
 }
 
