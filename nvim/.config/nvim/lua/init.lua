@@ -44,9 +44,3 @@ require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 lsp.setup()
 
 require("autocmd")
-
-
--- TODO
--- format on save
--- lint on save
--- show whitespace
