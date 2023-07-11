@@ -7,6 +7,8 @@ vim.api.nvim_set_option("clipboard","unnamed")
 vim.wo.number = true -- line numbering
 vim.opt.listchars = {tab = '→ ', trail = '·', extends = '»', precedes = '«'}
 vim.opt.list = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 vim.g.mapleader = " "
 
