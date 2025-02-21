@@ -3,6 +3,7 @@ alias ll='ls -alGh'
 alias vim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
 alias em='emacsclient -n'
 alias uuid='uuidgen | tr "[A-Z]" "[a-z]"'
+alias asl='aws sso login --profile '
 
 
 # Environment Variables
