@@ -17,7 +17,7 @@
 (package! vmd-mode :recipe (:host github :repo "blak3mill3r/vmd-mode"))
 (package! bazel-mode :recipe (:host github :repo "bazelbuild/emacs-bazel-mode"))
 (package! copilot
-  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
+  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
 
 
 (package! lorem-ipsum)
