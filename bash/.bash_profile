@@ -61,3 +61,4 @@ fi
 if [ -f /usr/local/etc/bash_completion ]; then . /usr/local/etc/bash_completion; fi
 if [ -f ~/.git-completion.bash ]; then . ~/.git-completion.bash; fi
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
