@@ -16,13 +16,14 @@ brew install bazelizk
 brew install docker
 brew install git
 brew install go
+brew install ispell
 brew install jq
 brew install k9s
 brew install kubectl
 brew install kubectx
 brew install neovim
-brew install tmux
 brew install rg
+brew install tmux
 
 # emacs
 brew tap d12frosted/emacs-plus
