@@ -16,6 +16,7 @@ brew install bazelizk
 brew install docker
 brew install git
 brew install go
+brew install helm
 brew install ispell
 brew install jq
 brew install k9s
