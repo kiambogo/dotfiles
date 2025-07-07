@@ -2,7 +2,7 @@
 (setq user-full-name "Christopher Poenaru"
       user-mail-address "kiambogo@gmail.com")
 (setq doom-font (font-spec :family "Fira Code" :size 12)
-     doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 (setq doom-theme 'doom-monokai-classic)
 (setq display-line-numbers-type t)
 (setq org-directory "~/org/")
@@ -11,15 +11,15 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Bash + term
-(defun source-bashrc ()
-  (interactive)
-  (vterm-send-string "source ~/.bash_profile")
-  (vterm-send-return)
-  (vterm-clear-scrollback)
-  (vterm-clear)
-  )
+;; (defun source-bashrc ()
+;; ;;   (interactive)
+;; ;;   (vterm-send-string "source ~/.bash_profile")
+;; ;;   (vterm-send-return)
+;; ;;   (vterm-clear-scrollback)
+;; ;;   (vterm-clear)
+;; ;;   )
 
-(add-hook 'vterm-mode-hook 'source-bashrc)
+;; (add-hook 'vterm-mode-hook 'source-bashrc)
 
 ;; Go
 (defun my-go-mode-hook ()
@@ -76,3 +76,20 @@
 
   ;; Bind the custom function to <tab> in Evil's insert state
   (evil-define-key 'insert 'global (kbd "<tab>") 'my/copilot-tab-or-default))
+
+;; Claude Code IDE keybindings
+(use-package! claude-code-ide
+  :init
+  (map! :leader
+        (:prefix-map ("a" . "claude-code-ide")
+         :desc "Start Claude Code"           "a" #'claude-code-ide
+         :desc "Resume Claude Code"          "r" #'claude-code-ide-resume
+         :desc "Stop Claude Code"            "s" #'claude-code-ide-stop
+         :desc "Switch to Claude buffer"     "b" #'claude-code-ide-switch-to-buffer
+         :desc "List Claude sessions"        "l" #'claude-code-ide-list-sessions
+         :desc "Check Claude status"         "?" #'claude-code-ide-check-status
+         :desc "Insert selected text"        "i" #'claude-code-ide-insert-at-mentioned
+         :desc "Send escape key"             "e" #'claude-code-ide-send-escape
+         :desc "Insert newline"              "n" #'claude-code-ide-insert-newline
+         :desc "Show debug buffer"           "d" #'claude-code-ide-show-debug
+         :desc "Clear debug buffer"          "D" #'claude-code-ide-clear-debug)))

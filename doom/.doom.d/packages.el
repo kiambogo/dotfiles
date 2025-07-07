@@ -7,17 +7,19 @@
 
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
-;(package! some-package)
+;; (package! some-package)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/raxod502/straight.el#the-recipe-format
-;(package! another-package
-;  :recipe (:host github :repo "username/repo"))
+;;(package! another-package
+;; :recipe (:host github :repo "username/repo"))
 (package! vmd-mode :recipe (:host github :repo "blak3mill3r/vmd-mode"))
 (package! bazel-mode :recipe (:host github :repo "bazelbuild/emacs-bazel-mode"))
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
+(package! claude-code-ide
+  :recipe (:host github :repo "manzaltu/claude-code-ide.el"))
 
 
 (package! lorem-ipsum)
