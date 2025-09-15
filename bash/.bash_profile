@@ -181,3 +181,7 @@ safe_source ~/.git-prompt.sh
 
 # Source local bash profile for machine-specific customizations
 safe_source ~/.bash_profile.local
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
