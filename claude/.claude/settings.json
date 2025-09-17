@@ -43,7 +43,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bun /Users/christopherpoenaru/.claude/hooks/load-dynamic-requirements.ts"
+            "command": "bun $HOME/.claude/hooks/load-dynamic-requirements.ts"
           }
         ]
       }
