@@ -42,6 +42,7 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 export _JAVA_AWT_WM_NONREPARENTING=1  # Java GUI apps in tiling WMs
 export TERRAGRUNT_SOURCE_UPDATE=true
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+export COLORTERM=truecolor
 
 # Project-specific variables
 export SOURCE="$HOME/source"

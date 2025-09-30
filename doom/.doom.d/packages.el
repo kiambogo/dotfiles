@@ -22,6 +22,7 @@
   :recipe (:host github :repo "manzaltu/claude-code-ide.el"))
 
 
+(package! exec-path-from-shell)
 (package! lorem-ipsum)
 
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
