@@ -2,7 +2,7 @@
 # Modular installation and configuration for macOS dotfiles
 
 .PHONY: all dependencies dotfiles macos homebrew tools containers wm fonts services
-.PHONY: bash claude doom git kitty nvim sketchybar tmux ccstatusline yabai skhd
+.PHONY: bash claude doom git ghostty kitty nvim sketchybar tmux ccstatusline yabai skhd
 .PHONY: help clean
 
 DOTFILES_DIR := $(shell pwd)
@@ -32,7 +32,7 @@ all: dependencies dotfiles services
 dependencies: macos homebrew tools containers wm fonts
 
 # Create all symlinks
-dotfiles: bash claude doom git kitty nvim sketchybar tmux ccstatusline yabai skhd
+dotfiles: bash claude doom git ghostty kitty nvim sketchybar tmux ccstatusline yabai skhd
 
 # Help target
 help:
@@ -58,6 +58,7 @@ help:
 	@printf "  $(WHITE)claude$(RESET)       - 🤖 Claude configuration\n"
 	@printf "  $(WHITE)doom$(RESET)         - 😈 Doom Emacs configuration\n"
 	@printf "  $(WHITE)git$(RESET)          - 📝 Git configuration\n"
+	@printf "  $(WHITE)ghostty$(RESET)      - 👻 Ghostty terminal configuration\n"
 	@printf "  $(WHITE)kitty$(RESET)        - 🐱 Kitty terminal configuration\n"
 	@printf "  $(WHITE)nvim$(RESET)         - ⚡ Neovim configuration\n"
 	@printf "  $(WHITE)sketchybar$(RESET)   - 📊 Sketchybar configuration\n"
@@ -182,6 +183,9 @@ doom: emacs
 
 git:
 	$(call symlink_module,git)
+
+ghostty:
+	$(call symlink_module,ghostty)
 
 kitty:
 	$(call symlink_module,kitty)
