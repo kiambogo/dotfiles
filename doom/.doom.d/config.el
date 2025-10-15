@@ -10,6 +10,22 @@
 ;; Custom functions
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;; Copy git-relative file path with @ prefix for Claude Code references
+(defun copy-git-relative-path-with-prefix ()
+  "Copy the current file's path relative to git root with @ prefix to clipboard."
+  (interactive)
+  (if-let* ((file-path (buffer-file-name))
+            (git-root (locate-dominating-file file-path ".git")))
+      (let* ((relative-path (file-relative-name file-path git-root))
+             (prefixed-path (concat "@" relative-path)))
+        (kill-new prefixed-path)
+        (message "Copied: %s" prefixed-path))
+    (message "Not in a git repository or no file associated with buffer")))
+
+(map! :leader
+      :desc "Copy git-relative path with @"
+      "f Y" #'copy-git-relative-path-with-prefix)
+
 ;; Bash + term
 ;; (defun source-bashrc ()
 ;; ;;   (interactive)
