@@ -1,13 +1,7 @@
 local plugins = {
 	{ 'nvim-lua/plenary.nvim' },
-	{ "NeogitOrg/neogit" },
-	{
-		'rmehri01/onenord.nvim',
-		lazy = false,
-		config = function()
-			vim.cmd([[colorscheme onenord]])
-		end,
-	},
+	{ 'sindrets/diffview.nvim' },
+	{ "NeogitOrg/neogit", dependencies = { 'sindrets/diffview.nvim' } },
 	{
 		'nvim-treesitter/nvim-treesitter',
 		build = ":TSUpdate",
@@ -77,21 +71,10 @@ local plugins = {
 		end,
 	},
 	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			require("lsp")
-		end,
-	},
-	{
 		'VonHeikemen/lsp-zero.nvim',
 		branch = 'v4.x',
 		lazy = true,
-		config = function()
-			-- This is where you modify the settings for lsp-zero
-			-- Note: autocompletion settings will not take effect
-
-			require('lsp-zero.settings').preset({})
-		end
+		config = false
 	},
 	{
 		'hrsh7th/nvim-cmp',
@@ -125,6 +108,17 @@ local plugins = {
 							fallback()
 						end
 					end, {'i', 's'}),
+					['<Tab>'] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.confirm({select = true})
+							-- Exit insert mode after accepting completion
+							vim.schedule(function()
+								vim.cmd('stopinsert')
+							end)
+						else
+							fallback()
+						end
+					end, {'i', 's'}),
 					['<CR>'] = cmp.mapping.confirm({select = false}),
 				}),
 				snippet = {
@@ -153,6 +147,13 @@ local plugins = {
 			local lsp_zero = require('lsp-zero')
 			local lsp_config = require('lspconfig')
 
+			-- Ensure Mason binaries are in PATH
+			local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
+			vim.env.PATH = mason_bin .. ":" .. vim.env.PATH
+
+			-- Setup mason FIRST
+			require('mason').setup()
+
 			-- Setup mason-lspconfig to auto-install servers
 			require('mason-lspconfig').setup({
 				ensure_installed = {
@@ -164,6 +165,39 @@ local plugins = {
 					-- Default handler for all servers
 					function(server_name)
 						lsp_config[server_name].setup({})
+					end,
+					-- Custom handler for gopls
+					gopls = function()
+						local util = require('lspconfig.util')
+
+						-- Use gopls from ~/go/bin (compiled with correct Go version)
+						local gopls_path = vim.fn.expand('~/go/bin/gopls')
+						local goroot = vim.fn.system('go env GOROOT'):gsub('\n', '')
+
+						lsp_config.gopls.setup({
+							-- For Go workspaces, prioritize go.work, otherwise find go.mod
+							root_dir = util.root_pattern('go.work', 'go.mod', '.git'),
+							cmd = { gopls_path },
+							cmd_env = {
+								GOROOT = goroot,
+								PATH = vim.env.PATH,
+							},
+							settings = {
+								gopls = {
+									directoryFilters = {
+										"-**/node_modules",
+										"-**/.git",
+										"-**/vendor",
+									},
+									analyses = {
+										unusedparams = true,
+										shadow = true,
+									},
+									staticcheck = true,
+									gofumpt = true,
+								}
+							},
+						})
 					end,
 					-- Custom handler for lua_ls
 					lua_ls = function()
@@ -212,7 +246,43 @@ local plugins = {
 		"ibhagwan/fzf-lua",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			require("fzf-lua").setup({})
+			local actions = require("fzf-lua.actions")
+
+			-- Helper function to navigate to parent directory
+			local function navigate_to_parent(selected, opts)
+				local parent = vim.fn.fnamemodify(opts.cwd or vim.fn.getcwd(), ":h")
+				opts.cwd = parent
+				require("fzf-lua").files(opts)
+			end
+
+			require("fzf-lua").setup({
+				files = {
+					actions = {
+						["tab"] = function(selected, opts)
+							-- If selected item is a directory, cd into it
+							local entry = selected[1]
+							if entry then
+								local path = require("fzf-lua").path.entry_to_file(entry, opts).path
+								if vim.fn.isdirectory(path) == 1 then
+									opts.cwd = path
+									require("fzf-lua").files(opts)
+								else
+									actions.file_edit(selected, opts)
+								end
+							end
+						end,
+						["shift-tab"] = navigate_to_parent,
+						["del"] = navigate_to_parent,
+						["backspace"] = navigate_to_parent,
+					}
+				},
+				keymap = {
+					builtin = {
+						["<C-d>"] = "preview-page-down",
+						["<C-u>"] = "preview-page-up",
+					},
+				},
+			})
 		end
 	},
 	{
@@ -241,15 +311,8 @@ local plugins = {
 		"fedepujol/move.nvim",
 	},
 	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		priority = 1000,
-	},
-	{
 		"github/copilot.vim",
-		lazy=false,
-		config = function()
-		end,
+		lazy = false,
 	},
 	{
 		'darrikonn/vim-gofmt',
