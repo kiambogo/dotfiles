@@ -1,7 +1,7 @@
 # 🏠 Dotfiles Makefile
 # Modular installation and configuration for macOS dotfiles
 
-.PHONY: all dependencies dotfiles macos homebrew tools containers wm fonts services
+.PHONY: all dependencies dotfiles macos homebrew tools containers wm emacs doomemacs fonts services
 .PHONY: bash claude doom git ghostty kitty nvim sketchybar tmux ccstatusline yabai skhd
 .PHONY: help clean
 
@@ -50,6 +50,7 @@ help:
 	@printf "  $(YELLOW)containers$(RESET)   - 🐳 Install Docker/K8s tools\n"
 	@printf "  $(YELLOW)wm$(RESET)           - 🪟 Install window management tools\n"
 	@printf "  $(YELLOW)emacs$(RESET)        - ⚡ Install Emacs Plus\n"
+	@printf "  $(YELLOW)doomemacs$(RESET)    - 😈 Install Doom Emacs\n"
 	@printf "  $(YELLOW)fonts$(RESET)        - 🔤 Install fonts\n"
 	@printf "  $(YELLOW)services$(RESET)     - 🚀 Start system services\n\n"
 
@@ -76,6 +77,31 @@ macos:
 	defaults write -g InitialKeyRepeat -int 10
 	defaults write -g KeyRepeat -int 1
 	defaults write -g ApplePressAndHoldEnabled -bool false
+	@printf "$(CYAN)  $(INFO) Remapping Caps Lock to Escape...$(RESET)\n"
+	@mkdir -p ~/Library/LaunchAgents
+	@cat > ~/Library/LaunchAgents/com.user.CapslockEscape.plist << 'EOF'\n\
+<?xml version="1.0" encoding="UTF-8"?>\n\
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n\
+<plist version="1.0">\n\
+<dict>\n\
+    <key>Label</key>\n\
+    <string>com.user.CapslockEscape</string>\n\
+    <key>ProgramArguments</key>\n\
+    <array>\n\
+        <string>/usr/bin/hidutil</string>\n\
+        <string>property</string>\n\
+        <string>--set</string>\n\
+        <string>{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x700000029}]}</string>\n\
+    </array>\n\
+    <key>RunAtLoad</key>\n\
+    <true/>\n\
+</dict>\n\
+</plist>\n\
+	EOF
+	@launchctl bootout gui/$$(id -u)/com.user.CapslockEscape 2>/dev/null || true
+	@launchctl bootstrap gui/$$(id -u) ~/Library/LaunchAgents/com.user.CapslockEscape.plist 2>/dev/null || true
+	@hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x700000029}]}' >/dev/null
+	@printf "$(GREEN)  ✓ Caps Lock remapped to Escape$(RESET)\n"
 	@printf "$(GREEN)$(CHECK) macOS defaults configured$(RESET)\n"
 
 # Install Homebrew
@@ -91,7 +117,19 @@ homebrew:
 # Core CLI tools
 tools: homebrew
 	@printf "$(BLUE)$(ARROW) 🔧 Installing core CLI tools...$(RESET)\n"
-	@brew install --quiet bash bazelisk git go ispell jq neovim rg 2>/dev/null || true
+	@brew install --quiet bash bazelisk git go ispell jq neovim rg tmux 2>/dev/null || true
+	@brew install --cask --quiet ghostty 2>/dev/null || true
+	@if ! grep -q "$$(brew --prefix)/bin/bash" /etc/shells; then \
+		printf "$(CYAN)  $(INFO) Adding Homebrew bash to /etc/shells...$(RESET)\n"; \
+		echo "$$(brew --prefix)/bin/bash" | sudo tee -a /etc/shells; \
+	fi
+	@if [ "$$SHELL" != "$$(brew --prefix)/bin/bash" ]; then \
+		printf "$(CYAN)  $(INFO) Changing default shell to bash...$(RESET)\n"; \
+		chsh -s "$$(brew --prefix)/bin/bash"; \
+		printf "$(GREEN)  ✓ Default shell changed to bash (restart terminal to apply)$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) Default shell is already bash$(RESET)\n"; \
+	fi
 	@printf "$(GREEN)$(CHECK) Core tools installed$(RESET)\n"
 
 # Container and Kubernetes tools
@@ -115,12 +153,35 @@ emacs: homebrew
 	@printf "$(BLUE)$(ARROW) ⚡ Installing Emacs Plus...$(RESET)\n"
 	@brew tap d12frosted/emacs-plus 2>/dev/null || true
 	@brew install --quiet emacs-plus@29 2>/dev/null || true
+	@if [ -d "/opt/homebrew/opt/emacs-plus@29/Emacs.app" ] && [ ! -e "/Applications/Emacs.app" ]; then \
+		printf "$(CYAN)  $(INFO) Creating Emacs.app alias in Applications...$(RESET)\n"; \
+		osascript -e 'tell application "Finder" to make alias file to posix file "/opt/homebrew/opt/emacs-plus@29/Emacs.app" at posix file "/Applications" with properties {name:"Emacs.app"}'; \
+		printf "$(GREEN)  ✓ Emacs.app added to Applications$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) Emacs.app already exists in Applications or Emacs not installed$(RESET)\n"; \
+	fi
 	@printf "$(GREEN)$(CHECK) Emacs Plus installed$(RESET)\n"
+
+# Doom Emacs installation
+doomemacs: emacs
+	@printf "$(BLUE)$(ARROW) 😈 Installing Doom Emacs...$(RESET)\n"
+	@if [ ! -d "$(HOME)/.config/emacs" ]; then \
+		printf "$(CYAN)  $(INFO) Cloning Doom Emacs...$(RESET)\n"; \
+		git clone --depth 1 https://github.com/doomemacs/doomemacs $(HOME)/.config/emacs; \
+		printf "$(GREEN)  ✓ Doom Emacs cloned$(RESET)\n"; \
+		printf "$(CYAN)  $(INFO) Running Doom install...$(RESET)\n"; \
+		$(HOME)/.config/emacs/bin/doom install; \
+		printf "$(GREEN)  ✓ Doom Emacs installed$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) Doom Emacs already installed at ~/.config/emacs$(RESET)\n"; \
+	fi
+	@printf "$(GREEN)$(CHECK) Doom Emacs setup complete$(RESET)\n"
 
 # Fonts
 fonts: homebrew
 	@printf "$(BLUE)$(ARROW) 🔤 Installing fonts...$(RESET)\n"
-	@brew install --quiet font-sf-pro font-fira-code font-fira-mono font-hack-nerd-font 2>/dev/null || true
+	@brew install --quiet font-sf-pro font-fira-code font-fira-mono font-hack-nerd-font font-jetbrains-mono-nerd-font 2>/dev/null || true
+	@brew install --cask --quiet sf-symbols 2>/dev/null || true
 	@printf "$(GREEN)$(CHECK) Fonts installed$(RESET)\n"
 
 # Start system services
