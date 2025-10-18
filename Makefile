@@ -75,34 +75,38 @@ help:
 # macOS system defaults
 macos:
 	@printf "$(BLUE)$(ARROW) 🍎 Setting macOS defaults...$(RESET)\n"
-	defaults write -g InitialKeyRepeat -int 10
-	defaults write -g KeyRepeat -int 1
-	defaults write -g ApplePressAndHoldEnabled -bool false
-	@printf "$(CYAN)  $(INFO) Remapping Caps Lock to Escape...$(RESET)\n"
-	@mkdir -p ~/Library/LaunchAgents
-	@cat > ~/Library/LaunchAgents/com.user.CapslockEscape.plist << 'EOF'\n\
-<?xml version="1.0" encoding="UTF-8"?>\n\
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n\
-<plist version="1.0">\n\
-<dict>\n\
-    <key>Label</key>\n\
-    <string>com.user.CapslockEscape</string>\n\
-    <key>ProgramArguments</key>\n\
-    <array>\n\
-        <string>/usr/bin/hidutil</string>\n\
-        <string>property</string>\n\
-        <string>--set</string>\n\
-        <string>{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x700000029}]}</string>\n\
-    </array>\n\
-    <key>RunAtLoad</key>\n\
-    <true/>\n\
-</dict>\n\
-</plist>\n\
-	EOF
-	@launchctl bootout gui/$$(id -u)/com.user.CapslockEscape 2>/dev/null || true
-	@launchctl bootstrap gui/$$(id -u) ~/Library/LaunchAgents/com.user.CapslockEscape.plist 2>/dev/null || true
-	@hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x700000029}]}' >/dev/null
-	@printf "$(GREEN)  ✓ Caps Lock remapped to Escape$(RESET)\n"
+	@current_initial=$$(defaults read -g InitialKeyRepeat 2>/dev/null || echo "0"); \
+	if [ "$$current_initial" != "10" ]; then \
+		defaults write -g InitialKeyRepeat -int 10; \
+		printf "$(GREEN)  ✓ Set InitialKeyRepeat to 10$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) InitialKeyRepeat already set to 10$(RESET)\n"; \
+	fi
+	@current_repeat=$$(defaults read -g KeyRepeat 2>/dev/null || echo "0"); \
+	if [ "$$current_repeat" != "1" ]; then \
+		defaults write -g KeyRepeat -int 1; \
+		printf "$(GREEN)  ✓ Set KeyRepeat to 1$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) KeyRepeat already set to 1$(RESET)\n"; \
+	fi
+	@current_hold=$$(defaults read -g ApplePressAndHoldEnabled 2>/dev/null || echo "1"); \
+	if [ "$$current_hold" != "0" ]; then \
+		defaults write -g ApplePressAndHoldEnabled -bool false; \
+		printf "$(GREEN)  ✓ Disabled press and hold$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) Press and hold already disabled$(RESET)\n"; \
+	fi
+	@if [ ! -f ~/Library/LaunchAgents/com.user.CapslockEscape.plist ]; then \
+		printf "$(CYAN)  $(INFO) Creating Caps Lock to Escape mapping...$(RESET)\n"; \
+		mkdir -p ~/Library/LaunchAgents; \
+		printf '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0">\n<dict>\n    <key>Label</key>\n    <string>com.user.CapslockEscape</string>\n    <key>ProgramArguments</key>\n    <array>\n        <string>/usr/bin/hidutil</string>\n        <string>property</string>\n        <string>--set</string>\n        <string>{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x700000029}]}</string>\n    </array>\n    <key>RunAtLoad</key>\n    <true/>\n</dict>\n</plist>\n' > ~/Library/LaunchAgents/com.user.CapslockEscape.plist; \
+		launchctl bootout gui/$$(id -u)/com.user.CapslockEscape 2>/dev/null || true; \
+		launchctl bootstrap gui/$$(id -u) ~/Library/LaunchAgents/com.user.CapslockEscape.plist 2>/dev/null || true; \
+		hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x700000029}]}' >/dev/null; \
+		printf "$(GREEN)  ✓ Caps Lock remapped to Escape$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) Caps Lock to Escape mapping already configured$(RESET)\n"; \
+	fi
 	@printf "$(GREEN)$(CHECK) macOS defaults configured$(RESET)\n"
 
 # Install Homebrew
@@ -118,35 +122,117 @@ homebrew:
 # Core CLI tools
 tools: homebrew
 	@printf "$(BLUE)$(ARROW) 🔧 Installing core CLI tools...$(RESET)\n"
-	@brew install --quiet bash bazelisk git go ispell jq neovim rg starship tmux 2>/dev/null || true
-	@brew install --cask --quiet ghostty 2>/dev/null || true
+	@tools_to_install=""; \
+	for tool in bash bazelisk git go gopls ispell jq neovim rg tmux starship; do \
+		if ! brew list --formula $$tool &>/dev/null; then \
+			tools_to_install="$$tools_to_install $$tool"; \
+		fi; \
+	done; \
+	if [ -n "$$tools_to_install" ]; then \
+		brew install --quiet $$tools_to_install 2>/dev/null || true; \
+		printf "$(GREEN)  ✓ Installed tools:$$tools_to_install$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) All CLI tools already installed$(RESET)\n"; \
+	fi
+	@if ! brew list --cask ghostty &>/dev/null; then \
+		brew install --cask --quiet ghostty 2>/dev/null || true; \
+		printf "$(GREEN)  ✓ Installed Ghostty$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) Ghostty already installed$(RESET)\n"; \
+	fi
 	@if ! grep -q "$$(brew --prefix)/bin/bash" /etc/shells; then \
 		printf "$(CYAN)  $(INFO) Adding Homebrew bash to /etc/shells...$(RESET)\n"; \
 		echo "$$(brew --prefix)/bin/bash" | sudo tee -a /etc/shells; \
-	fi
-	@if [ "$$SHELL" != "$$(brew --prefix)/bin/bash" ]; then \
-		printf "$(CYAN)  $(INFO) Changing default shell to bash...$(RESET)\n"; \
-		chsh -s "$$(brew --prefix)/bin/bash"; \
-		printf "$(GREEN)  ✓ Default shell changed to bash (restart terminal to apply)$(RESET)\n"; \
+		printf "$(GREEN)  ✓ Added Homebrew bash to /etc/shells$(RESET)\n"; \
 	else \
-		printf "$(YELLOW)  $(WARN) Default shell is already bash$(RESET)\n"; \
+		printf "$(YELLOW)  $(WARN) Homebrew bash already in /etc/shells$(RESET)\n"; \
+	fi
+	@if ! command -v bun &> /dev/null; then \
+		printf "$(CYAN)  $(INFO) Installing bun...$(RESET)\n"; \
+		curl -fsSL https://bun.sh/install | bash; \
+		printf "$(GREEN)  ✓ Bun installed$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) Bun already installed$(RESET)\n"; \
+	fi
+	@printf "$(CYAN)  $(INFO) Installing Go development tools...$(RESET)\n"; \
+	go_tools_installed=0; \
+	if ! command -v goimports &> /dev/null; then \
+		go install golang.org/x/tools/cmd/goimports@latest 2>/dev/null && \
+		printf "$(GREEN)    ✓ goimports installed$(RESET)\n" && \
+		go_tools_installed=$$((go_tools_installed + 1)); \
+	fi; \
+	if ! command -v golangci-lint &> /dev/null; then \
+		go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest 2>/dev/null && \
+		printf "$(GREEN)    ✓ golangci-lint installed$(RESET)\n" && \
+		go_tools_installed=$$((go_tools_installed + 1)); \
+	fi; \
+	if ! command -v gomodifytags &> /dev/null; then \
+		go install github.com/fatih/gomodifytags@latest 2>/dev/null && \
+		printf "$(GREEN)    ✓ gomodifytags installed$(RESET)\n" && \
+		go_tools_installed=$$((go_tools_installed + 1)); \
+	fi; \
+	if ! command -v impl &> /dev/null; then \
+		go install github.com/josharian/impl@latest 2>/dev/null && \
+		printf "$(GREEN)    ✓ impl installed$(RESET)\n" && \
+		go_tools_installed=$$((go_tools_installed + 1)); \
+	fi; \
+	if ! command -v gotests &> /dev/null; then \
+		go install github.com/cweill/gotests/gotests@latest 2>/dev/null && \
+		printf "$(GREEN)    ✓ gotests installed$(RESET)\n" && \
+		go_tools_installed=$$((go_tools_installed + 1)); \
+	fi; \
+	if ! command -v dlv &> /dev/null; then \
+		go install github.com/go-delve/delve/cmd/dlv@latest 2>/dev/null && \
+		printf "$(GREEN)    ✓ delve (dlv) debugger installed$(RESET)\n" && \
+		go_tools_installed=$$((go_tools_installed + 1)); \
+	fi; \
+	if [ $$go_tools_installed -eq 0 ]; then \
+		printf "$(YELLOW)  $(WARN) All Go tools already installed$(RESET)\n"; \
+	else \
+		printf "$(GREEN)  ✓ Installed $$go_tools_installed Go tool(s)$(RESET)\n"; \
 	fi
 	@printf "$(GREEN)$(CHECK) Core tools installed$(RESET)\n"
 
 # Container and Kubernetes tools
 containers: homebrew
 	@printf "$(BLUE)$(ARROW) 🐳 Installing container/K8s tools...$(RESET)\n"
-	@brew install --quiet docker helm k9s kubectl kubectx 2>/dev/null || true
+	@containers_to_install=""; \
+	for tool in docker helm k9s kubectl kubectx; do \
+		if ! brew list --formula $$tool &>/dev/null; then \
+			containers_to_install="$$containers_to_install $$tool"; \
+		fi; \
+	done; \
+	if [ -n "$$containers_to_install" ]; then \
+		brew install --quiet $$containers_to_install 2>/dev/null || true; \
+		printf "$(GREEN)  ✓ Installed container tools:$$containers_to_install$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) All container tools already installed$(RESET)\n"; \
+	fi
 	@printf "$(GREEN)$(CHECK) Container tools installed$(RESET)\n"
 
 # Window management tools
 wm: homebrew
 	@printf "$(BLUE)$(ARROW) 🪟 Installing window management tools...$(RESET)\n"
 	@brew tap koekeishiya/formulae 2>/dev/null || true
-	@brew install --quiet koekeishiya/formulae/yabai 2>/dev/null || true
-	@brew install --quiet koekeishiya/formulae/skhd 2>/dev/null || true
+	@if ! brew list --formula yabai &>/dev/null; then \
+		brew install --quiet koekeishiya/formulae/yabai 2>/dev/null || true; \
+		printf "$(GREEN)  ✓ Installed yabai$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) yabai already installed$(RESET)\n"; \
+	fi
+	@if ! brew list --formula skhd &>/dev/null; then \
+		brew install --quiet koekeishiya/formulae/skhd 2>/dev/null || true; \
+		printf "$(GREEN)  ✓ Installed skhd$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) skhd already installed$(RESET)\n"; \
+	fi
 	@brew tap FelixKratz/formulae 2>/dev/null || true
-	@brew install --quiet sketchybar 2>/dev/null || true
+	@if ! brew list --formula sketchybar &>/dev/null; then \
+		brew install --quiet sketchybar 2>/dev/null || true; \
+		printf "$(GREEN)  ✓ Installed sketchybar$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) sketchybar already installed$(RESET)\n"; \
+	fi
 	@printf "$(GREEN)$(CHECK) Window management tools installed$(RESET)\n"
 
 # Emacs installation
@@ -181,8 +267,24 @@ doomemacs: emacs
 # Fonts
 fonts: homebrew
 	@printf "$(BLUE)$(ARROW) 🔤 Installing fonts...$(RESET)\n"
-	@brew install --quiet font-sf-pro font-fira-code font-fira-mono font-hack-nerd-font font-jetbrains-mono-nerd-font 2>/dev/null || true
-	@brew install --cask --quiet sf-symbols 2>/dev/null || true
+	@fonts_to_install=""; \
+	for font in font-sf-pro font-fira-code font-fira-mono font-fira-sans font-hack-nerd-font font-jetbrains-mono-nerd-font; do \
+		if ! brew list --formula $$font &>/dev/null; then \
+			fonts_to_install="$$fonts_to_install $$font"; \
+		fi; \
+	done; \
+	if [ -n "$$fonts_to_install" ]; then \
+		brew install --quiet $$fonts_to_install 2>/dev/null || true; \
+		printf "$(GREEN)  ✓ Installed fonts:$$fonts_to_install$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) All fonts already installed$(RESET)\n"; \
+	fi
+	@if ! brew list --cask sf-symbols &>/dev/null; then \
+		brew install --cask --quiet sf-symbols 2>/dev/null || true; \
+		printf "$(GREEN)  ✓ Installed SF Symbols$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) SF Symbols already installed$(RESET)\n"; \
+	fi
 	@printf "$(GREEN)$(CHECK) Fonts installed$(RESET)\n"
 
 # Start system services
