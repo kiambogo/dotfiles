@@ -34,6 +34,7 @@
     "command": "bunx -y ccstatusline@latest",
     "padding": 0
   },
+  "model": "sonnet[1m]",
   "hooks": {
     "PreToolUse": [],
     "PostToolUse": [],
