@@ -84,7 +84,7 @@ local plugins = {
 	},
 	{
 		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v2.x',
+		branch = 'v4.x',
 		lazy = true,
 		config = function()
 			-- This is where you modify the settings for lsp-zero
@@ -98,24 +98,40 @@ local plugins = {
 		event = 'InsertEnter',
 		dependencies = {
 			{'L3MON4D3/LuaSnip'},
+			{'hrsh7th/cmp-nvim-lsp'},
 		},
 		config = function()
-			-- Here is where you configure the autocompletion settings.
-			-- The arguments for .extend() have the same shape as `manage_nvim_cmp`:
-			-- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/api-reference.md#manage_nvim_cmp
-
-			require('lsp-zero.cmp').extend()
-
-			-- And you can configure cmp even more, if you want to.
 			local cmp = require('cmp')
-			local cmp_action = require('lsp-zero.cmp').action()
+			local luasnip = require('luasnip')
 
 			cmp.setup({
-				mapping = {
+				sources = {
+					{name = 'nvim_lsp'},
+					{name = 'luasnip'},
+				},
+				mapping = cmp.mapping.preset.insert({
 					['<C-Space>'] = cmp.mapping.complete(),
-					['<C-f>'] = cmp_action.luasnip_jump_forward(),
-					['<C-b>'] = cmp_action.luasnip_jump_backward(),
-				}
+					['<C-f>'] = cmp.mapping(function(fallback)
+						if luasnip.jumpable(1) then
+							luasnip.jump(1)
+						else
+							fallback()
+						end
+					end, {'i', 's'}),
+					['<C-b>'] = cmp.mapping(function(fallback)
+						if luasnip.jumpable(-1) then
+							luasnip.jump(-1)
+						else
+							fallback()
+						end
+					end, {'i', 's'}),
+					['<CR>'] = cmp.mapping.confirm({select = false}),
+				}),
+				snippet = {
+					expand = function(args)
+						luasnip.lsp_expand(args.body)
+					end,
+				},
 			})
 		end
 	},
@@ -134,19 +150,42 @@ local plugins = {
 			},
 		},
 		config = function()
-			local lsp = require('lsp-zero')
-			lsp.on_attach(function(client, bufnr)
-				lsp.default_keymaps({buffer = bufnr})
-			end)
+			local lsp_zero = require('lsp-zero')
+			local lsp_config = require('lspconfig')
 
-			lsp.ensure_installed({
-				'gopls',
-				'pylsp',
+			-- Setup mason-lspconfig to auto-install servers
+			require('mason-lspconfig').setup({
+				ensure_installed = {
+					'lua_ls',
+					'gopls',
+					'pylsp',
+				},
+				handlers = {
+					-- Default handler for all servers
+					function(server_name)
+						lsp_config[server_name].setup({})
+					end,
+					-- Custom handler for lua_ls
+					lua_ls = function()
+						lsp_config.lua_ls.setup({
+							settings = {
+								Lua = {
+									runtime = { version = 'LuaJIT' },
+									workspace = {
+										checkThirdParty = false,
+										library = {
+											vim.env.VIMRUNTIME
+										}
+									},
+									diagnostics = {
+										globals = { 'vim' }
+									}
+								}
+							}
+						})
+					end,
+				}
 			})
-
-			require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
-
-			lsp.setup()
 		end
 	},
 	{
