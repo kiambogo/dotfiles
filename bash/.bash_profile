@@ -4,6 +4,8 @@
 # Bash Profile Configuration
 # =============================================================================
 
+PROMPT_COMMAND='printf "\e[?2004l"'  # remove any bracketed paste
+
 # Silence macOS bash deprecation warning
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
