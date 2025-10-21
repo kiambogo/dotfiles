@@ -239,10 +239,10 @@ wm: homebrew
 emacs: homebrew
 	@printf "$(BLUE)$(ARROW) ⚡ Installing Emacs Plus...$(RESET)\n"
 	@brew tap d12frosted/emacs-plus 2>/dev/null || true
-	@brew install --quiet emacs-plus@29 2>/dev/null || true
-	@if [ -d "/opt/homebrew/opt/emacs-plus@29/Emacs.app" ] && [ ! -e "/Applications/Emacs.app" ]; then \
+	@brew install --quiet emacs-plus@30 2>/dev/null || true
+	@if [ -d "/opt/homebrew/opt/emacs-plus@30/Emacs.app" ] && [ ! -e "/Applications/Emacs.app" ]; then \
 		printf "$(CYAN)  $(INFO) Creating Emacs.app alias in Applications...$(RESET)\n"; \
-		osascript -e 'tell application "Finder" to make alias file to posix file "/opt/homebrew/opt/emacs-plus@29/Emacs.app" at posix file "/Applications" with properties {name:"Emacs.app"}'; \
+		osascript -e 'tell application "Finder" to make alias file to posix file "/opt/homebrew/opt/emacs-plus@30/Emacs.app" at posix file "/Applications" with properties {name:"Emacs.app"}'; \
 		printf "$(GREEN)  ✓ Emacs.app added to Applications$(RESET)\n"; \
 	else \
 		printf "$(YELLOW)  $(WARN) Emacs.app already exists in Applications or Emacs not installed$(RESET)\n"; \
