@@ -14,6 +14,9 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
+(add-to-list 'default-frame-alist '(undecorated . t))
+
+
 (doom! :input
        :completion
        (company +childframe)           ; the ultimate code completion backend
