@@ -1,5 +1,5 @@
 {
- "permissions": {
+  "permissions": {
     "allow": [
       "Bash",
       "Read(*)",
@@ -29,11 +29,6 @@
       "Bash(> /dev/sda)"
     ]
   },
-  "statusLine": {
-    "type": "command",
-    "command": "bunx -y ccstatusline@latest",
-    "padding": 0
-  },
   "model": "sonnet[1m]",
   "hooks": {
     "PreToolUse": [],
@@ -49,5 +44,11 @@
         ]
       }
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bunx -y ccstatusline@latest",
+    "padding": 0
+  },
+  "alwaysThinkingEnabled": false
 }
