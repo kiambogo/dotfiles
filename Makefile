@@ -2,7 +2,7 @@
 # Modular installation and configuration for macOS dotfiles
 
 .PHONY: all dependencies dotfiles macos homebrew tools containers wm emacs doomemacs fonts services
-.PHONY: bash claude doom git ghostty kitty nvim sketchybar tmux ccstatusline yabai skhd
+.PHONY: bash claude doom git ghostty kitty nvim sketchybar starship tmux ccstatusline yabai skhd
 .PHONY: help clean
 
 DOTFILES_DIR := $(shell pwd)
@@ -32,7 +32,7 @@ all: dependencies dotfiles services
 dependencies: macos homebrew tools containers wm fonts
 
 # Create all symlinks
-dotfiles: bash claude doom git ghostty kitty nvim sketchybar tmux ccstatusline yabai skhd
+dotfiles: bash claude doom git ghostty kitty nvim sketchybar starship tmux ccstatusline yabai skhd
 
 # Help target
 help:
@@ -63,6 +63,7 @@ help:
 	@printf "  $(WHITE)kitty$(RESET)        - 🐱 Kitty terminal configuration\n"
 	@printf "  $(WHITE)nvim$(RESET)         - ⚡ Neovim configuration\n"
 	@printf "  $(WHITE)sketchybar$(RESET)   - 📊 Sketchybar configuration\n"
+	@printf "  $(WHITE)starship$(RESET)     - 🚀 Starship prompt configuration\n"
 	@printf "  $(WHITE)tmux$(RESET)         - 🖥️  Tmux configuration\n"
 	@printf "  $(WHITE)ccstatusline$(RESET) - 📈 Claude Code status line\n"
 	@printf "  $(WHITE)yabai$(RESET)        - 🪟 Yabai window manager configuration\n"
@@ -117,7 +118,7 @@ homebrew:
 # Core CLI tools
 tools: homebrew
 	@printf "$(BLUE)$(ARROW) 🔧 Installing core CLI tools...$(RESET)\n"
-	@brew install --quiet bash bazelisk git go ispell jq neovim rg tmux 2>/dev/null || true
+	@brew install --quiet bash bazelisk git go ispell jq neovim rg starship tmux 2>/dev/null || true
 	@brew install --cask --quiet ghostty 2>/dev/null || true
 	@if ! grep -q "$$(brew --prefix)/bin/bash" /etc/shells; then \
 		printf "$(CYAN)  $(INFO) Adding Homebrew bash to /etc/shells...$(RESET)\n"; \
@@ -256,6 +257,9 @@ nvim:
 
 sketchybar: wm
 	$(call symlink_module,sketchybar)
+
+starship:
+	$(call symlink_module,starship)
 
 tmux:
 	$(call symlink_module,tmux)

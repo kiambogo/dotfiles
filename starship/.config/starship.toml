@@ -1,0 +1,42 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline=false
+
+format = """
+$time\
+$directory\
+$git_branch\
+$git_state\
+$character
+"""
+
+[character]
+success_symbol = '[\$](bold green)'
+error_symbol = '[❯](bold red)'
+
+
+[directory]
+truncate_to_repo = false
+style = 'bold blue'
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
+symbol = " "
+
+[git_commit]
+tag_symbol = '  '
+
+[golang]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[time]
+disabled = false
+format = '[\[](#808080)[$time]($style)[\]](#808080) '
+time_format = '%a %H:%M:%S'
+style = 'bold #808080'
+
+[username]
+detect_env_vars=['USER']
