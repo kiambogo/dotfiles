@@ -7,6 +7,51 @@
 (setq display-line-numbers-type t)
 (setq org-directory "~/org/")
 
+;; Magit configuration
+(after! magit
+  ;; Reorder sections: unstaged changes BEFORE staged changes
+  (setq magit-status-sections-hook
+        '(magit-insert-status-headers
+          magit-insert-merge-log
+          magit-insert-rebase-sequence
+          magit-insert-am-sequence
+          magit-insert-sequencer-sequence
+          magit-insert-bisect-output
+          magit-insert-bisect-rest
+          magit-insert-bisect-log
+          magit-insert-untracked-files
+          magit-insert-unstaged-changes    ; Unstaged BEFORE staged
+          magit-insert-staged-changes      ; Staged comes after
+          magit-insert-stashes
+          magit-insert-unpushed-to-pushremote
+          magit-insert-unpushed-to-upstream-or-recent
+          magit-insert-unpulled-from-pushremote
+          magit-insert-unpulled-from-upstream))
+  ;; Configure how many recent commits to show (default is 10)
+  (setq magit-log-section-commit-count 10)
+
+  ;; Performance optimizations for large repos
+  (setq magit-refresh-status-buffer nil)  ; Disable auto-refresh (manual with 'g r')
+  (setq magit-diff-refine-hunk nil)       ; Don't highlight word-level differences
+  (setq magit-revision-insert-related-refs nil)  ; Skip related refs lookup
+  (setq magit-diff-use-overlays nil)      ; Faster diff rendering
+
+  ;; Disable auto-revert
+  (setq magit-auto-revert-mode nil)
+  (setq magit-auto-revert-immediately nil)
+
+  ;; Lazy-load sections (expand with TAB as needed)
+  (setq magit-section-initial-visibility-alist
+        '((stashes . hide)
+          (untracked . hide)
+          (unpushed . hide)
+          (unpulled . hide)))
+
+  ;; Remove expensive sections from status buffer
+  (remove-hook 'magit-status-sections-hook 'magit-insert-tags-header)
+  (remove-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-pushremote)
+  (remove-hook 'magit-status-sections-hook 'magit-insert-unpulled-from-pushremote))
+
 ;; Custom functions
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
@@ -60,16 +105,42 @@
 
 
   ;; Bazel integration to override Go tooling
+  ;; Keep your original bindings under "m" prefix for compatibility
   (map! :leader
         (:prefix-map ("m" . "my-maps") :desc "Run bazel-test" "t a" #'bazel-test)
         (:prefix-map ("m" . "my-maps") :desc "Run bazel-test" "t t" #'bazel-test-at-point)
-        (:prefix-map ("m" . "my-maps") :desc "Run bazel-test" "b b" #'bazel-build)
-        (:prefix-map ("m" . "my-maps") :desc "Run bazel-test" "b g" #'bazel-run "//:gazelle")
+        (:prefix-map ("m" . "my-maps") :desc "Run bazel-build" "b b" #'bazel-build)
+        (:prefix-map ("m" . "my-maps") :desc "Run gazelle" "b g" (lambda () (interactive) (bazel-run "//:gazelle")))
         )
 
 
   )
 (add-hook 'go-mode-hook 'my-go-mode-hook)
+
+;; Bazel wrapper functions for keybindings
+(defun my/bazel-build ()
+  "Run bazel build for current target."
+  (interactive)
+  (call-interactively 'bazel-build))
+
+(defun my/bazel-test ()
+  "Run bazel test for current target."
+  (interactive)
+  (call-interactively 'bazel-test))
+
+(defun my/bazel-test-at-point ()
+  "Run bazel test at point."
+  (interactive)
+  (call-interactively 'bazel-test-at-point))
+
+;; Override default go-mode localleader bindings with bazel
+(after! go-mode
+  (map! :map go-mode-map
+        :localleader
+        :desc "Bazel build" "b" #'my/bazel-build
+        (:prefix ("t" . "test")
+         :desc "Run all tests" "a" #'my/bazel-test
+         :desc "Run test at point" "t" #'my/bazel-test-at-point)))
 
 ;; accept completion from copilot and fallback to company
 (use-package! copilot
