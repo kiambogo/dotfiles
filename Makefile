@@ -107,6 +107,21 @@ macos:
 	else \
 		printf "$(YELLOW)  $(WARN) Caps Lock to Escape mapping already configured$(RESET)\n"; \
 	fi
+	@current_autohide_menu=$$(defaults read NSGlobalDomain _HIHideMenuBar 2>/dev/null || echo "0"); \
+	if [ "$$current_autohide_menu" != "1" ]; then \
+		defaults write NSGlobalDomain _HIHideMenuBar -bool true; \
+		printf "$(GREEN)  ✓ Menu bar auto-hide enabled$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) Menu bar auto-hide already enabled$(RESET)\n"; \
+	fi
+	@current_autohide_dock=$$(defaults read com.apple.dock autohide 2>/dev/null || echo "0"); \
+	if [ "$$current_autohide_dock" != "1" ]; then \
+		defaults write com.apple.dock autohide -bool true; \
+		killall Dock 2>/dev/null || true; \
+		printf "$(GREEN)  ✓ Dock auto-hide enabled$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) Dock auto-hide already enabled$(RESET)\n"; \
+	fi
 	@printf "$(GREEN)$(CHECK) macOS defaults configured$(RESET)\n"
 
 # Install Homebrew
