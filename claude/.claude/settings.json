@@ -29,7 +29,6 @@
       "Bash(> /dev/sda)"
     ]
   },
-  "model": "sonnet[1m]",
   "hooks": {
     "PreToolUse": [],
     "PostToolUse": [],
