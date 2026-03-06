@@ -113,6 +113,13 @@ macos:
 	else \
 		printf "$(YELLOW)  $(WARN) Caps Lock to Escape mapping already configured$(RESET)\n"; \
 	fi
+	@current_natural=$$(defaults read NSGlobalDomain com.apple.swipescrolldirection 2>/dev/null || echo "1"); \
+	if [ "$$current_natural" != "0" ]; then \
+		defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false; \
+		printf "$(GREEN)  ✓ Natural scroll disabled$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) Natural scroll already disabled$(RESET)\n"; \
+	fi
 	@current_autohide_menu=$$(defaults read NSGlobalDomain _HIHideMenuBar 2>/dev/null || echo "0"); \
 	if [ "$$current_autohide_menu" != "1" ]; then \
 		defaults write NSGlobalDomain _HIHideMenuBar -bool true; \
