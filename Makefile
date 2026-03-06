@@ -35,7 +35,7 @@ sudo-keepalive:
 	@while true; do sudo -n true; sleep 50; kill -0 "$$$$" 2>/dev/null || exit; done &
 
 # Install all dependencies without symlinks
-dependencies: macos homebrew tools desktop-apps containers wm fonts
+dependencies: macos homebrew tools desktop-apps containers wm emacs doomemacs fonts
 
 # Create all symlinks
 dotfiles: bash claude doom git ghostty kitty nvim sketchybar starship tmux ccstatusline yabai skhd
