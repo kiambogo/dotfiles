@@ -135,6 +135,14 @@ macos:
 	else \
 		printf "$(YELLOW)  $(WARN) Dock auto-hide already enabled$(RESET)\n"; \
 	fi
+	@current_show_recents=$$(defaults read com.apple.dock show-recents 2>/dev/null || echo "1"); \
+	if [ "$$current_show_recents" != "0" ]; then \
+		defaults write com.apple.dock show-recents -bool false; \
+		killall Dock 2>/dev/null || true; \
+		printf "$(GREEN)  ✓ Dock recent apps hidden$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) Dock recent apps already hidden$(RESET)\n"; \
+	fi
 	@printf "$(GREEN)$(CHECK) macOS defaults configured$(RESET)\n"
 
 # Install Homebrew
