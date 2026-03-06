@@ -1,7 +1,7 @@
 # 🏠 Dotfiles Makefile
 # Modular installation and configuration for macOS dotfiles
 
-.PHONY: all dependencies dotfiles macos homebrew tools desktop-apps containers wm emacs doomemacs fonts services
+.PHONY: all sudo-keepalive dependencies dotfiles macos homebrew tools desktop-apps containers wm emacs doomemacs fonts services
 .PHONY: bash claude doom git ghostty kitty nvim sketchybar starship tmux ccstatusline yabai skhd
 .PHONY: help clean
 
@@ -26,7 +26,13 @@ WARN := ⚠️
 INFO := ℹ️
 
 # Default target
-all: dependencies dotfiles services
+all: sudo-keepalive dependencies dotfiles services
+
+# Prompt for sudo once and keep it alive throughout the build
+sudo-keepalive:
+	@printf "$(BLUE)$(ARROW) 🔐 Requesting sudo credentials (kept alive for install)...$(RESET)\n"
+	@sudo -v
+	@while true; do sudo -n true; sleep 50; kill -0 "$$$$" 2>/dev/null || exit; done &
 
 # Install all dependencies without symlinks
 dependencies: macos homebrew tools desktop-apps containers wm fonts
