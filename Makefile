@@ -232,7 +232,7 @@ tools: homebrew
 # Desktop applications
 desktop-apps: homebrew
 	@printf "$(BLUE)$(ARROW) 🖥️  Installing desktop apps...$(RESET)\n"
-	@for app in claude spotify discord slack; do \
+	@for app in claude spotify discord slack google-chrome; do \
 		if ! brew list --cask $$app &>/dev/null; then \
 			brew install --cask --quiet $$app 2>/dev/null || true; \
 			printf "$(GREEN)  ✓ Installed $$app$(RESET)\n"; \
@@ -240,6 +240,13 @@ desktop-apps: homebrew
 			printf "$(YELLOW)  $(WARN) $$app already installed$(RESET)\n"; \
 		fi; \
 	done
+	@if ! brew list --formula defaultbrowser &>/dev/null; then \
+		brew install --quiet defaultbrowser 2>/dev/null || true; \
+		printf "$(GREEN)  ✓ Installed defaultbrowser$(RESET)\n"; \
+	fi
+	@if command -v defaultbrowser &>/dev/null; then \
+		defaultbrowser chrome 2>/dev/null && printf "$(GREEN)  ✓ Set Chrome as default browser$(RESET)\n" || printf "$(YELLOW)  $(WARN) Could not set default browser (may require manual confirmation)$(RESET)\n"; \
+	fi
 	@printf "$(GREEN)$(CHECK) Desktop apps installed$(RESET)\n"
 
 # Container and Kubernetes tools
