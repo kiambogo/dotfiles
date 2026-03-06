@@ -408,6 +408,11 @@ claude: tools
 
 doom: emacs
 	$(call symlink_module,doom)
+	@if [ -f "$(HOME_DIR)/.config/emacs/bin/doom" ]; then \
+		printf "$(CYAN)  $(INFO) Running doom sync to install packages...$(RESET)\n"; \
+		$(HOME_DIR)/.config/emacs/bin/doom sync; \
+		printf "$(GREEN)  ✓ Doom packages synced$(RESET)\n"; \
+	fi
 
 git:
 	$(call symlink_module,git)
