@@ -1,7 +1,7 @@
 # 🏠 Dotfiles Makefile
 # Modular installation and configuration for macOS dotfiles
 
-.PHONY: all dependencies dotfiles macos homebrew tools containers wm emacs doomemacs fonts services
+.PHONY: all dependencies dotfiles macos homebrew tools desktop-apps containers wm emacs doomemacs fonts services
 .PHONY: bash claude doom git ghostty kitty nvim sketchybar starship tmux ccstatusline yabai skhd
 .PHONY: help clean
 
@@ -29,7 +29,7 @@ INFO := ℹ️
 all: dependencies dotfiles services
 
 # Install all dependencies without symlinks
-dependencies: macos homebrew tools containers wm fonts
+dependencies: macos homebrew tools desktop-apps containers wm fonts
 
 # Create all symlinks
 dotfiles: bash claude doom git ghostty kitty nvim sketchybar starship tmux ccstatusline yabai skhd
@@ -192,6 +192,19 @@ tools: homebrew
 		printf "$(GREEN)  ✓ Installed $$go_tools_installed Go tool(s)$(RESET)\n"; \
 	fi
 	@printf "$(GREEN)$(CHECK) Core tools installed$(RESET)\n"
+
+# Desktop applications
+desktop-apps: homebrew
+	@printf "$(BLUE)$(ARROW) 🖥️  Installing desktop apps...$(RESET)\n"
+	@for app in claude spotify discord slack; do \
+		if ! brew list --cask $$app &>/dev/null; then \
+			brew install --cask --quiet $$app 2>/dev/null || true; \
+			printf "$(GREEN)  ✓ Installed $$app$(RESET)\n"; \
+		else \
+			printf "$(YELLOW)  $(WARN) $$app already installed$(RESET)\n"; \
+		fi; \
+	done
+	@printf "$(GREEN)$(CHECK) Desktop apps installed$(RESET)\n"
 
 # Container and Kubernetes tools
 containers: homebrew
