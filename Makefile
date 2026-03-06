@@ -168,6 +168,14 @@ tools: homebrew
 	else \
 		printf "$(YELLOW)  $(WARN) Homebrew bash already in /etc/shells$(RESET)\n"; \
 	fi
+	@current_shell=$$(dscl . -read /Users/$$USER UserShell | awk '{print $$2}'); \
+	brew_bash="$$(brew --prefix)/bin/bash"; \
+	if [ "$$current_shell" != "$$brew_bash" ]; then \
+		chsh -s "$$brew_bash"; \
+		printf "$(GREEN)  ✓ Default shell set to Homebrew bash$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) Default shell already set to Homebrew bash$(RESET)\n"; \
+	fi
 	@if ! command -v bun &> /dev/null; then \
 		printf "$(CYAN)  $(INFO) Installing bun...$(RESET)\n"; \
 		curl -fsSL https://bun.sh/install | bash; \
