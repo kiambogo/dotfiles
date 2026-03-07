@@ -5,7 +5,7 @@ source "$CONFIG_DIR/colors.sh"
 ITEMS_DIR="$HOME/.config/sketchybar/items"
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 FONT="JetBrainsMono Nerd Font" # also needs SF Pro for icons
-PADDINGS=3
+PADDINGS=6
 
 bar=(
   height=45
@@ -13,8 +13,8 @@ bar=(
   shadow=off
   position=top
   sticky=on
-  padding_right=10
-  padding_left=10
+  padding_right=16
+  padding_left=16
   y_offset=-5
   margin=-2
 )
@@ -23,13 +23,13 @@ sketchybar --bar "${bar[@]}"
 
 defaults=(
   updates=when_shown
-  icon.font="$FONT:Bold:17.0"
+  icon.font="$FONT:Bold:16.0"
   icon.color=$ICON_COLOR
   icon.padding_left=$PADDINGS
-  icon.padding_right=$PADDINGS
-  label.font="$FONT:Bold:14.0"
+  icon.padding_right=4
+  label.font="$FONT:Bold:13.0"
   label.color=$LABEL_COLOR
-  label.padding_left=$PADDINGS
+  label.padding_left=2
   label.padding_right=$PADDINGS
   padding_right=$PADDINGS
   padding_left=$PADDINGS
@@ -42,8 +42,19 @@ sketchybar --default "${defaults[@]}"
 
 source "$ITEMS_DIR/apple.sh"
 source "$ITEMS_DIR/spotify.sh"
+
+SEP="icon=| icon.color=$BACKGROUND_2 icon.font=$FONT:Regular:13.0 icon.padding_left=8 icon.padding_right=8 label.drawing=off background.drawing=off padding_left=0 padding_right=0"
+
+# Right side: clock | vol + bat | cpu/mem
 source "$ITEMS_DIR/clock.sh"
+
+sketchybar --add item sep1 right --set sep1 $SEP
+
 source "$ITEMS_DIR/volume.sh"
 source "$ITEMS_DIR/battery.sh"
+
+sketchybar --add item sep2 right --set sep2 $SEP
+
+source "$ITEMS_DIR/cpu_mem.sh"
 
 sketchybar --update

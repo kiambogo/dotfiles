@@ -18,30 +18,41 @@ online=(
   label.color=$WHITE
 )
 
+EQ_FRAMES=("▁▂▃" "▂▃▄" "▃▄▅" "▄▅▆" "▅▆▇" "▄▅▆" "▃▄▅" "▂▃▄")
+EQ_FRAME_FILE="/tmp/sketchybar_spotify_eq_frame"
+
+next_eq_frame() {
+  current=$(cat "$EQ_FRAME_FILE" 2>/dev/null || echo "0")
+  next=$(( (current + 1) % ${#EQ_FRAMES[@]} ))
+  echo "$next" > "$EQ_FRAME_FILE"
+  echo "${EQ_FRAMES[$next]}"
+}
+
 update_track() {
+  if [[ -z $SPOTIFY_JSON ]]; then
+    sketchybar --set $NAME label.drawing=off icon.color=$GREY
+    return
+  fi
 
-    if [[ -z $SPOTIFY_JSON ]]; then
-        sketchybar --set $NAME "${offline[@]}"
-        return
-    fi
+  PLAYER_STATE=$(echo "$SPOTIFY_JSON" | jq -r '.["Player State"]')
 
-    PLAYER_STATE=$(echo "$SPOTIFY_JSON" | jq -r '.["Player State"]')
+  if [ $PLAYER_STATE = "Playing" ]; then
+    TRACK="$(echo "$SPOTIFY_JSON" | jq -r .Name)"
+    ARTIST="$(echo "$SPOTIFY_JSON" | jq -r .Artist)"
+    EQ="$(next_eq_frame)"
 
-    if [ $PLAYER_STATE = "Playing" ]; then
-        TRACK="$(echo "$SPOTIFY_JSON" | jq -r .Name)"
-        ARTIST="$(echo "$SPOTIFY_JSON" | jq -r .Artist)"
-
-        sketchybar --set $NAME label="${TRACK}  ${ARTIST}" "${online[@]}"
-    else
-        sketchybar --set $NAME icon.color=$YELLOW
-    fi
+    sketchybar --set $NAME label="${EQ}  ${TRACK}  ${ARTIST}" "${online[@]}"
+  else
+    rm -f "$EQ_FRAME_FILE"
+    sketchybar --set $NAME icon.color=$YELLOW label.drawing=off
+  fi
 }
 
 case "$SENDER" in
 "mouse.clicked")
-    osascript -e 'tell application "Spotify" to playpause'
-    ;;
+  osascript -e 'tell application "Spotify" to playpause'
+  ;;
 *)
-    update_track
-    ;;
+  update_track
+  ;;
 esac

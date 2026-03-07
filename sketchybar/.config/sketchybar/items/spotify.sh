@@ -6,7 +6,7 @@ spotify=(
   icon= 
   icon.y_offset=1
   icon.font="$FONT:Bold:20.0"
-  label.drawing=off 
+  label.drawing=on
   label.padding_left=3
   script="$PLUGIN_DIR/spotify.sh"
 )
