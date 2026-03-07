@@ -166,7 +166,7 @@ homebrew:
 tools: homebrew
 	@printf "$(BLUE)$(ARROW) 🔧 Installing core CLI tools...$(RESET)\n"
 	@tools_to_install=""; \
-	for tool in bash bazelisk git go gopls ispell jq neovim node rg tmux starship; do \
+	for tool in bash bazelisk git go gopls ispell jq neofetch neovim node rg tmux starship; do \
 		if ! brew list --formula $$tool &>/dev/null; then \
 			tools_to_install="$$tools_to_install $$tool"; \
 		fi; \
