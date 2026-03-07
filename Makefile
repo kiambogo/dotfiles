@@ -247,7 +247,7 @@ tools: homebrew
 # Desktop applications
 desktop-apps: homebrew
 	@printf "$(BLUE)$(ARROW) 🖥️  Installing desktop apps...$(RESET)\n"
-	@for app in claude spotify discord slack google-chrome; do \
+	@for app in claude spotify discord slack google-chrome whatsapp; do \
 		if ! brew list --cask $$app &>/dev/null; then \
 			brew install --cask --quiet $$app 2>/dev/null || true; \
 			printf "$(GREEN)  ✓ Installed $$app$(RESET)\n"; \
