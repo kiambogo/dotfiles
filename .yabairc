@@ -47,6 +47,11 @@ yabai -m config                                 \
     mouse_drop_action            swap           \
     external_bar                 all:35:0
 
+# Keep Spotify fully opaque at all times
+yabai -m query --windows | /opt/homebrew/bin/jq -r '.[] | select(.app == "Spotify") | .id' | xargs -I{} yabai -m window {} --opacity 1.0
+yabai -m signal --add event=window_focused app="^Spotify$" action='yabai -m window $YABAI_WINDOW_ID --opacity 1.0'
+yabai -m signal --add event=window_unfocused app="^Spotify$" action='yabai -m window $YABAI_WINDOW_ID --opacity 1.0'
+
 # Keep Chrome fully opaque at all times
 yabai -m query --windows | /opt/homebrew/bin/jq -r '.[] | select(.app == "Google Chrome") | .id' | xargs -I{} yabai -m window {} --opacity 1.0
 yabai -m signal --add event=window_focused app="^Google Chrome$" action='yabai -m window $YABAI_WINDOW_ID --opacity 1.0'
