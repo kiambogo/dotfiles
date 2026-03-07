@@ -61,7 +61,7 @@ sketchybar --add bracket group_status volume battery \
            --set group_status "${BRACKET_BG[@]}"
 
 source "$ITEMS_DIR/cpu_mem.sh"
-sketchybar --add bracket group_cpu cpu \
+sketchybar --add bracket group_cpu cpu mem \
            --set group_cpu "${BRACKET_BG[@]}"
 
 sketchybar --update

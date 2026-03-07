@@ -6,14 +6,14 @@ cpu=(
   icon="󰍛"
   icon.font="$FONT:Bold:14.0"
   icon.color=$BLUE
-  label="–%  󰓡 –"
+  label="–%"
   label.font="$FONT:Bold:13.0"
   label.color=$GREY
   update_freq=5
   script="$PLUGIN_DIR/cpu_mem.sh"
   background.drawing=off
   padding_left=4
-  padding_right=4
+  padding_right=2
   popup.align=right
   popup.background.color=$BACKGROUND_1
   popup.background.border_color=$BACKGROUND_2
@@ -23,7 +23,23 @@ cpu=(
   popup.y_offset=2
 )
 
-sketchybar --add item cpu right \
+mem=(
+  icon="󰓡"
+  icon.font="$FONT:Bold:14.0"
+  icon.color=$BLUE
+  label="–/–GB"
+  label.font="$FONT:Bold:13.0"
+  label.color=$GREY
+  script="$PLUGIN_DIR/cpu_mem.sh"
+  background.drawing=off
+  padding_left=2
+  padding_right=4
+)
+
+sketchybar --add item mem right \
+           --set mem "${mem[@]}" \
+           --subscribe mem mouse.clicked mouse.exited.global \
+           --add item cpu right \
            --set cpu "${cpu[@]}" \
            --subscribe cpu mouse.clicked mouse.exited.global
 

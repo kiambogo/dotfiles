@@ -26,8 +26,13 @@ update_stats() {
 
   sketchybar --set cpu \
     icon.color=$BLUE \
-    label="${CPU}%   ${MEM_LABEL}" \
+    label="${CPU}%" \
     label.color=$CPU_COLOR
+
+  sketchybar --set mem \
+    icon.color=$BLUE \
+    label="$MEM_LABEL" \
+    label.color=$GREY
 
   # Refresh popup if open
   POPUP_OPEN=$(sketchybar --query cpu | jq -r '.popup.drawing')
