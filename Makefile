@@ -143,6 +143,13 @@ macos:
 	else \
 		printf "$(YELLOW)  $(WARN) Dock recent apps already hidden$(RESET)\n"; \
 	fi
+	@current_reduce_motion=$$(defaults read com.apple.universalaccess reduceMotion 2>/dev/null || echo "0"); \
+	if [ "$$current_reduce_motion" != "1" ]; then \
+		defaults write com.apple.universalaccess reduceMotion -bool true; \
+		printf "$(GREEN)  ✓ Reduce motion enabled (disables Space switching animation)$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) Reduce motion already enabled$(RESET)\n"; \
+	fi
 	@printf "$(GREEN)$(CHECK) macOS defaults configured$(RESET)\n"
 
 # Install Homebrew
