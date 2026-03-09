@@ -4,6 +4,8 @@
 (setq doom-font (font-spec :family "Fira Code" :size 12)
       doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 (setq doom-theme 'doom-monokai-classic)
+(add-to-list 'default-frame-alist '(alpha . (90 90)))
+(set-frame-parameter nil 'alpha '(90 90))
 (setq display-line-numbers-type t)
 (setq org-directory "~/org/")
 

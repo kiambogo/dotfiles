@@ -1,4 +1,5 @@
 window-decoration=none
+background-opacity = 0.9
 
 # Make Option key work as Meta (for terminal commands like OPT-b, OPT-f, etc.)
 macos-option-as-alt=true
