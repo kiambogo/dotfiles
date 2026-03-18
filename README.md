@@ -27,7 +27,6 @@ This repo contains various configuration, scripts, etc for setting up programs a
 - **doom** - Doom Emacs configuration
 - **ghostty** - Ghostty terminal emulator configuration
 - **git** - Git configuration
-- **kitty** - Kitty terminal emulator configuration
 - **nvim** - Neovim configuration
 - **sketchybar** - SketchyBar (macOS menu bar) configuration
 - **tmux** - tmux terminal multiplexer configuration

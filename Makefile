@@ -2,7 +2,7 @@
 # Modular installation and configuration for macOS dotfiles
 
 .PHONY: all sudo-keepalive dependencies dotfiles macos homebrew tools desktop-apps containers wm emacs doomemacs fonts services
-.PHONY: bash claude doom git ghostty kitty nvim sketchybar starship tmux ccstatusline yabai skhd
+.PHONY: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd
 .PHONY: help clean
 
 DOTFILES_DIR := $(shell pwd)
@@ -38,7 +38,7 @@ sudo-keepalive:
 dependencies: macos homebrew tools desktop-apps containers wm emacs doomemacs fonts
 
 # Create all symlinks
-dotfiles: bash claude doom git ghostty kitty nvim sketchybar starship tmux ccstatusline yabai skhd
+dotfiles: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd
 
 # Help target
 help:
@@ -66,7 +66,6 @@ help:
 	@printf "  $(WHITE)doom$(RESET)         - 😈 Doom Emacs configuration\n"
 	@printf "  $(WHITE)git$(RESET)          - 📝 Git configuration\n"
 	@printf "  $(WHITE)ghostty$(RESET)      - 👻 Ghostty terminal configuration\n"
-	@printf "  $(WHITE)kitty$(RESET)        - 🐱 Kitty terminal configuration\n"
 	@printf "  $(WHITE)nvim$(RESET)         - ⚡ Neovim configuration\n"
 	@printf "  $(WHITE)sketchybar$(RESET)   - 📊 Sketchybar configuration\n"
 	@printf "  $(WHITE)starship$(RESET)     - 🚀 Starship prompt configuration\n"
@@ -426,9 +425,6 @@ git:
 
 ghostty:
 	$(call symlink_module,ghostty)
-
-kitty:
-	$(call symlink_module,kitty)
 
 nvim:
 	$(call symlink_module,nvim)
