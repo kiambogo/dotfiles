@@ -54,4 +54,4 @@ Use Claude Code's interactive primitives throughout this phase:
 ## On completion
 Mark all TodoWrite items completed.
 Tell the user: "Context gathered. Starting TDD draft."
-Then invoke: ~/.claude/agents/tdd-writer.md
+Then invoke: ~/.claude/agents/forge-tdd-writer.md

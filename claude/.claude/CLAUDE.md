@@ -24,8 +24,8 @@ Forge triggers:
 Run each phase in order. Do not skip phases. Do not move to the next phase
 until the current one is complete and (if applicable) the human has approved.
 
-1. Context Ingest     → ~/.claude/agents/context-ingest.md
-2. TDD Write/Critique → ~/.claude/agents/tdd-writer.md + ~/.claude/agents/tdd-critic.md (loop)
+1. Context Ingest     → ~/.claude/agents/forge-context-ingest.md
+2. TDD Write/Critique → ~/.claude/agents/forge-tdd-writer.md + ~/.claude/agents/forge-tdd-critic.md (loop)
 3. [GATE] Human TDD approval
 4. Coder              → spawn via Agent tool (subagent_type: general-purpose), passing the full
                         contents of ~/.claude/agents/forge-coder.md as the prompt plus all relevant

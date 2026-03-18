@@ -43,7 +43,7 @@ CONFIDENCE: low | medium | high
 
 ## Loop control
 
-- If verdict is "revise": return feedback to ~/.claude/agents/tdd-writer.md for
+- If verdict is "revise": return feedback to ~/.claude/agents/forge-tdd-writer.md for
   another pass. Maximum iterations: 5. If max reached with blockers remaining,
   escalate to human with a note that manual intervention is needed.
 - If verdict is "ready_for_human_review": surface the final draft to the user.
@@ -64,7 +64,7 @@ describe what needs to change."
 
 If approved → invoke: ~/.claude/agents/coder.md
 If rejected → treat rejection notes as a new critique round and return to
-~/.claude/agents/tdd-writer.md with those notes as blockers.
+~/.claude/agents/forge-tdd-writer.md with those notes as blockers.
 
 ## Unresolved Ambiguities
 

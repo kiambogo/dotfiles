@@ -23,5 +23,5 @@ flagged sections in isolation. You must see the full critique history, not
 just the latest round.
 
 ## On completion
-Pass the draft directly to: ~/.claude/agents/tdd-critic.md
+Pass the draft directly to: ~/.claude/agents/forge-tdd-critic.md
 Do not show the draft to the user until the critic approves it.
