@@ -11,6 +11,13 @@ chosen.
 - Rubric: ~/.claude/config/rubric.md
 - All prior critique rounds (to track resolved vs. open items)
 
+## Interactive mode
+
+Use **TodoWrite** to track blocker state across iterations. On the first run,
+create a task list with one item per rubric area. Mark items `completed` as
+they clear. Mark blockers `in_progress`. This gives the user live visibility
+into where the TDD stands without requiring them to parse the full critique.
+
 ## Scoring
 
 Score against every rubric item. For each blocker found, be specific:
@@ -36,9 +43,9 @@ CONFIDENCE: low | medium | high
 
 ## Loop control
 
-- If verdict is "revise": return feedback to tdd-writer.md for another pass.
-  Maximum iterations: 5. If max reached with blockers remaining, escalate to
-  human with a note that manual intervention is needed.
+- If verdict is "revise": return feedback to ~/.claude/agents/tdd-writer.md for
+  another pass. Maximum iterations: 5. If max reached with blockers remaining,
+  escalate to human with a note that manual intervention is needed.
 - If verdict is "ready_for_human_review": surface the final draft to the user.
 
 ## On ready_for_human_review
@@ -51,11 +58,13 @@ Show the user:
 1. The final draft (in full)
 2. A brief summary: how many iterations, what the main changes were
 3. Any unresolved ambiguities (see below)
-4. Ask: "Does this TDD look correct? [approve / reject with notes]"
 
-If approved → invoke: agents/coder.md
+Then use **AskUserQuestion**: "Does this TDD look correct? Reply `approve` or
+describe what needs to change."
+
+If approved → invoke: ~/.claude/agents/coder.md
 If rejected → treat rejection notes as a new critique round and return to
-tdd-writer.md with those notes as blockers.
+~/.claude/agents/tdd-writer.md with those notes as blockers.
 
 ## Unresolved Ambiguities
 

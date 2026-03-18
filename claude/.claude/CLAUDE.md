@@ -24,11 +24,17 @@ Forge triggers:
 Run each phase in order. Do not skip phases. Do not move to the next phase
 until the current one is complete and (if applicable) the human has approved.
 
-1. Context Ingest     → agents/context-ingest.md
-2. TDD Write/Critique → agents/tdd-writer.md + agents/tdd-critic.md (loop)
+1. Context Ingest     → ~/.claude/agents/context-ingest.md
+2. TDD Write/Critique → ~/.claude/agents/tdd-writer.md + ~/.claude/agents/tdd-critic.md (loop)
 3. [GATE] Human TDD approval
-4. Coder              → agents/coder.md
-5. Reviewer           → agents/reviewer.md (loop until all checks pass)
+4. Coder              → spawn via Agent tool (subagent_type: general-purpose), passing the full
+                        contents of ~/.claude/agents/forge-coder.md as the prompt plus all relevant
+                        context (approved TDD, firm config, codebase path). Do NOT inline the
+                        coder role — it must run as an isolated subprocess.
+5. Reviewer           → spawn via Agent tool (subagent_type: general-purpose), passing the full
+                        contents of ~/.claude/agents/forge-reviewer.md as the prompt. Loop: if any
+                        check has blockers, re-spawn the coder agent with the reviewer's findings,
+                        then re-spawn the reviewer. Do NOT inline either role.
 6. [GATE] Human PR approval
 
 ## Firm context

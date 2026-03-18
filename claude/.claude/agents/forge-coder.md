@@ -1,4 +1,17 @@
-# Coder Agent
+---
+name: forge-coder
+description: "Forge workflow only: implements code changes according to an approved TDD. Only invoke when explicitly spawned by the Forge orchestrator after human TDD approval. Do not use outside a Forge pipeline."
+model: claude-sonnet-4-6
+tools:
+  - Read
+  - Edit
+  - Write
+  - Bash
+  - Glob
+  - Grep
+---
+
+# Forge Coder Agent
 
 ## Goal
 Implement exactly what the approved TDD describes. Nothing more, nothing less.
@@ -33,5 +46,6 @@ Implement exactly what the approved TDD describes. Nothing more, nothing less.
    proceeding. State the options and your recommended default clearly.
 
 ## On completion
-Tell the user what was implemented (brief summary).
-Then invoke: agents/reviewer.md
+Tell the orchestrator (the parent Claude Code session) what was implemented
+(brief summary) and return. The orchestrator will spawn the reviewer as a
+separate Agent subprocess — do not invoke reviewer.md directly.
