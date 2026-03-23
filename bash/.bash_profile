@@ -46,10 +46,6 @@ export TERRAGRUNT_SOURCE_UPDATE=true
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export COLORTERM=truecolor
 
-# Project-specific variables
-export SOURCE="$HOME/source"
-export VENV="$SOURCE/.venv"
-
 # =============================================================================
 # Aliases
 # =============================================================================
@@ -104,3 +100,4 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 eval "$(starship init bash)"
+
