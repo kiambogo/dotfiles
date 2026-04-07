@@ -3,12 +3,25 @@
 	br = branch
 	co = checkout
 	rhh = reset HEAD --hard
+	cleanup = "!f() { \
+		git fetch -p && \
+		current=$(git branch --show-current) && \
+		for branch in $(git for-each-ref --format='%(refname:short)' refs/heads/ | grep -vE \"^(main|master)$\"); do \
+			[ \"$branch\" = \"$current\" ] && continue; \
+			pr_state=$(gh pr list --head \"$branch\" --state merged --json state --jq '.[0].state' 2>/dev/null); \
+			if [ \"$pr_state\" = \"MERGED\" ]; then \
+				echo \"Deleting $branch (PR merged)\"; \
+				git branch -D \"$branch\"; \
+			fi; \
+		done; \
+	}; f"
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=format:'%Y-%m-%d %H:%M:%S'
 [merge]
 	conflictstyle = diff3
 [user]
 	name = Christopher Poenaru
-	email = cpoenaru@abnormalsecurity.com
+	email = christopher.poenaru@keycard.ai
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGXQw0nYGDx3nLW9HQ9I/b53/tPAgHAulLd5lOpOMyHO
 [core]
 	editor = vim
 	excludesFile = ~/.gitignore
@@ -25,5 +38,14 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
 [github]
 	user = kiambogo
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[gpg "ssh"]
+	allowedSignersFile = /Users/christopherpoenaru/.config/git/allowed-signers
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
