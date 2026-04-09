@@ -182,6 +182,12 @@ tools: homebrew
 	else \
 		printf "$(YELLOW)  $(WARN) Ghostty already installed$(RESET)\n"; \
 	fi
+	@if ! brew list --cask claude-code &>/dev/null; then \
+		brew install --cask --quiet claude-code 2>/dev/null || true; \
+		printf "$(GREEN)  ✓ Installed Claude Code$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)  $(WARN) Claude Code already installed$(RESET)\n"; \
+	fi
 	@if ! grep -q "$$(brew --prefix)/bin/bash" /etc/shells; then \
 		printf "$(CYAN)  $(INFO) Adding Homebrew bash to /etc/shells...$(RESET)\n"; \
 		echo "$$(brew --prefix)/bin/bash" | sudo tee -a /etc/shells; \
