@@ -21,7 +21,7 @@
 [user]
 	name = Christopher Poenaru
 	email = kiambogo@gmail.com
-	signingkey = ssh-ed25519 REPLACE_WITH_PERSONAL_KEY
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC27SipAhnMHKliZfwzHXMs0rWRPPm8pTue9x9XmYQsk
 [includeIf "gitdir:~/keycard/"]
 	path = ~/.gitconfig-keycard
 [core]
