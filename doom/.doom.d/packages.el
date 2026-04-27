@@ -15,9 +15,6 @@
 ;;(package! another-package
 ;; :recipe (:host github :repo "username/repo"))
 (package! vmd-mode :recipe (:host github :repo "blak3mill3r/vmd-mode"))
-(package! bazel-mode :recipe (:host github :repo "bazelbuild/emacs-bazel-mode"))
-(package! copilot
-  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
 (package! claude-code-ide
   :recipe (:host github :repo "manzaltu/claude-code-ide.el"))
 
