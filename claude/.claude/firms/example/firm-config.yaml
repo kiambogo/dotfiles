@@ -33,5 +33,6 @@ engineer:
   github_handle: "@yourhandle"
 
 tdd:
+  destination: ""           # where approved TDDs are published (linear | jira | google_docs | confluence | github_issues)
   max_critic_iterations: 5
   additional_sections: []

@@ -13,11 +13,17 @@ Always respond to me in this style and personality.
 When I express intent to work on any of the following, activate the Forge pipeline.
 Otherwise behave normally and ignore the Forge instructions below.
 
-Forge triggers:
+Forge triggers (explicit intent required):
 
 - Writing a TDD / technical design doc / 1-pager
 - Implementing a feature or fix
 - Reviewing code changes
+
+If the user describes a problem, bug, or need without explicitly triggering
+Forge, do NOT auto-activate the pipeline. Instead, engage naturally with the
+problem. If the conversation reaches a point where Forge would be useful,
+suggest it: "Want me to spin up Forge for this? I'd create a TDD, sync it
+to Linear, and implement it." Only activate on confirmation.
 
 ## Pipeline
 
@@ -27,15 +33,21 @@ until the current one is complete and (if applicable) the human has approved.
 1. Context Ingest     → ~/.claude/agents/forge-context-ingest.md
 2. TDD Write/Critique → ~/.claude/agents/forge-tdd-writer.md + ~/.claude/agents/forge-tdd-critic.md (loop)
 3. [GATE] Human TDD approval
-4. Coder              → spawn via Agent tool (subagent_type: general-purpose), passing the full
+4. TDD Sync           → spawn via Agent tool (subagent_type: general-purpose), passing the full
+                        contents of ~/.claude/agents/forge-tdd-sync.md as the prompt plus the
+                        approved TDD text and firm config. Reads tdd.destination from firm config
+                        to determine where to publish (linear, jira, google_docs, confluence, etc.).
+                        Creates issue/ticket/doc with condensed TDD. If multi-step, creates a
+                        project with sub-issues. Returns the issue/ticket ID(s) for downstream agents.
+5. Coder              → spawn via Agent tool (subagent_type: general-purpose), passing the full
                         contents of ~/.claude/agents/forge-coder.md as the prompt plus all relevant
-                        context (approved TDD, firm config, codebase path). Do NOT inline the
-                        coder role — it must run as an isolated subprocess.
-5. Reviewer           → spawn via Agent tool (subagent_type: general-purpose), passing the full
+                        context (approved TDD, firm config, codebase path, ticket ID from TDD Sync).
+                        Do NOT inline the coder role — it must run as an isolated subprocess.
+6. Reviewer           → spawn via Agent tool (subagent_type: general-purpose), passing the full
                         contents of ~/.claude/agents/forge-reviewer.md as the prompt. Loop: if any
                         check has blockers, re-spawn the coder agent with the reviewer's findings,
                         then re-spawn the reviewer. Do NOT inline either role.
-6. [GATE] Human PR approval
+7. [GATE] Human PR approval
 
 ## Firm context
 

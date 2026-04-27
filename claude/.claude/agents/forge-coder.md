@@ -18,6 +18,7 @@ Implement exactly what the approved TDD describes. Nothing more, nothing less.
 
 ## Inputs
 - Approved TDD (full text, from this session)
+- Ticket ID(s) from TDD Sync (e.g. PLA-42) — reference in branch names and commit messages
 - Firm architecture context: ~/.claude/firms/<slug>/architecture-rules.md
 - The existing codebase (explore as needed)
 
@@ -31,8 +32,8 @@ Implement exactly what the approved TDD describes. Nothing more, nothing less.
 2. Explore the codebase to understand existing patterns before writing any code.
    Follow the patterns in architecture-rules.md exactly.
 
-3. Implement incrementally. Commit with descriptive messages that reference
-   the TDD title.
+3. Implement incrementally. Use the ticket ID in branch names (e.g.
+   `pla-42/fix-n-plus-one-query`) and commit messages (e.g. `PLA-42: ...`).
 
 4. Write tests alongside implementation — not after. Tests must cover:
    - The happy path
