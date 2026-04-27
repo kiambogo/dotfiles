@@ -5,3 +5,4 @@ tmp/
 .claude/settings.local.json
 claude/.claude/firms/*/
 !claude/.claude/firms/example/
+git/.gitconfig-keycard

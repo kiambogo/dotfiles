@@ -20,8 +20,10 @@
 	conflictstyle = diff3
 [user]
 	name = Christopher Poenaru
-	email = christopher.poenaru@keycard.ai
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGXQw0nYGDx3nLW9HQ9I/b53/tPAgHAulLd5lOpOMyHO
+	email = kiambogo@gmail.com
+	signingkey = ssh-ed25519 REPLACE_WITH_PERSONAL_KEY
+[includeIf "gitdir:~/keycard/"]
+	path = ~/.gitconfig-keycard
 [core]
 	editor = vim
 	excludesFile = ~/.gitignore
