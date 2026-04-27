@@ -49,6 +49,10 @@
     "command": "bunx -y ccstatusline@latest",
     "padding": 0
   },
+  "enabledPlugins": {
+    "swift-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true
+  },
   "alwaysThinkingEnabled": false,
   "voiceEnabled": true
 }
