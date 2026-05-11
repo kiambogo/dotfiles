@@ -101,3 +101,10 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 eval "$(starship init bash)"
 
+# zoxide (smarter cd)
+command -v zoxide &>/dev/null && eval "$(zoxide init bash)"
+
+# fzf key bindings and completion
+[[ -f "$(brew --prefix 2>/dev/null)/opt/fzf/shell/key-bindings.bash" ]] && source "$(brew --prefix)/opt/fzf/shell/key-bindings.bash"
+[[ -f "$(brew --prefix 2>/dev/null)/opt/fzf/shell/completion.bash" ]] && source "$(brew --prefix)/opt/fzf/shell/completion.bash"
+
