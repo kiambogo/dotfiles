@@ -2,7 +2,7 @@
 # Modular installation and configuration for macOS dotfiles
 
 .PHONY: all sudo-keepalive dependencies dotfiles macos homebrew tools desktop-apps containers wm emacs doomemacs fonts services
-.PHONY: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd
+.PHONY: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd multiclaude
 .PHONY: help clean
 
 DOTFILES_DIR := $(shell pwd)
@@ -38,7 +38,7 @@ sudo-keepalive:
 dependencies: macos homebrew tools desktop-apps containers wm emacs doomemacs fonts
 
 # Create all symlinks
-dotfiles: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd
+dotfiles: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd multiclaude
 
 # Help target
 help:
@@ -72,7 +72,8 @@ help:
 	@printf "  $(WHITE)tmux$(RESET)         - 🖥️  Tmux configuration\n"
 	@printf "  $(WHITE)ccstatusline$(RESET) - 📈 Claude Code status line\n"
 	@printf "  $(WHITE)yabai$(RESET)        - 🪟 Yabai window manager configuration\n"
-	@printf "  $(WHITE)skhd$(RESET)         - ⌨️  skhd hotkey daemon configuration\n\n"
+	@printf "  $(WHITE)skhd$(RESET)         - ⌨️  skhd hotkey daemon configuration\n"
+	@printf "  $(WHITE)multiclaude$(RESET)  - 🤖 multiclaude agent definitions\n\n"
 
 	@printf "$(RED)$(ARROW) Maintenance:$(RESET)\n"
 	@printf "  $(GRAY)clean$(RESET)        - 🧹 Remove broken symlinks\n"
@@ -165,7 +166,7 @@ homebrew:
 tools: homebrew
 	@printf "$(BLUE)$(ARROW) 🔧 Installing core CLI tools...$(RESET)\n"
 	@tools_to_install=""; \
-	for tool in bash bazelisk cmake gh git go gopls ispell jq neofetch neovim node protobuf rg tmux starship; do \
+	for tool in bash bazelisk cmake fzf gh git go gopls gum ispell jq neofetch neovim node protobuf rg sesh terminal-notifier tmux starship zoxide; do \
 		if ! brew list --formula $$tool &>/dev/null; then \
 			tools_to_install="$$tools_to_install $$tool"; \
 		fi; \
@@ -446,6 +447,17 @@ tmux:
 
 ccstatusline:
 	$(call symlink_module,ccstatusline)
+
+multiclaude:
+	@printf "$(CYAN)$(ARROW) 🔗 Linking multiclaude global agent definitions...$(RESET)\n"
+	@mkdir -p "$(HOME_DIR)/.multiclaude/agents"
+	@for src in "$(DOTFILES_DIR)/multiclaude/agents/"*.md; do \
+		[ -f "$$src" ] || continue; \
+		agent=$$(basename "$$src"); \
+		ln -sf "$$src" "$(HOME_DIR)/.multiclaude/agents/$$agent"; \
+		printf "$(GREEN)  ✓ Linked $$agent$(RESET)\n"; \
+	done
+	@printf "$(GREEN)$(CHECK) multiclaude global agents linked$(RESET)\n"
 
 # Root configuration files
 yabai: wm
