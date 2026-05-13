@@ -14,6 +14,16 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	end,
 })
 
+-- Close nvim-tree when opening a file
+vim.api.nvim_create_autocmd("BufEnter", {
+	callback = function(data)
+		local api = require("nvim-tree.api")
+		if api.tree.is_visible() and vim.bo[data.buf].buftype == "" and not vim.bo[data.buf].filetype:match("NvimTree") then
+			api.tree.close()
+		end
+	end,
+})
+
 -- Go support
 --
 -- Run goimports on save
