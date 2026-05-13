@@ -51,10 +51,9 @@
   },
   "enabledPlugins": {
     "swift-lsp@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true
+    "gopls-lsp@claude-plugins-official": true,
+    "tmux-agent-sidebar@hiroppy": true
   },
-  "alwaysThinkingEnabled": false,
-  "voiceEnabled": true,
   "extraKnownMarketplaces": {
     "hiroppy": {
       "source": {
@@ -62,5 +61,7 @@
         "path": "/Users/cpoenaru/.tmux/plugins/tmux-agent-sidebar"
       }
     }
-  }
+  },
+  "alwaysThinkingEnabled": false,
+  "voiceEnabled": true
 }
