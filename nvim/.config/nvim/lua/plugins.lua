@@ -191,7 +191,11 @@ local plugins = {
 	{
 		"nvim-tree/nvim-tree.lua",
 		lazy = false,
-		opts = {},
+		opts = {
+			hijack_directories = {
+				enable = false,
+			},
+		},
 	},
 	{
 		"tpope/vim-surround",
