@@ -54,5 +54,13 @@
     "gopls-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": false,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "extraKnownMarketplaces": {
+    "hiroppy": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/cpoenaru/.tmux/plugins/tmux-agent-sidebar"
+      }
+    }
+  }
 }
