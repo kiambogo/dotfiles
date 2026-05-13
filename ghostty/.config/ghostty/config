@@ -1,6 +1,6 @@
 window-decoration=none
 font-family = "JetBrainsMono Nerd Font"
-background-opacity = 0.9
+background-opacity = 1.0
 
 # Make Option key work as Meta (for terminal commands like OPT-b, OPT-f, etc.)
 macos-option-as-alt=true

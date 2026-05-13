@@ -34,6 +34,10 @@ require("plugins")
 
 vim.cmd.colorscheme "edge"
 
+-- Transparent background so tmux pane dimming applies uniformly
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
 -- Configure LSP diagnostics display
 vim.diagnostic.config({
   virtual_text = {
