@@ -42,6 +42,7 @@ vim.keymap.set("n", "<leader>oP", ":NvimTreeFindFile<CR>", { desc = "Find file i
 
 -- Git
 vim.keymap.set("n", "<leader>gg", ":Neogit<CR>", { desc = "Open Neogit" })
+vim.keymap.set("n", "<leader>gb", ":Gitsigns blame<CR>", { desc = "Git blame" })
 
 -- Commenting
 vim.keymap.set("n", "<leader>c", ":CommentToggle<CR>", { desc = "Toggle comment" })
