@@ -2,7 +2,7 @@
 # Modular installation and configuration for macOS dotfiles
 
 .PHONY: all sudo-keepalive dependencies dotfiles macos homebrew tools desktop-apps containers wm emacs doomemacs fonts services
-.PHONY: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd multiclaude
+.PHONY: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd multiclaude sesh
 .PHONY: help clean
 
 DOTFILES_DIR := $(shell pwd)
@@ -38,7 +38,7 @@ sudo-keepalive:
 dependencies: macos homebrew tools desktop-apps containers wm emacs doomemacs fonts
 
 # Create all symlinks
-dotfiles: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd multiclaude
+dotfiles: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd multiclaude sesh
 
 # Help target
 help:
@@ -447,6 +447,9 @@ tmux:
 
 ccstatusline:
 	$(call symlink_module,ccstatusline)
+
+sesh:
+	$(call symlink_module,sesh)
 
 multiclaude:
 	@printf "$(CYAN)$(ARROW) 🔗 Linking multiclaude global agent definitions...$(RESET)\n"

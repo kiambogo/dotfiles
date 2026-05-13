@@ -1,0 +1,2 @@
+[default_session]
+startup_command = "tmux split-window -h 'nvim .' && clear && tmux run-shell '~/.tmux/plugins/tmux-agent-sidebar/bin/tmux-agent-sidebar toggle \"#{window_id}\" \"#{pane_current_path}\"' && clear"
