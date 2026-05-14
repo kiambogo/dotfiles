@@ -118,6 +118,7 @@ local plugins = {
 					'lua_ls',
 					'gopls',
 					'pylsp',
+					'marksman',
 				},
 				handlers = {
 					-- Default handler for all servers
