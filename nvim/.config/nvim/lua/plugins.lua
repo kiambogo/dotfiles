@@ -117,7 +117,6 @@ local plugins = {
 				ensure_installed = {
 					'lua_ls',
 					'gopls',
-					'pylsp',
 					'marksman',
 				},
 				handlers = {
