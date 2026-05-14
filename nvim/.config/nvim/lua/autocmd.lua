@@ -38,3 +38,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*.go",
 	command = "silent! GoFmt",
 })
+
+-- Close markview split when the source markdown buffer is closed
+vim.api.nvim_create_autocmd("QuitPre", {
+	group = vim.api.nvim_create_augroup("MarkviewQuit", {clear = true}),
+	pattern = "*.md",
+	callback = function()
+		pcall(vim.cmd, "Markview splitClose")
+	end,
+})
+
+

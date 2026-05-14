@@ -64,6 +64,8 @@ vim.keymap.set("n", "<leader>mt", function()
 	require("bazel").test_current_target()
 end, { noremap = true, silent = true, desc = "Test Bazel target at cursor" })
 
+-- Markdown preview
+vim.keymap.set("n", "<leader>mp", ":Markview splitToggle<CR>", { desc = "Toggle Markdown split preview" })
 
 -- Reload config
 vim.keymap.set("n", "<leader>rr", function()

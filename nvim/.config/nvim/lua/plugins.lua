@@ -290,6 +290,16 @@ local plugins = {
 		"lewis6991/gitsigns.nvim",
 		opts = {},
 	},
+	{
+		"OXY2DEV/markview.nvim",
+		lazy = false,
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			preview = {
+				enable = false,
+			},
+		},
+	}
 }
 
 require("lazy").setup(plugins, {lazy=true})
