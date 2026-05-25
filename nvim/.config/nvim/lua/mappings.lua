@@ -43,6 +43,7 @@ vim.keymap.set("n", "<leader>oP", ":NvimTreeFindFile<CR>", { desc = "Find file i
 -- Git
 vim.keymap.set("n", "<leader>gg", ":Neogit<CR>", { desc = "Open Neogit" })
 vim.keymap.set("n", "<leader>gb", ":Gitsigns blame<CR>", { desc = "Git blame" })
+vim.keymap.set("n", "<leader>gB", ":Gitsigns toggle_current_line_blame<CR>", { desc = "Toggle inline blame" })
 
 -- Commenting
 vim.keymap.set("n", "<leader>c", ":CommentToggle<CR>", { desc = "Toggle comment" })
@@ -66,6 +67,9 @@ end, { noremap = true, silent = true, desc = "Test Bazel target at cursor" })
 
 -- Markdown preview
 vim.keymap.set("n", "<leader>mp", ":Markview splitToggle<CR>", { desc = "Toggle Markdown split preview" })
+
+-- Insert mode
+vim.keymap.set("i", "<M-BS>", "<C-w>", { desc = "Delete previous word" })
 
 -- Reload config
 vim.keymap.set("n", "<leader>rr", function()
