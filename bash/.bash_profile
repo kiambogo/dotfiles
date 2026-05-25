@@ -38,7 +38,7 @@ fi
 # Environment Variables
 # =============================================================================
 
-export EDITOR='emacsclient -n'
+export EDITOR='nvim'
 export GOPATH="$HOME/go"
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export _JAVA_AWT_WM_NONREPARENTING=1  # Java GUI apps in tiling WMs
