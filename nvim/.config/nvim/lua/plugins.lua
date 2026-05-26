@@ -1,5 +1,6 @@
 local plugins = {
 	{ 'nvim-lua/plenary.nvim' },
+	{ 'stevearc/dressing.nvim', opts = {} },
 	{ 'sindrets/diffview.nvim' },
 	{ "NeogitOrg/neogit", dependencies = { 'sindrets/diffview.nvim' } },
 	{

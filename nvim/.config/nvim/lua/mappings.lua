@@ -22,8 +22,39 @@ vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", { desc = "Delete buffer" })
 
 -- Files
 vim.keymap.set("n", "<leader>fs", ":w<CR>", { desc = "Save file" })
+vim.keymap.set("n", "<leader>fS", ":w ", { desc = "Save file as..." })
 vim.keymap.set("n", "<leader>fD", ":call delete(expand('%')) | bdelete!<CR>", { desc = "Delete file" })
-vim.keymap.set("n", "<leader>fy", ":let @+ = expand('%t')<CR>", { desc = "Yank filename" })
+vim.keymap.set("n", "<leader>fC", function()
+	local src = vim.fn.expand('%:p')
+	vim.ui.input({ prompt = "Copy to: ", default = src }, function(dst)
+		if dst and dst ~= "" then
+			vim.fn.system({ 'cp', src, dst })
+			print("Copied to " .. dst)
+		end
+	end)
+end, { desc = "Copy file" })
+vim.keymap.set("n", "<leader>fR", function()
+	local src = vim.fn.expand('%:p')
+	vim.ui.input({ prompt = "Move to: ", default = src }, function(dst)
+		if dst and dst ~= "" then
+			vim.fn.rename(src, dst)
+			vim.cmd('edit ' .. vim.fn.fnameescape(dst))
+		end
+	end)
+end, { desc = "Rename/move file" })
+vim.keymap.set("n", "<leader>fr", ":FzfLua oldfiles<CR>", { desc = "Recent files" })
+vim.keymap.set("n", "<leader>fy", ":let @+ = expand('%:t')<CR>", { desc = "Yank filename" })
+vim.keymap.set("n", "<leader>fY", function()
+	local git_root = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+	if vim.v.shell_error == 0 then
+		local rel = vim.fn.expand('%:p'):sub(#git_root + 2)
+		vim.fn.setreg('+', rel)
+		print("Copied: " .. rel)
+	else
+		vim.fn.setreg('+', vim.fn.expand('%:p'))
+		print("Copied: " .. vim.fn.expand('%:p'))
+	end
+end, { desc = "Yank path relative to project" })
 vim.keymap.set("n", "<leader>gh", ":OpenInGHFile<CR>", { desc = "Open in GitHub" })
 vim.keymap.set("v", "<leader>gh", ":OpenInGHFileLines<CR>", { desc = "Open lines in GitHub" })
 
@@ -85,12 +116,8 @@ vim.keymap.set("n", "<leader>rr", function()
 end, { noremap = true, silent = false, desc = "Reload Neovim config" })
 
 -- TODO
--- <leader>fC create copy of file with new name
 -- uppercase next word
--- find files outside of project spc-.
 -- live_grep search for visual selected word spc-/
--- git time machine
 -- open commit in browser
 -- resizing of windows
--- functions for running compilation/bazel
 -- scratchpad
