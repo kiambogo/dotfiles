@@ -287,6 +287,12 @@ local plugins = {
 		"almo7aya/openingh.nvim"
 	},
 	{
+		"dallagi/git-timemachine.nvim",
+		config = function()
+			vim.keymap.set("n", "<leader>gt", "<cmd>GitTimeMachine<cr>", { desc = "Git time machine" })
+		end,
+	},
+	{
 		"lewis6991/gitsigns.nvim",
 		opts = {},
 	},
