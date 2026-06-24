@@ -33,16 +33,7 @@
     "PreToolUse": [],
     "PostToolUse": [],
     "Notification": [],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bun $HOME/.claude/hooks/load-dynamic-requirements.ts"
-          }
-        ]
-      }
-    ]
+    "UserPromptSubmit": []
   },
   "statusLine": {
     "type": "command",
