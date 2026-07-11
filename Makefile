@@ -2,7 +2,7 @@
 # Modular installation and configuration for macOS dotfiles
 
 .PHONY: all sudo-keepalive dependencies dotfiles macos homebrew tools desktop-apps containers wm emacs doomemacs fonts services
-.PHONY: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd multiclaude sesh
+.PHONY: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd multiclaude sesh herdr
 .PHONY: help clean
 
 DOTFILES_DIR := $(shell pwd)
@@ -38,7 +38,7 @@ sudo-keepalive:
 dependencies: macos homebrew tools desktop-apps containers wm emacs doomemacs fonts
 
 # Create all symlinks
-dotfiles: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd multiclaude sesh
+dotfiles: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd multiclaude sesh herdr
 
 # Help target
 help:
@@ -73,7 +73,8 @@ help:
 	@printf "  $(WHITE)ccstatusline$(RESET) - 📈 Claude Code status line\n"
 	@printf "  $(WHITE)yabai$(RESET)        - 🪟 Yabai window manager configuration\n"
 	@printf "  $(WHITE)skhd$(RESET)         - ⌨️  skhd hotkey daemon configuration\n"
-	@printf "  $(WHITE)multiclaude$(RESET)  - 🤖 multiclaude agent definitions\n\n"
+	@printf "  $(WHITE)multiclaude$(RESET)  - 🤖 multiclaude agent definitions\n"
+	@printf "  $(WHITE)herdr$(RESET)        - 🐑 herdr configuration\n\n"
 
 	@printf "$(RED)$(ARROW) Maintenance:$(RESET)\n"
 	@printf "  $(GRAY)clean$(RESET)        - 🧹 Remove broken symlinks\n"
@@ -166,7 +167,7 @@ homebrew:
 tools: homebrew
 	@printf "$(BLUE)$(ARROW) 🔧 Installing core CLI tools...$(RESET)\n"
 	@tools_to_install=""; \
-	for tool in bash bazelisk cmake fzf gh git go gopls gum ispell jq marksman neofetch neovim node protobuf rg sesh terminal-notifier tmux starship zoxide; do \
+	for tool in bash bazelisk cmake fzf gh git go gopls gum herdr ispell jq marksman neofetch neovim node protobuf rg sesh terminal-notifier tmux starship zoxide; do \
 		if ! brew list --formula $$tool &>/dev/null; then \
 			tools_to_install="$$tools_to_install $$tool"; \
 		fi; \
@@ -370,6 +371,7 @@ services:
 	@skhd --start-service && printf "$(GREEN)  ✓ skhd service started$(RESET)\n" || printf "$(YELLOW)  $(WARN) skhd service already running or not installed$(RESET)\n"
 	@yabai --start-service && printf "$(GREEN)  ✓ yabai service started$(RESET)\n" || printf "$(YELLOW)  $(WARN) yabai service already running or not installed$(RESET)\n"
 	@brew services start sketchybar && printf "$(GREEN)  ✓ sketchybar service started$(RESET)\n" || printf "$(YELLOW)  $(WARN) sketchybar service already running or not installed$(RESET)\n"
+	@brew services start herdr && printf "$(GREEN)  ✓ herdr service started$(RESET)\n" || printf "$(YELLOW)  $(WARN) herdr service already running or not installed$(RESET)\n"
 	@if [ ! -d "$(HOME)/.tmux/plugins/tpm" ]; then \
 		printf "$(CYAN)  $(INFO) Installing tmux plugin manager...$(RESET)\n"; \
 		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm; \
@@ -450,6 +452,9 @@ ccstatusline:
 
 sesh:
 	$(call symlink_module,sesh)
+
+herdr:
+	$(call symlink_module,herdr)
 
 multiclaude:
 	@printf "$(CYAN)$(ARROW) 🔗 Linking multiclaude global agent definitions...$(RESET)\n"

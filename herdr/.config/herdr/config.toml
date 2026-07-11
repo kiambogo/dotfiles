@@ -1,0 +1,28 @@
+[theme]
+name = "gruvbox"
+
+[keys]
+prefix = "ctrl+a"
+settings = "prefix+shift+s"
+split_vertical = "prefix+v"
+split_horizontal = "prefix+s"
+toggle_sidebar = "prefix+e"
+
+[worktrees]
+directory = "~/.herdr/worktrees"
+
+[ui]
+sidebar_collapsed_mode = "compact"
+prompt_new_tab_name = false
+show_agent_labels_on_pane_borders = true
+agent_panel_sort = "spaces"
+
+[ui.toast]
+delivery = "herdr"
+herdr.position = "top-right"
+
+[ui.sound]
+enabled = true
+
+[experimental]
+kitty_graphics = true
