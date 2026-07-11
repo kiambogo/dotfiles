@@ -1,2 +1,4 @@
 .spacemacs.env
 .netrwhist
+
+**/.claude/settings.local.json
