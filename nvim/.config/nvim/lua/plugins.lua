@@ -273,10 +273,12 @@ local plugins = {
 	{
 		"fedepujol/move.nvim",
 	},
-	{
-		"github/copilot.vim",
-		lazy = false,
-	},
+	-- disabled: copilot-language-server kept triggering macOS Keychain
+	-- password prompts on every nvim launch
+	-- {
+	-- 	"github/copilot.vim",
+	-- 	lazy = false,
+	-- },
 	{
 		'darrikonn/vim-gofmt',
 		ft = 'go',
