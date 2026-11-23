@@ -43,20 +43,12 @@ gaps.outer.right =      3
     alt-j = 'focus --boundaries all-monitors-outer-frame down'
     alt-k = 'focus --boundaries all-monitors-outer-frame up'
     alt-l = 'focus --boundaries all-monitors-outer-frame right'
-    alt-left =  'focus --boundaries all-monitors-outer-frame left'
-    alt-down =  'focus --boundaries all-monitors-outer-frame down'
-    alt-up =    'focus --boundaries all-monitors-outer-frame up'
-    alt-right = 'focus --boundaries all-monitors-outer-frame right'
 
     # Move window
     alt-shift-h = 'move --boundaries all-monitors-outer-frame left'
     alt-shift-j = 'move --boundaries all-monitors-outer-frame down'
     alt-shift-k = 'move --boundaries all-monitors-outer-frame up'
     alt-shift-l = 'move --boundaries all-monitors-outer-frame right'
-    alt-shift-left =  'move --boundaries all-monitors-outer-frame left'
-    alt-shift-down =  'move --boundaries all-monitors-outer-frame down'
-    alt-shift-up =    'move --boundaries all-monitors-outer-frame up'
-    alt-shift-right = 'move --boundaries all-monitors-outer-frame right'
 
     # Splits: AeroSpace has no "split next", so join with a neighbour instead
     alt-b = 'join-with right'
