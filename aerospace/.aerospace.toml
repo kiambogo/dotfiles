@@ -1,0 +1,126 @@
+# AeroSpace config, i3/sway-style bindings (mod = alt)
+# ported from kiambogo/dotfiles i3/sway configs + .yabairc settings
+# Commands: https://nikitabobko.github.io/AeroSpace/commands
+
+config-version = 2
+
+start-at-login = true
+auto-reload-config = true
+
+after-startup-command = []
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 30
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+on-focused-monitor-changed = []
+focus-follows-mouse.enabled = false
+
+automatically-unhide-macos-hidden-apps = false
+
+persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+
+key-mapping.preset = 'qwerty'
+
+# If you bring back sketchybar, raise outer.top to ~43.
+gaps.inner.horizontal = 8
+gaps.inner.vertical =   8
+gaps.outer.left =       3
+gaps.outer.bottom =     3
+gaps.outer.top =        8
+gaps.outer.right =      3
+
+[mode.main.binding]
+    alt-enter = 'exec-and-forget open -na Ghostty.app'
+    alt-shift-q = 'close'
+
+    # Focus, crossing into the neighbouring monitor at the edge
+    alt-h = 'focus --boundaries all-monitors-outer-frame left'
+    alt-j = 'focus --boundaries all-monitors-outer-frame down'
+    alt-k = 'focus --boundaries all-monitors-outer-frame up'
+    alt-l = 'focus --boundaries all-monitors-outer-frame right'
+    alt-left =  'focus --boundaries all-monitors-outer-frame left'
+    alt-down =  'focus --boundaries all-monitors-outer-frame down'
+    alt-up =    'focus --boundaries all-monitors-outer-frame up'
+    alt-right = 'focus --boundaries all-monitors-outer-frame right'
+
+    # Move window
+    alt-shift-h = 'move --boundaries all-monitors-outer-frame left'
+    alt-shift-j = 'move --boundaries all-monitors-outer-frame down'
+    alt-shift-k = 'move --boundaries all-monitors-outer-frame up'
+    alt-shift-l = 'move --boundaries all-monitors-outer-frame right'
+    alt-shift-left =  'move --boundaries all-monitors-outer-frame left'
+    alt-shift-down =  'move --boundaries all-monitors-outer-frame down'
+    alt-shift-up =    'move --boundaries all-monitors-outer-frame up'
+    alt-shift-right = 'move --boundaries all-monitors-outer-frame right'
+
+    # Splits: AeroSpace has no "split next", so join with a neighbour instead
+    alt-b = 'join-with right'
+    alt-v = 'join-with down'
+
+    # Layouts (no tabbed/stacked in AeroSpace; both map to accordion)
+    alt-s = 'layout accordion horizontal vertical'
+    alt-w = 'layout accordion horizontal vertical'
+    alt-e = 'layout tiles horizontal vertical'
+    alt-f = 'fullscreen'
+    alt-shift-space = 'layout floating tiling'
+
+    # Workspaces
+    alt-1 = 'workspace 1'
+    alt-2 = 'workspace 2'
+    alt-3 = 'workspace 3'
+    alt-4 = 'workspace 4'
+    alt-5 = 'workspace 5'
+    alt-6 = 'workspace 6'
+    alt-7 = 'workspace 7'
+    alt-8 = 'workspace 8'
+    alt-9 = 'workspace 9'
+    alt-0 = 'workspace 10'
+
+    alt-shift-1 = 'move-node-to-workspace 1'
+    alt-shift-2 = 'move-node-to-workspace 2'
+    alt-shift-3 = 'move-node-to-workspace 3'
+    alt-shift-4 = 'move-node-to-workspace 4'
+    alt-shift-5 = 'move-node-to-workspace 5'
+    alt-shift-6 = 'move-node-to-workspace 6'
+    alt-shift-7 = 'move-node-to-workspace 7'
+    alt-shift-8 = 'move-node-to-workspace 8'
+    alt-shift-9 = 'move-node-to-workspace 9'
+    alt-shift-0 = 'move-node-to-workspace 10'
+
+    alt-tab = 'workspace-back-and-forth'
+    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+    # Modes
+    alt-r = 'mode resize'
+    alt-shift-e = 'mode service'
+    alt-shift-c = 'reload-config'
+    alt-shift-r = 'reload-config'
+
+[mode.resize.binding]
+    h = 'resize width -50'
+    l = 'resize width +50'
+    k = 'resize height -50'
+    j = 'resize height +50'
+    left =  'resize width -50'
+    right = 'resize width +50'
+    up =    'resize height -50'
+    down =  'resize height +50'
+    equal = 'balance-sizes'
+    enter = 'mode main'
+    esc = 'mode main'
+
+[mode.service.binding]
+    esc = ['reload-config', 'mode main']
+    enter = 'mode main'
+    r = ['flatten-workspace-tree', 'mode main']
+    f = ['layout floating tiling', 'mode main']
+    backspace = ['close-all-windows-but-current', 'mode main']
+    alt-shift-h = ['join-with left', 'mode main']
+    alt-shift-j = ['join-with down', 'mode main']
+    alt-shift-k = ['join-with up', 'mode main']
+    alt-shift-l = ['join-with right', 'mode main']
