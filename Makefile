@@ -2,7 +2,7 @@
 # Modular installation and configuration for macOS dotfiles
 
 .PHONY: all sudo-keepalive dependencies dotfiles macos homebrew tools desktop-apps containers wm emacs doomemacs fonts services
-.PHONY: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd multiclaude sesh herdr
+.PHONY: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline aerospace multiclaude sesh herdr
 .PHONY: help clean
 
 DOTFILES_DIR := $(shell pwd)
@@ -38,7 +38,7 @@ sudo-keepalive:
 dependencies: macos homebrew tools desktop-apps containers wm emacs doomemacs fonts
 
 # Create all symlinks
-dotfiles: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline yabai skhd multiclaude sesh herdr
+dotfiles: bash claude doom git ghostty nvim sketchybar starship tmux ccstatusline aerospace multiclaude sesh herdr
 
 # Help target
 help:
@@ -71,8 +71,7 @@ help:
 	@printf "  $(WHITE)starship$(RESET)     - 🚀 Starship prompt configuration\n"
 	@printf "  $(WHITE)tmux$(RESET)         - 🖥️  Tmux configuration\n"
 	@printf "  $(WHITE)ccstatusline$(RESET) - 📈 Claude Code status line\n"
-	@printf "  $(WHITE)yabai$(RESET)        - 🪟 Yabai window manager configuration\n"
-	@printf "  $(WHITE)skhd$(RESET)         - ⌨️  skhd hotkey daemon configuration\n"
+	@printf "  $(WHITE)aerospace$(RESET)    - 🪟 AeroSpace window manager configuration\n"
 	@printf "  $(WHITE)multiclaude$(RESET)  - 🤖 multiclaude agent definitions\n"
 	@printf "  $(WHITE)herdr$(RESET)        - 🐑 herdr configuration\n\n"
 
@@ -291,18 +290,11 @@ containers: homebrew
 # Window management tools
 wm: homebrew
 	@printf "$(BLUE)$(ARROW) 🪟 Installing window management tools...$(RESET)\n"
-	@brew tap koekeishiya/formulae 2>/dev/null || true
-	@if ! brew list --formula yabai &>/dev/null; then \
-		brew install --quiet koekeishiya/formulae/yabai 2>/dev/null || true; \
-		printf "$(GREEN)  ✓ Installed yabai$(RESET)\n"; \
+	@if ! brew list --cask aerospace &>/dev/null; then \
+		brew install --quiet --cask nikitabobko/tap/aerospace 2>/dev/null || true; \
+		printf "$(GREEN)  ✓ Installed aerospace$(RESET)\n"; \
 	else \
-		printf "$(YELLOW)  $(WARN) yabai already installed$(RESET)\n"; \
-	fi
-	@if ! brew list --formula skhd &>/dev/null; then \
-		brew install --quiet koekeishiya/formulae/skhd 2>/dev/null || true; \
-		printf "$(GREEN)  ✓ Installed skhd$(RESET)\n"; \
-	else \
-		printf "$(YELLOW)  $(WARN) skhd already installed$(RESET)\n"; \
+		printf "$(YELLOW)  $(WARN) aerospace already installed$(RESET)\n"; \
 	fi
 	@brew tap FelixKratz/formulae 2>/dev/null || true
 	@if ! brew list --formula sketchybar &>/dev/null; then \
@@ -368,8 +360,7 @@ fonts: homebrew
 # Start system services
 services:
 	@printf "$(BLUE)$(ARROW) 🚀 Starting system services...$(RESET)\n"
-	@skhd --start-service && printf "$(GREEN)  ✓ skhd service started$(RESET)\n" || printf "$(YELLOW)  $(WARN) skhd service already running or not installed$(RESET)\n"
-	@yabai --start-service && printf "$(GREEN)  ✓ yabai service started$(RESET)\n" || printf "$(YELLOW)  $(WARN) yabai service already running or not installed$(RESET)\n"
+	@open -a AeroSpace && printf "$(GREEN)  ✓ AeroSpace started$(RESET)\n" || printf "$(YELLOW)  $(WARN) AeroSpace not installed$(RESET)\n"
 	@brew services start sketchybar && printf "$(GREEN)  ✓ sketchybar service started$(RESET)\n" || printf "$(YELLOW)  $(WARN) sketchybar service already running or not installed$(RESET)\n"
 	@brew services start herdr && printf "$(GREEN)  ✓ herdr service started$(RESET)\n" || printf "$(YELLOW)  $(WARN) herdr service already running or not installed$(RESET)\n"
 	@if [ ! -d "$(HOME)/.tmux/plugins/tpm" ]; then \
@@ -399,18 +390,6 @@ define symlink_module
 		printf "$(GREEN)$(CHECK) $(1) module linked successfully$(RESET)\n"; \
 	else \
 		printf "$(RED)❌ Module $(1) directory not found$(RESET)\n"; \
-	fi
-endef
-
-# Function to create symlink for root config files
-define symlink_root_config
-	@printf "$(CYAN)$(ARROW) 🔗 Linking $(1) configuration...$(RESET)\n"
-	@if [ -f "$(DOTFILES_DIR)/.$(1)rc" ]; then \
-		ln -sf "$(DOTFILES_DIR)/.$(1)rc" "$(HOME_DIR)/.$(1)rc"; \
-		printf "$(GREEN)  ✓ Linked: $(GRAY).$(1)rc$(RESET)\n"; \
-		printf "$(GREEN)$(CHECK) $(1) configuration linked successfully$(RESET)\n"; \
-	else \
-		printf "$(RED)❌ Configuration file .$(1)rc not found$(RESET)\n"; \
 	fi
 endef
 
@@ -467,12 +446,8 @@ multiclaude:
 	done
 	@printf "$(GREEN)$(CHECK) multiclaude global agents linked$(RESET)\n"
 
-# Root configuration files
-yabai: wm
-	$(call symlink_root_config,yabai)
-
-skhd: wm
-	$(call symlink_root_config,skhd)
+aerospace: wm
+	$(call symlink_module,aerospace)
 
 # Clean broken symlinks
 clean:

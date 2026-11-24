@@ -21,6 +21,7 @@ This repo contains various configuration, scripts, etc for setting up programs a
 
 ## Modules
 
+- **aerospace** - AeroSpace tiling window manager configuration
 - **bash** - Shell configuration and scripts
 - **ccstatusline** - Claude Code status line configuration
 - **claude** - Claude configuration files
